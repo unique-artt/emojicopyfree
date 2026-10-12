@@ -4,6 +4,7 @@
   --wa-dark: #075E54;
   --wa-mid: #128C7E;
   --wa-light: #DCF8C6;
+  --accent-lime: #b8f24a;
   --bg-tile: #ECE5DD;
 }
 
@@ -22,47 +23,51 @@ body {
   color: #111;
 }
 
-/* ===== Header / Logo ===== */
+/* ===== Header / Logo Banner ===== */
 header {
-  background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+  background: linear-gradient(135deg, #075E54 0%, #128C7E 55%, #25D366 100%);
   color: white;
-  padding: 22px 20px 18px;
+  padding: 26px 20px 22px;
   position: sticky;
   top: 0;
   z-index: 100;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
 }
 
 .logo {
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: white;
-  display: inline-block;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  line-height: 1;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.25);
 }
 
-.logo::before {
-  content: "😊";
-  margin-right: 8px;
-  font-size: 1.6rem;
-  vertical-align: middle;
+.logo-icon {
+  font-size: 2.4rem;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
 }
 
-.logo::after {
-  content: "📋";
-  margin-left: 8px;
-  font-size: 1.6rem;
-  vertical-align: middle;
+.logo-text {
+  color: #ffffff;
+}
+
+.logo-text .accent {
+  color: var(--accent-lime);
+  text-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .tagline {
-  font-size: 0.85rem;
-  opacity: 0.92;
-  margin-top: 8px;
-  font-weight: 400;
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.95;
+  margin-top: 12px;
   letter-spacing: 0.2px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
 /* ===== Search ===== */
@@ -161,6 +166,8 @@ header {
 
 /* ===== Emoji Buttons ===== */
 .emoji-btn {
+  position: relative;
+  overflow: visible;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -185,28 +192,39 @@ header {
   transform: scale(0.94);
 }
 
-/* ===== Toast ===== */
-.toast {
-  position: fixed;
-  bottom: 24px;
+/* ===== Copy bubble (appears above the clicked emoji) ===== */
+.copy-bubble {
+  position: absolute;
+  bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--wa-dark);
+  transform: translateX(-50%) translateY(6px);
+  background: #075E54;
   color: white;
-  padding: 12px 26px;
-  border-radius: 24px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
   opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 50;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-.toast.show {
-  transform: translateX(-50%) translateY(0);
+.copy-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #075E54;
+}
+
+.copy-bubble.show {
   opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ===== Footer ===== */
@@ -220,16 +238,18 @@ header {
 /* ===== Responsive ===== */
 @media (max-width: 480px) {
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    gap: 6px;
+    letter-spacing: -0.6px;
   }
 
-  .logo::before,
-  .logo::after {
-    font-size: 1.3rem;
+  .logo-icon {
+    font-size: 1.6rem;
   }
 
   .tagline {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
+    margin-top: 8px;
   }
 
   .emoji-grid {
