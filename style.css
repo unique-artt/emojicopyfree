@@ -70,6 +70,14 @@ header {
   text-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
+.tagline-platforms {
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
 /* ===== Search ===== */
 .search-container {
   padding: 14px 16px;
@@ -227,12 +235,64 @@ header {
   transform: translateX(-50%) translateY(0);
 }
 
+/* ===== SEO Content Section ===== */
+.seo-content {
+  max-width: 900px;
+  margin: 32px auto 0;
+  padding: 28px 22px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  color: #222;
+  line-height: 1.6;
+}
+
+.seo-content h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--wa-dark);
+  margin-top: 22px;
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+}
+
+.seo-content h2:first-child {
+  margin-top: 0;
+}
+
+.seo-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #075E54;
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.seo-content p,
+.seo-content li {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.seo-content ol {
+  padding-left: 22px;
+  margin-bottom: 10px;
+}
+
+.seo-content strong {
+  color: #075E54;
+}
+
 /* ===== Footer ===== */
 .site-footer {
   text-align: center;
   padding: 24px 16px 32px;
   font-size: 0.8rem;
   color: #666;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 /* ===== Responsive ===== */
@@ -248,8 +308,12 @@ header {
   }
 
   .tagline {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     margin-top: 8px;
+  }
+
+  .tagline-platforms {
+    font-size: 0.72rem;
   }
 
   .emoji-grid {
@@ -264,5 +328,20 @@ header {
   .emoji-btn {
     font-size: 2.25rem;
     border-radius: 10px;
+  }
+
+  .seo-content {
+    padding: 20px 16px;
+    margin-top: 24px;
+    border-radius: 10px;
+  }
+
+  .seo-content h2 {
+    font-size: 1.05rem;
+  }
+
+  .seo-content p,
+  .seo-content li {
+    font-size: 0.9rem;
   }
 }
