@@ -3,11 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EmojiCopyFree — Copy & Paste Emojis Free</title>
-  <meta name="description" content="Copy and paste emojis instantly. Free emoji picker with one-click copy.">
+  <title>EmojiCopyFree — Copy & Paste Emojis Instantly</title>
+  <meta name="description" content="Free emoji copy and paste tool. Click any emoji to copy it instantly. Works on WhatsApp, Instagram, Facebook, and everywhere.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>EmojiCopyFree</h1>
-  <p>Your emoji site is live. Next step: add the emoji grid.</p>
+
+  <header>
+    <h1>EmojiCopyFree</h1>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="search" placeholder="Search emojis... (e.g., smile, heart, food)" autocomplete="off">
+  </div>
+
+  <div class="categories" id="categories">
+    <!-- Category buttons injected by JS -->
+  </div>
+
+  <div class="emoji-grid" id="emojiGrid">
+    <!-- Emoji buttons injected by JS -->
+  </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
