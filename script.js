@@ -278,4 +278,423 @@ const emojis = [
   { char: "🥐", name: "croissant", cat: "Food" },
   { char: "🥯", name: "bagel", cat: "Food" },
   { char: "🍞", name: "bread", cat: "Food" },
-  { char: "🥖", name
+  { char: "🥖", name: "baguette", cat: "Food" },
+  { char: "🧀", name: "cheese", cat: "Food" },
+  { char: "🥚", name: "egg", cat: "Food" },
+  { char: "🍳", name: "cooking", cat: "Food" },
+  { char: "🥞", name: "pancakes", cat: "Food" },
+  { char: "🧇", name: "waffle", cat: "Food" },
+  { char: "🥓", name: "bacon", cat: "Food" },
+  { char: "🍔", name: "hamburger", cat: "Food" },
+  { char: "🍟", name: "fries", cat: "Food" },
+  { char: "🍕", name: "pizza", cat: "Food" },
+  { char: "🌭", name: "hot dog", cat: "Food" },
+  { char: "🥪", name: "sandwich", cat: "Food" },
+  { char: "🌮", name: "taco", cat: "Food" },
+  { char: "🌯", name: "burrito", cat: "Food" },
+  { char: "🥙", name: "stuffed flatbread", cat: "Food" },
+  { char: "🍜", name: "ramen", cat: "Food" },
+  { char: "🍝", name: "spaghetti", cat: "Food" },
+  { char: "🍣", name: "sushi", cat: "Food" },
+  { char: "🍱", name: "bento", cat: "Food" },
+  { char: "🍤", name: "fried shrimp", cat: "Food" },
+  { char: "🍙", name: "rice ball", cat: "Food" },
+  { char: "🍚", name: "rice", cat: "Food" },
+  { char: "🍛", name: "curry rice", cat: "Food" },
+  { char: "🍦", name: "ice cream", cat: "Food" },
+  { char: "🍧", name: "shaved ice", cat: "Food" },
+  { char: "🍨", name: "ice cream bowl", cat: "Food" },
+  { char: "🍩", name: "donut", cat: "Food" },
+  { char: "🍪", name: "cookie", cat: "Food" },
+  { char: "🎂", name: "birthday cake", cat: "Food" },
+  { char: "🍰", name: "shortcake", cat: "Food" },
+  { char: "🧁", name: "cupcake", cat: "Food" },
+  { char: "🍫", name: "chocolate", cat: "Food" },
+  { char: "🍬", name: "candy", cat: "Food" },
+  { char: "🍭", name: "lollipop", cat: "Food" },
+  { char: "🍯", name: "honey", cat: "Food" },
+  { char: "☕", name: "coffee", cat: "Food" },
+  { char: "🍵", name: "tea", cat: "Food" },
+  { char: "🍺", name: "beer", cat: "Food" },
+  { char: "🍻", name: "beers", cat: "Food" },
+  { char: "🥂", name: "clinking glasses", cat: "Food" },
+  { char: "🍷", name: "wine", cat: "Food" },
+  { char: "🥤", name: "cup straw", cat: "Food" },
+  { char: "🧃", name: "juice box", cat: "Food" },
+
+  // ---------- Travel & Places ----------
+  { char: "🚗", name: "car", cat: "Travel" },
+  { char: "🚕", name: "taxi", cat: "Travel" },
+  { char: "🚙", name: "SUV", cat: "Travel" },
+  { char: "🚌", name: "bus", cat: "Travel" },
+  { char: "🚎", name: "trolleybus", cat: "Travel" },
+  { char: "🏎️", name: "race car", cat: "Travel" },
+  { char: "🚓", name: "police car", cat: "Travel" },
+  { char: "🚑", name: "ambulance", cat: "Travel" },
+  { char: "🚒", name: "fire engine", cat: "Travel" },
+  { char: "🚐", name: "minibus", cat: "Travel" },
+  { char: "🚚", name: "truck", cat: "Travel" },
+  { char: "🚛", name: "articulated lorry", cat: "Travel" },
+  { char: "🚜", name: "tractor", cat: "Travel" },
+  { char: "🛵", name: "motor scooter", cat: "Travel" },
+  { char: "🏍️", name: "motorcycle", cat: "Travel" },
+  { char: "🚲", name: "bicycle", cat: "Travel" },
+  { char: "✈️", name: "airplane", cat: "Travel" },
+  { char: "🚀", name: "rocket", cat: "Travel" },
+  { char: "🛸", name: "flying saucer", cat: "Travel" },
+  { char: "🚁", name: "helicopter", cat: "Travel" },
+  { char: "⛵", name: "sailboat", cat: "Travel" },
+  { char: "🚢", name: "ship", cat: "Travel" },
+  { char: "🏠", name: "house", cat: "Travel" },
+  { char: "🏡", name: "house garden", cat: "Travel" },
+  { char: "🏢", name: "office building", cat: "Travel" },
+  { char: "🏥", name: "hospital", cat: "Travel" },
+  { char: "🏦", name: "bank", cat: "Travel" },
+  { char: "🏨", name: "hotel", cat: "Travel" },
+  { char: "🏫", name: "school", cat: "Travel" },
+  { char: "⛪", name: "church", cat: "Travel" },
+  { char: "🕌", name: "mosque", cat: "Travel" },
+  { char: "🕍", name: "synagogue", cat: "Travel" },
+  { char: "🏛️", name: "classical building", cat: "Travel" },
+  { char: "🗽", name: "statue of liberty", cat: "Travel" },
+  { char: "🗼", name: "Tokyo tower", cat: "Travel" },
+  { char: "🏰", name: "castle", cat: "Travel" },
+  { char: "🌋", name: "volcano", cat: "Travel" },
+  { char: "🗻", name: "mount fuji", cat: "Travel" },
+  { char: "🏕️", name: "camping", cat: "Travel" },
+  { char: "🏖️", name: "beach umbrella", cat: "Travel" },
+  { char: "🏝️", name: "desert island", cat: "Travel" },
+  { char: "🌃", name: "night city", cat: "Travel" },
+  { char: "🌆", name: "city sunset", cat: "Travel" },
+  { char: "🌇", name: "city sunrise", cat: "Travel" },
+  { char: "🌉", name: "bridge night", cat: "Travel" },
+  { char: "🌈", name: "rainbow", cat: "Travel" },
+  { char: "☀️", name: "sun", cat: "Travel" },
+  { char: "🌙", name: "crescent moon", cat: "Travel" },
+  { char: "⭐", name: "star", cat: "Travel" },
+  { char: "🌟", name: "glowing star", cat: "Travel" },
+  { char: "✨", name: "sparkles", cat: "Travel" },
+  { char: "⚡", name: "high voltage", cat: "Travel" },
+  { char: "🔥", name: "fire", cat: "Travel" },
+  { char: "💧", name: "droplet", cat: "Travel" },
+  { char: "🌊", name: "water wave", cat: "Travel" },
+  { char: "❄️", name: "snowflake", cat: "Travel" },
+  { char: "☃️", name: "snowman", cat: "Travel" },
+  { char: "🌍", name: "globe Europe", cat: "Travel" },
+  { char: "🌎", name: "globe Americas", cat: "Travel" },
+  { char: "🌏", name: "globe Asia", cat: "Travel" },
+
+  // ---------- Objects ----------
+  { char: "📱", name: "mobile phone", cat: "Objects" },
+  { char: "💻", name: "laptop", cat: "Objects" },
+  { char: "⌨️", name: "keyboard", cat: "Objects" },
+  { char: "🖥️", name: "desktop computer", cat: "Objects" },
+  { char: "🖨️", name: "printer", cat: "Objects" },
+  { char: "🖱️", name: "computer mouse", cat: "Objects" },
+  { char: "💾", name: "floppy disk", cat: "Objects" },
+  { char: "💿", name: "CD", cat: "Objects" },
+  { char: "📀", name: "DVD", cat: "Objects" },
+  { char: "📷", name: "camera", cat: "Objects" },
+  { char: "📹", name: "video camera", cat: "Objects" },
+  { char: "📺", name: "television", cat: "Objects" },
+  { char: "📻", name: "radio", cat: "Objects" },
+  { char: "⏰", name: "alarm clock", cat: "Objects" },
+  { char: "⌚", name: "watch", cat: "Objects" },
+  { char: "📡", name: "satellite antenna", cat: "Objects" },
+  { char: "🔋", name: "battery", cat: "Objects" },
+  { char: "🔌", name: "electric plug", cat: "Objects" },
+  { char: "💡", name: "light bulb", cat: "Objects" },
+  { char: "🔦", name: "flashlight", cat: "Objects" },
+  { char: "🕯️", name: "candle", cat: "Objects" },
+  { char: "📚", name: "books", cat: "Objects" },
+  { char: "📖", name: "open book", cat: "Objects" },
+  { char: "📝", name: "memo", cat: "Objects" },
+  { char: "✏️", name: "pencil", cat: "Objects" },
+  { char: "🖊️", name: "pen", cat: "Objects" },
+  { char: "🖌️", name: "paintbrush", cat: "Objects" },
+  { char: "📌", name: "pushpin", cat: "Objects" },
+  { char: "📎", name: "paperclip", cat: "Objects" },
+  { char: "✂️", name: "scissors", cat: "Objects" },
+  { char: "🔒", name: "locked", cat: "Objects" },
+  { char: "🔓", name: "unlocked", cat: "Objects" },
+  { char: "🔑", name: "key", cat: "Objects" },
+  { char: "🔨", name: "hammer", cat: "Objects" },
+  { char: "🔧", name: "wrench", cat: "Objects" },
+  { char: "⚙️", name: "gear", cat: "Objects" },
+  { char: "🧲", name: "magnet", cat: "Objects" },
+  { char: "💊", name: "pill", cat: "Objects" },
+  { char: "💉", name: "syringe", cat: "Objects" },
+  { char: "🩹", name: "adhesive bandage", cat: "Objects" },
+  { char: "🔬", name: "microscope", cat: "Objects" },
+  { char: "🔭", name: "telescope", cat: "Objects" },
+  { char: "📦", name: "package", cat: "Objects" },
+  { char: "📫", name: "mailbox", cat: "Objects" },
+  { char: "💰", name: "money bag", cat: "Objects" },
+  { char: "💳", name: "credit card", cat: "Objects" },
+  { char: "💎", name: "gem stone", cat: "Objects" },
+  { char: "⚖️", name: "balance scale", cat: "Objects" },
+  { char: "🔗", name: "link", cat: "Objects" },
+  { char: "📊", name: "bar chart", cat: "Objects" },
+  { char: "📈", name: "chart increasing", cat: "Objects" },
+  { char: "📉", name: "chart decreasing", cat: "Objects" },
+  { char: "🗓️", name: "calendar", cat: "Objects" },
+  { char: "📅", name: "calendar date", cat: "Objects" },
+  { char: "🗑️", name: "wastebasket", cat: "Objects" },
+  { char: "🎁", name: "wrapped gift", cat: "Objects" },
+  { char: "🎈", name: "balloon", cat: "Objects" },
+  { char: "🎉", name: "party popper", cat: "Objects" },
+  { char: "🎊", name: "confetti ball", cat: "Objects" },
+  { char: "🏆", name: "trophy", cat: "Objects" },
+  { char: "🥇", name: "gold medal", cat: "Objects" },
+  { char: "🥈", name: "silver medal", cat: "Objects" },
+  { char: "🥉", name: "bronze medal", cat: "Objects" },
+  { char: "⚽", name: "soccer ball", cat: "Objects" },
+  { char: "🏀", name: "basketball", cat: "Objects" },
+  { char: "🏈", name: "american football", cat: "Objects" },
+  { char: "⚾", name: "baseball", cat: "Objects" },
+  { char: "🎾", name: "tennis", cat: "Objects" },
+  { char: "🏐", name: "volleyball", cat: "Objects" },
+  { char: "🎱", name: "pool 8 ball", cat: "Objects" },
+  { char: "🏓", name: "ping pong", cat: "Objects" },
+  { char: "🏸", name: "badminton", cat: "Objects" },
+  { char: "🥊", name: "boxing glove", cat: "Objects" },
+  { char: "🎯", name: "direct hit", cat: "Objects" },
+  { char: "🎮", name: "video game", cat: "Objects" },
+  { char: "🎲", name: "game die", cat: "Objects" },
+  { char: "🧩", name: "puzzle piece", cat: "Objects" },
+  { char: "🎨", name: "artist palette", cat: "Objects" },
+  { char: "🎭", name: "performing arts", cat: "Objects" },
+  { char: "🎬", name: "clapper board", cat: "Objects" },
+  { char: "🎤", name: "microphone", cat: "Objects" },
+  { char: "🎧", name: "headphone", cat: "Objects" },
+  { char: "🎵", name: "musical note", cat: "Objects" },
+  { char: "🎶", name: "musical notes", cat: "Objects" },
+  { char: "🎸", name: "guitar", cat: "Objects" },
+  { char: "🎹", name: "musical keyboard", cat: "Objects" },
+  { char: "🎺", name: "trumpet", cat: "Objects" },
+  { char: "🎻", name: "violin", cat: "Objects" },
+  { char: "🥁", name: "drum", cat: "Objects" },
+
+  // ---------- Symbols ----------
+  { char: "✅", name: "check mark", cat: "Symbols" },
+  { char: "❌", name: "cross mark", cat: "Symbols" },
+  { char: "❎", name: "cross mark button", cat: "Symbols" },
+  { char: "➕", name: "plus", cat: "Symbols" },
+  { char: "➖", name: "minus", cat: "Symbols" },
+  { char: "➗", name: "divide", cat: "Symbols" },
+  { char: "✖️", name: "multiply", cat: "Symbols" },
+  { char: "♾️", name: "infinity", cat: "Symbols" },
+  { char: "💲", name: "dollar sign", cat: "Symbols" },
+  { char: "💱", name: "currency exchange", cat: "Symbols" },
+  { char: "™️", name: "trade mark", cat: "Symbols" },
+  { char: "©️", name: "copyright", cat: "Symbols" },
+  { char: "®️", name: "registered", cat: "Symbols" },
+  { char: "〰️", name: "wavy dash", cat: "Symbols" },
+  { char: "➰", name: "curly loop", cat: "Symbols" },
+  { char: "➿", name: "double curly loop", cat: "Symbols" },
+  { char: "🔚", name: "end arrow", cat: "Symbols" },
+  { char: "🔙", name: "back arrow", cat: "Symbols" },
+  { char: "🔛", name: "on arrow", cat: "Symbols" },
+  { char: "🔝", name: "top arrow", cat: "Symbols" },
+  { char: "🔜", name: "soon arrow", cat: "Symbols" },
+  { char: "✔️", name: "check mark", cat: "Symbols" },
+  { char: "☑️", name: "check box", cat: "Symbols" },
+  { char: "🔘", name: "radio button", cat: "Symbols" },
+  { char: "🔴", name: "red circle", cat: "Symbols" },
+  { char: "🟠", name: "orange circle", cat: "Symbols" },
+  { char: "🟡", name: "yellow circle", cat: "Symbols" },
+  { char: "🟢", name: "green circle", cat: "Symbols" },
+  { char: "🔵", name: "blue circle", cat: "Symbols" },
+  { char: "🟣", name: "purple circle", cat: "Symbols" },
+  { char: "⚫", name: "black circle", cat: "Symbols" },
+  { char: "⚪", name: "white circle", cat: "Symbols" },
+  { char: "🟤", name: "brown circle", cat: "Symbols" },
+  { char: "🔺", name: "red triangle up", cat: "Symbols" },
+  { char: "🔻", name: "red triangle down", cat: "Symbols" },
+  { char: "🔶", name: "large orange diamond", cat: "Symbols" },
+  { char: "🔷", name: "large blue diamond", cat: "Symbols" },
+  { char: "🔸", name: "small orange diamond", cat: "Symbols" },
+  { char: "🔹", name: "small blue diamond", cat: "Symbols" },
+  { char: "🔳", name: "white square button", cat: "Symbols" },
+  { char: "🔲", name: "black square button", cat: "Symbols" },
+  { char: "▪️", name: "black small square", cat: "Symbols" },
+  { char: "▫️", name: "white small square", cat: "Symbols" },
+  { char: "◾", name: "black medium square", cat: "Symbols" },
+  { char: "◽", name: "white medium square", cat: "Symbols" },
+  { char: "◼️", name: "black medium square", cat: "Symbols" },
+  { char: "◻️", name: "white medium square", cat: "Symbols" },
+  { char: "⬛", name: "black large square", cat: "Symbols" },
+  { char: "⬜", name: "white large square", cat: "Symbols" },
+  { char: "🟥", name: "red square", cat: "Symbols" },
+  { char: "🟧", name: "orange square", cat: "Symbols" },
+  { char: "🟨", name: "yellow square", cat: "Symbols" },
+  { char: "🟩", name: "green square", cat: "Symbols" },
+  { char: "🟦", name: "blue square", cat: "Symbols" },
+  { char: "🟪", name: "purple square", cat: "Symbols" },
+  { char: "🟫", name: "brown square", cat: "Symbols" }
+];
+
+// ============ Build categories ============
+const categories = ["All", ...new Set(emojis.map(e => e.cat))];
+
+// ============ State ============
+let activeCategory = "All";
+let searchQuery = "";
+
+// ============ DOM refs ============
+const grid = document.getElementById("emojiGrid");
+const categoriesEl = document.getElementById("categories");
+const searchInput = document.getElementById("search");
+const toast = document.getElementById("toast");
+
+// ============ Levenshtein distance (typo tolerance) ============
+function levenshtein(a, b) {
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Fuzzy match: handles typos like "hert" -> "heart"
+function fuzzyMatch(query, target) {
+  const q = query.toLowerCase().trim();
+  const t = target.toLowerCase();
+
+  if (t.includes(q)) return true;
+
+  const targetWords = t.split(/\s+/);
+  const queryWords = q.split(/\s+/);
+
+  return queryWords.every(qw => {
+    if (qw.length < 3) return false;
+    return targetWords.some(tw => {
+      const maxDist = qw.length <= 5 ? 1 : 2;
+      return levenshtein(qw, tw) <= maxDist;
+    });
+  });
+}
+
+// ============ Render category buttons ============
+function renderCategories() {
+  categoriesEl.innerHTML = categories.map(cat => `
+    <button class="category-btn ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">
+      ${cat}
+    </button>
+  `).join("");
+
+  document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeCategory = btn.dataset.cat;
+      renderCategories();
+      renderEmojis();
+    });
+  });
+}
+
+// ============ Filter emojis ============
+function getFilteredEmojis() {
+  return emojis.filter(e => {
+    const matchesCategory = activeCategory === "All" || e.cat === activeCategory;
+    const matchesSearch =
+      searchQuery === "" ||
+      fuzzyMatch(searchQuery, e.name) ||
+      fuzzyMatch(searchQuery, e.cat);
+    return matchesCategory && matchesSearch;
+  });
+}
+
+// ============ Render emojis ============
+function renderEmojis() {
+  const filtered = getFilteredEmojis();
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<p style="text-align: center; padding: 40px; color: #666;">No emojis found. Try a different search.</p>`;
+    return;
+  }
+
+  // If a specific category is selected OR user is searching → flat grid
+  if (activeCategory !== "All" || searchQuery !== "") {
+    grid.innerHTML = `<div class="emoji-row">${filtered.map(e => `
+      <button class="emoji-btn" data-emoji="${e.char}" title="${e.name}">
+        ${e.char}
+      </button>
+    `).join("")}</div>`;
+  } else {
+    // "All" view → grouped by category with headings
+    const grouped = {};
+    filtered.forEach(e => {
+      if (!grouped[e.cat]) grouped[e.cat] = [];
+      grouped[e.cat].push(e);
+    });
+
+    grid.innerHTML = Object.entries(grouped).map(([cat, items]) => `
+      <div class="category-section">
+        <h2 class="category-heading">${cat}</h2>
+        <div class="emoji-row">
+          ${items.map(e => `
+            <button class="emoji-btn" data-emoji="${e.char}" title="${e.name}">
+              ${e.char}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // Copy handlers
+  document.querySelectorAll(".emoji-btn").forEach(btn => {
+    btn.addEventListener("click", () => copyEmoji(btn.dataset.emoji));
+  });
+}
+
+// ============ Copy to clipboard ============
+function copyEmoji(emoji) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(emoji).then(showToast).catch(() => fallbackCopy(emoji));
+  } else {
+    fallbackCopy(emoji);
+  }
+}
+
+function fallbackCopy(emoji) {
+  const textarea = document.createElement("textarea");
+  textarea.value = emoji;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  try { document.execCommand("copy"); showToast(); } catch (e) { /* silent */ }
+  document.body.removeChild(textarea);
+}
+
+// ============ Toast ============
+let toastTimer;
+function showToast() {
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1500);
+}
+
+// ============ Search input ============
+searchInput.addEventListener("input", (e) => {
+  searchQuery = e.target.value;
+  renderEmojis();
+});
+
+// ============ Init ============
+renderCategories();
+renderEmojis();
