@@ -1,7 +1,8 @@
-/* WhatsApp signature green */
+/* WhatsApp signature green palette */
 :root {
   --wa-green: #25D366;
   --wa-dark: #075E54;
+  --wa-mid: #128C7E;
   --wa-light: #DCF8C6;
   --bg-tile: #ECE5DD;
 }
@@ -21,41 +22,75 @@ body {
   color: #111;
 }
 
-/* Header bar - like WhatsApp top bar */
+/* ===== Header / Logo ===== */
 header {
-  background-color: var(--wa-dark);
+  background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
   color: white;
-  padding: 16px 20px;
+  padding: 22px 20px 18px;
   position: sticky;
   top: 0;
   z-index: 100;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-header h1 {
-  font-size: 1.25rem;
-  font-weight: 500;
+.logo {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: white;
+  display: inline-block;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
 }
 
-/* Search box */
+.logo::before {
+  content: "😊";
+  margin-right: 8px;
+  font-size: 1.6rem;
+  vertical-align: middle;
+}
+
+.logo::after {
+  content: "📋";
+  margin-left: 8px;
+  font-size: 1.6rem;
+  vertical-align: middle;
+}
+
+.tagline {
+  font-size: 0.85rem;
+  opacity: 0.92;
+  margin-top: 8px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+/* ===== Search ===== */
 .search-container {
-  padding: 12px 16px;
+  padding: 14px 16px;
   background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .search-container input {
   width: 100%;
-  padding: 10px 16px;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto;
+  padding: 12px 18px;
   border: 1px solid #ddd;
   border-radius: 24px;
   font-size: 1rem;
   outline: none;
+  transition: border-color 0.2s;
 }
 
 .search-container input:focus {
   border-color: var(--wa-green);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15);
 }
 
-/* Category tabs */
+/* ===== Category Tabs ===== */
 .categories {
   display: flex;
   overflow-x: auto;
@@ -64,6 +99,7 @@ header h1 {
   background: white;
   border-bottom: 1px solid #eee;
   scrollbar-width: none;
+  justify-content: flex-start;
 }
 
 .categories::-webkit-scrollbar {
@@ -77,49 +113,79 @@ header h1 {
   border-radius: 20px;
   background: #f0f0f0;
   font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  color: #333;
+}
+
+.category-btn:hover {
+  background: #e2e2e2;
 }
 
 .category-btn.active {
   background: var(--wa-green);
   color: white;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.35);
 }
 
-/* Emoji grid */
+/* ===== Emoji Grid (container) ===== */
 .emoji-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-  gap: 8px;
+  display: block;
   padding: 16px;
   max-width: 900px;
   margin: 0 auto;
 }
 
+/* ===== Category Sections in "All" view ===== */
+.category-section {
+  margin-bottom: 24px;
+}
+
+.category-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--wa-dark);
+  padding: 16px 4px 10px;
+  border-bottom: 2px solid rgba(37, 211, 102, 0.35);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.emoji-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: 8px;
+}
+
+/* ===== Emoji Buttons ===== */
 .emoji-btn {
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.75rem;
+  line-height: 1;
   background: white;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
   box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  padding: 0;
 }
 
 .emoji-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: scale(1.12);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
 }
 
 .emoji-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
-/* Toast notification for "Copied!" */
+/* ===== Toast ===== */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -127,12 +193,15 @@ header h1 {
   transform: translateX(-50%) translateY(100px);
   background: var(--wa-dark);
   color: white;
-  padding: 12px 24px;
+  padding: 12px 26px;
   border-radius: 24px;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  pointer-events: none;
 }
 
 .toast.show {
@@ -140,15 +209,40 @@ header h1 {
   opacity: 1;
 }
 
-/* Responsive tweaks */
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  padding: 24px 16px 32px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* ===== Responsive ===== */
 @media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .logo::before,
+  .logo::after {
+    font-size: 1.3rem;
+  }
+
+  .tagline {
+    font-size: 0.78rem;
+  }
+
   .emoji-grid {
-    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-    gap: 6px;
     padding: 12px;
   }
-  
+
+  .emoji-row {
+    grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+    gap: 6px;
+  }
+
   .emoji-btn {
-    font-size: 1.75rem;
+    font-size: 2.25rem;
+    border-radius: 10px;
   }
 }
