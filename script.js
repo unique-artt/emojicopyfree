@@ -244,7 +244,6 @@ const emojis = [
   { char: "🍃", name: "leaf fluttering", cat: "Flowers" },
   { char: "🍄", name: "mushroom", cat: "Flowers" },
   { char: "🌰", name: "chestnut", cat: "Flowers" },
-  { char: "🌶️", name: "hot pepper", cat: "Flowers" },
 
   // ---------- Food ----------
   { char: "🍎", name: "red apple", cat: "Food" },
@@ -269,6 +268,7 @@ const emojis = [
   { char: "🥦", name: "broccoli", cat: "Food" },
   { char: "🥬", name: "leafy green", cat: "Food" },
   { char: "🥒", name: "cucumber", cat: "Food" },
+  { char: "🌶️", name: "hot pepper", cat: "Food" },
   { char: "🌽", name: "corn", cat: "Food" },
   { char: "🥕", name: "carrot", cat: "Food" },
   { char: "🧄", name: "garlic", cat: "Food" },
@@ -545,7 +545,6 @@ let searchQuery = "";
 const grid = document.getElementById("emojiGrid");
 const categoriesEl = document.getElementById("categories");
 const searchInput = document.getElementById("search");
-const toast = document.getElementById("toast");
 
 // ============ Levenshtein distance (typo tolerance) ============
 function levenshtein(a, b) {
@@ -655,38 +654,53 @@ function renderEmojis() {
     `).join("");
   }
 
-  // Copy handlers
+  // Copy handlers — pass the button element so bubble knows where to appear
   document.querySelectorAll(".emoji-btn").forEach(btn => {
-    btn.addEventListener("click", () => copyEmoji(btn.dataset.emoji));
+    btn.addEventListener("click", () => copyEmoji(btn.dataset.emoji, btn));
   });
 }
 
 // ============ Copy to clipboard ============
-function copyEmoji(emoji) {
+function copyEmoji(emoji, btnEl) {
+  const onSuccess = () => showBubble(btnEl);
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(emoji).then(showToast).catch(() => fallbackCopy(emoji));
+    navigator.clipboard.writeText(emoji).then(onSuccess).catch(() => fallbackCopy(emoji, btnEl));
   } else {
-    fallbackCopy(emoji);
+    fallbackCopy(emoji, btnEl);
   }
 }
 
-function fallbackCopy(emoji) {
+function fallbackCopy(emoji, btnEl) {
   const textarea = document.createElement("textarea");
   textarea.value = emoji;
   textarea.style.position = "fixed";
   textarea.style.opacity = "0";
   document.body.appendChild(textarea);
   textarea.select();
-  try { document.execCommand("copy"); showToast(); } catch (e) { /* silent */ }
+  try { document.execCommand("copy"); showBubble(btnEl); } catch (e) { /* silent */ }
   document.body.removeChild(textarea);
 }
 
-// ============ Toast ============
-let toastTimer;
-function showToast() {
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 1500);
+// ============ Copy bubble above the clicked emoji ============
+function showBubble(btnEl) {
+  if (!btnEl) return;
+
+  // Remove any existing bubble on this button
+  const existing = btnEl.querySelector(".copy-bubble");
+  if (existing) existing.remove();
+
+  const bubble = document.createElement("span");
+  bubble.className = "copy-bubble";
+  bubble.textContent = "Copied!";
+  btnEl.appendChild(bubble);
+
+  // Trigger transition on next frame
+  requestAnimationFrame(() => bubble.classList.add("show"));
+
+  setTimeout(() => {
+    bubble.classList.remove("show");
+    setTimeout(() => bubble.remove(), 200);
+  }, 1200);
 }
 
 // ============ Search input ============
