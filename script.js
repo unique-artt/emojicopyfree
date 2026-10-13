@@ -345,28 +345,28 @@ const emojis = [
   { char: "🫖", name: "teapot emoji", cat: "Food" },
   
   // ---------- Hearts & Love ----------
-  { char: "❤️", name: "red heart love emoji for whatsapp facebook instagram", cat: "Hearts" },
-  { char: "🧡", name: "orange heart emoji", cat: "Hearts" },
-  { char: "💛", name: "yellow heart emoji", cat: "Hearts" },
-  { char: "💚", name: "green heart emoji", cat: "Hearts" },
-  { char: "💙", name: "blue heart emoji", cat: "Hearts" },
-  { char: "💜", name: "purple heart emoji", cat: "Hearts" },
-  { char: "🖤", name: "black heart emoji", cat: "Hearts" },
-  { char: "🤍", name: "white heart emoji", cat: "Hearts" },
-  { char: "🤎", name: "brown heart emoji", cat: "Hearts" },
-  { char: "💔", name: "broken heart sad emoji", cat: "Hearts" },
-  { char: "❣️", name: "heart exclamation emoji", cat: "Hearts" },
-  { char: "💕", name: "two hearts love emoji", cat: "Hearts" },
-  { char: "💞", name: "revolving hearts emoji", cat: "Hearts" },
-  { char: "💓", name: "beating heart emoji", cat: "Hearts" },
-  { char: "💗", name: "growing heart emoji", cat: "Hearts" },
-  { char: "💖", name: "sparkling heart love emoji", cat: "Hearts" },
-  { char: "💘", name: "heart arrow cupid emoji", cat: "Hearts" },
-  { char: "💝", name: "heart ribbon gift emoji", cat: "Hearts" },
-  { char: "💟", name: "heart decoration emoji", cat: "Hearts" },
-  { char: "♥️", name: "heart suit emoji", cat: "Hearts" },
-  { char: "💋", name: "kiss mark lips emoji", cat: "Hearts" },
-  { char: "💌", name: "love letter emoji", cat: "Hearts" },
+  { char: "❤️", name: "red heart love emoji for whatsapp facebook instagram", cat: "Hearts", usage: "Use for love, affection, or strong agreement. On WhatsApp and Instagram, it's the most common way to react to a message you love. In text, ❤️ often means 'I love this' or 'I agree.'" },
+  { char: "🧡", name: "orange heart emoji", cat: "Hearts", usage: "Use for friendship, warmth, or autumn vibes. Less intense than ❤️. Common in friendly messages and fall-themed posts." },
+  { char: "💛", name: "yellow heart emoji", cat: "Hearts", usage: "Use for friendship, happiness, or platonic love. Common in messages to friends and cheerful content. Not romantic." },
+  { char: "💚", name: "green heart emoji", cat: "Hearts", usage: "Use for nature, health, or jealousy. Common in environmental posts and wellness content. Also used for 'green with envy.'" },
+  { char: "💙", name: "blue heart emoji", cat: "Hearts", usage: "Use for trust, loyalty, or calm. Common in friendship messages, sports team support, and peaceful content." },
+  { char: "💜", name: "purple heart emoji", cat: "Hearts", usage: "Use for BTS ARMY, K-pop fandom, or uniqueness. Common in K-pop fan posts and 'one of a kind' content." },
+  { char: "🖤", name: "black heart emoji", cat: "Hearts", usage: "Use for dark aesthetics, goth vibes, or deep love. Common in alternative fashion posts, moody content, and 'I love you deeply.'" },
+  { char: "🤍", name: "white heart emoji", cat: "Hearts", usage: "Use for purity, peace, or new beginnings. Common in minimal aesthetic posts, wedding content, and calming messages." },
+  { char: "🤎", name: "brown heart emoji", cat: "Hearts", usage: "Use for warmth, comfort, or skin tone representation. Common in cozy content and messages celebrating diversity." },
+  { char: "💔", name: "broken heart sad emoji", cat: "Hearts", usage: "Use after a breakup, disappointment, or bad news. Common in sad captions and memes about heartbreak. Not for minor annoyances — use 😞 for those." },
+  { char: "❣️", name: "heart exclamation emoji", cat: "Hearts", usage: "Use for emphasis — 'I really mean this.' Common in strong declarations of love and important messages." },
+  { char: "💕", name: "two hearts love emoji", cat: "Hearts", usage: "Use for friendship, romance, or a close bond. Common in captions about best friends, couples, and family. Softer and less intense than ❤️." },
+  { char: "💞", name: "revolving hearts emoji", cat: "Hearts", usage: "Use for mutual love, new relationships, or 'we're in this together.' Common in couple posts and anniversary content." },
+  { char: "💓", name: "beating heart emoji", cat: "Hearts", usage: "Use for excitement, nervousness, or a racing heart. Common in 'I'm so excited' messages and crush content." },
+  { char: "💗", name: "growing heart emoji", cat: "Hearts", usage: "Use for growing love, personal growth, or appreciation. Common in relationship milestones and self-love posts." },
+  { char: "💖", name: "sparkling heart love emoji", cat: "Hearts", usage: "Use when something is extra special or exciting. Common on Instagram posts about new relationships, gifts, or happy news. More enthusiastic than ❤️." },
+  { char: "💘", name: "heart arrow cupid emoji", cat: "Hearts", usage: "Use for crushes, first love, or Valentine's Day. The arrow means 'struck by love.' Common in romantic posts and Valentine's Day captions." },
+  { char: "💝", name: "heart ribbon gift emoji", cat: "Hearts", usage: "Use for gifts, special occasions, or 'you're a gift.' Common in birthday posts, Valentine's Day, and appreciation messages." },
+  { char: "💟", name: "heart decoration emoji", cat: "Hearts", usage: "Use for decoration, love themes, or aesthetic posts. Common in cute content and romantic edits." },
+  { char: "♥️", name: "heart suit emoji", cat: "Hearts", usage: "Use for card games, love, or Valentine's Day. Common in poker content, casino posts, and romantic messages." },
+  { char: "💋", name: "kiss mark lips emoji", cat: "Hearts", usage: "Use for flirty or romantic messages. Common in captions for selfies, date nights, and Valentine's Day. More playful than ❤️." },
+  { char: "💌", name: "love letter emoji", cat: "Hearts", usage: "Use for love letters, romantic messages, or 'I wrote you something.' Common in Valentine's Day content and long-distance relationship posts." },
 
   // ---------- Hands & Gestures ----------
   { char: "👍", name: "thumbs up like emoji for facebook instagram whatsapp", cat: "Hands" },
@@ -910,7 +910,10 @@ function renderEmojis() {
 
 // ============ Copy to clipboard ============
 function copyEmoji(emoji, btnEl) {
-  const onSuccess = () => showBubble(btnEl);
+  const onSuccess = () => {
+    showBubble(btnEl);
+    showUsagePanel(emoji);
+  };
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(emoji).then(onSuccess).catch(() => fallbackCopy(emoji, btnEl));
   } else {
@@ -925,7 +928,7 @@ function fallbackCopy(emoji, btnEl) {
   textarea.style.opacity = "0";
   document.body.appendChild(textarea);
   textarea.select();
-  try { document.execCommand("copy"); showBubble(btnEl); } catch (e) { /* silent */ }
+  try { document.execCommand("copy"); showBubble(btnEl); showUsagePanel(emoji); } catch (e) { /* silent */ }
   document.body.removeChild(textarea);
 }
 
@@ -947,6 +950,43 @@ function showBubble(btnEl) {
     bubble.classList.remove("show");
     setTimeout(() => bubble.remove(), 200);
   }, 1200);
+}
+
+// ============ Usage panel (appears at bottom when emoji is clicked) ============
+function showUsagePanel(emojiChar) {
+  const emojiObj = emojis.find(e => e.char === emojiChar);
+  if (!emojiObj) return;
+
+  let panel = document.getElementById("usagePanel");
+  if (panel) panel.remove();
+
+  panel = document.createElement("div");
+  panel.id = "usagePanel";
+  panel.className = "usage-panel";
+  panel.innerHTML = `
+    <div class="usage-panel-emoji">${emojiObj.char}</div>
+    <div class="usage-panel-body">
+      <h3 class="usage-panel-name">${emojiObj.name}</h3>
+      <p class="usage-panel-text">${emojiObj.usage || "Click any emoji above to copy it instantly. Paste it into WhatsApp, Instagram, Facebook, Twitter, Slack, email, or anywhere else."}</p>
+    </div>
+    <button class="usage-panel-close" aria-label="Close">×</button>
+  `;
+
+  document.body.appendChild(panel);
+
+  panel.querySelector(".usage-panel-close").addEventListener("click", () => {
+    panel.classList.remove("show");
+    setTimeout(() => panel.remove(), 300);
+  });
+
+  requestAnimationFrame(() => panel.classList.add("show"));
+
+  setTimeout(() => {
+    if (panel && panel.parentNode) {
+      panel.classList.remove("show");
+      setTimeout(() => panel.remove(), 300);
+    }
+  }, 7000);
 }
 
 // ============ Search input ============
