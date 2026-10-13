@@ -782,8 +782,10 @@ const emojis = [
   { char: "🟫", name: "brown square emoji", cat: "Symbols" }
 ];
 
-// ============ Build categories ============
-const categories = ["All", ...new Set(emojis.map(e => e.cat))];
+// Fixed category order
+const categoryOrder = ["All", "Smileys", "Hearts", "Hands", "Animals", "Flowers", "Food", "Travel", "Objects", "Symbols", "Flags"];
+const detectedCategories = [...new Set(emojis.map(e => e.cat))];
+const categories = categoryOrder.filter(c => c === "All" || detectedCategories.includes(c));
 
 // ============ State ============
 let activeCategory = "All";
