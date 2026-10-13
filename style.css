@@ -889,3 +889,28 @@ header {
     padding: 5px 10px;
   }
 }
+
+/* ===== Clickable Logo ===== */
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.logo-link:hover {
+  opacity: 0.92;
+}
+
+.logo-link:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+  .logo-link {
+    gap: 6px;
+  }
+}
