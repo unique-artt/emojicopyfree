@@ -883,25 +883,31 @@ function renderEmojis() {
       </button>
     `).join("")}</div>`;
   } else {
-    // "All" view → grouped by category with headings
+    // "All" view → grouped by category with headings, using fixed order
     const grouped = {};
     filtered.forEach(e => {
       if (!grouped[e.cat]) grouped[e.cat] = [];
       grouped[e.cat].push(e);
     });
 
-    grid.innerHTML = Object.entries(grouped).map(([cat, items]) => `
-      <div class="category-section">
-        <h2 class="category-heading">${cat}</h2>
-        <div class="emoji-row">
-          ${items.map(e => `
-            <button class="emoji-btn" data-emoji="${e.char}" title="${e.name}">
-              ${e.char}
-            </button>
-          `).join("")}
+    // Sort categories by the fixed order
+    const sortedCategories = categoryOrder.filter(c => grouped[c]);
+
+    grid.innerHTML = sortedCategories.map(cat => {
+      const items = grouped[cat];
+      return `
+        <div class="category-section">
+          <h2 class="category-heading">${cat}</h2>
+          <div class="emoji-row">
+            ${items.map(e => `
+              <button class="emoji-btn" data-emoji="${e.char}" title="${e.name}">
+                ${e.char}
+              </button>
+            `).join("")}
+          </div>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
   }
 
   // Copy handlers — pass the button element so bubble knows where to appear
