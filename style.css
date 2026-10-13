@@ -914,3 +914,20 @@ header {
     gap: 6px;
   }
 }
+
+/* ===== Prevent text selection on article content ===== */
+.article-page {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection on clickable/CTA links so users can still use them */
+.article-page a,
+.article-page .cta-button {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
