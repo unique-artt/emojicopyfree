@@ -345,6 +345,9 @@ const emojis = [
   { char: "🫖", name: "teapot emoji", cat: "Food" },
   
   // ---------- Hearts & Love ----------
+  { char: "🩷", name: "pink heart emoji", cat: "Hearts", usage: "Use for crushes, cuteness, or playful love. Softer and more girly than ❤️. Common in K-pop fan posts, cute content, and messages to a crush." },
+  { char: "🩵", name: "light blue heart emoji", cat: "Hearts", usage: "Use for calm, trust, or a gentle vibe. Softer than 💙. Common in aesthetic posts, peaceful content, and friendly messages." },
+  { char: "🩶", name: "grey heart emoji", cat: "Hearts", usage: "Use for neutrality, indifference, or a subtle aesthetic. Common in minimal posts, moody content, and 'I don't know how I feel' moments." },
   { char: "❤️", name: "red heart love emoji for whatsapp facebook instagram", cat: "Hearts", usage: "Use for love, affection, or strong agreement. On WhatsApp and Instagram, it's the most common way to react to a message you love. In text, ❤️ often means 'I love this' or 'I agree.'" },
   { char: "🧡", name: "orange heart emoji", cat: "Hearts", usage: "Use for friendship, warmth, or autumn vibes. Less intense than ❤️. Common in friendly messages and fall-themed posts." },
   { char: "💛", name: "yellow heart emoji", cat: "Hearts", usage: "Use for friendship, happiness, or platonic love. Common in messages to friends and cheerful content. Not romantic." },
