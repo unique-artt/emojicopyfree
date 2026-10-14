@@ -1476,38 +1476,36 @@ header {
 
 /* The outer container holds the bracket + pivot */
 .slot-handle {
-  width: 46px;
+  width: 56px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 100px;
-  margin-left: 0;
-  margin-right: -6px;
+  padding-top: 62px;
+  margin-left: -8px;
   align-self: stretch;
+  pointer-events: none;
 }
 
 /* Metal bracket plate — visually attaches handle to machine */
 .slot-handle-bracket {
   position: absolute;
-  top: 90px;
-  right: 100%;
-  width: 20px;
-  height: 34px;
-  background: linear-gradient(180deg, #B0BEC5 0%, #78909C 50%, #546E7A 100%);
-  border-radius: 6px 0 0 6px;
+  top: 62px;
+  left: 0;
+  width: 24px;
+  height: 30px;
+  background: linear-gradient(180deg, #CFD8DC 0%, #78909C 50%, #455A64 100%);
+  border-radius: 4px 0 0 4px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.25),
-    -2px 2px 4px rgba(0, 0, 0, 0.25);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.3);
   z-index: 3;
 }
 
 /* Pivot point — the arm rotates around this */
 .slot-handle-pivot {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  top: 62px;
+  left: 16px;
+  width: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1558,7 +1556,7 @@ header {
 
 /* Pull motion — arm rotates down like a real lever */
 .slot-handle.pulled .slot-handle-pivot {
-  transform: rotate(48deg) translateX(10px);
+  transform: rotate(62deg);
 }
 
 /* ===================================================== */
@@ -1669,17 +1667,23 @@ header {
   }
 
   .slot-handle {
-    width: 38px;
-    padding-top: 76px;
-    margin-right: -4px;
+    width: 46px;
+    padding-top: 54px;
+    margin-left: -6px;
   }
 
   .slot-handle-bracket {
-    top: 66px;
-    width: 16px;
-    height: 28px;
+    top: 54px;
+    width: 20px;
+    height: 26px;
   }
 
+    .slot-handle-pivot {
+    top: 54px;
+    left: 12px;
+    width: 26px;
+  }
+  
   .slot-handle-arm {
     height: 82px;
     width: 8px;
