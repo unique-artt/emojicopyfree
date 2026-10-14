@@ -20,13 +20,13 @@ const outcomes = [
   { emoji: "🤞", message: "Promise me something",           color: "#33691E" },
   { emoji: "🌹", message: "Ask me for a date",              color: "#B71C1C" },
   { emoji: "📸", message: "Post about me on Instagram",     color: "#01579B" },
-  { emoji: "📱", message: "Give me your phone for 5 min",   color: "#283593" },
+  { emoji: "📱", message: "Give me your phone for 5 min with the password", color: "#283593" },
   { emoji: "💬", message: "Give me compliments",            color: "#F57F17" },
   { emoji: "🚫", message: "Block someone from my phone",    color: "#37474F" },
   { emoji: "🍳", message: "Cook for me",                    color: "#E65100" },
   { emoji: "✍️", message: "Write me a handwritten note",    color: "#4E342E" },
   { emoji: "🧳", message: "Hold my luggage",                color: "#2E7D32" },
-  { emoji: "📖", message: 'Post a story saying "MISS YOU"', color: "#1565C0" },
+  { emoji: "📖", message: 'Post a story saying "MISS YOU (with my name)"', color: "#1565C0" },
   { emoji: "🎁", message: "Give me a gift",                 color: "#BF360C" }
 ];
 
