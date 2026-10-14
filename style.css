@@ -1663,3 +1663,98 @@ header {
     width: 50px;
   }
 }
+
+/* ===== How to Play — Step Cards ===== */
+.how-to-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 18px 0 26px;
+}
+
+.how-to-step {
+  position: relative;
+  background: linear-gradient(180deg, #F8FFF9 0%, #EAF7EE 100%);
+  border: 2px solid #C8E6C9;
+  border-radius: 14px;
+  padding: 20px 16px 16px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(7, 94, 84, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.how-to-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(7, 94, 84, 0.15);
+}
+
+.how-to-number {
+  position: absolute;
+  top: -12px;
+  left: 16px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 900;
+  box-shadow: 0 3px 8px rgba(37, 211, 102, 0.4);
+}
+
+.how-to-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.how-to-step h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #075E54;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+
+.how-to-step p {
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.how-to-step kbd {
+  display: inline-block;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 2px;
+}
+
+@media (max-width: 480px) {
+  .how-to-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .how-to-icon {
+    font-size: 1.6rem;
+  }
+
+  .how-to-step h3 {
+    font-size: 0.9rem;
+  }
+
+  .how-to-step p {
+    font-size: 0.8rem;
+  }
+}
