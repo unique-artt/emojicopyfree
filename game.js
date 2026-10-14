@@ -2,33 +2,32 @@
 // The Game of Emoji — Two-player 3-reel slot machine
 // =====================================================
 
-// 25 outcomes. Phrasing works with "Boy must:" / "Girl must:"
 const outcomes = [
-  { emoji: "😘", message: "Kiss me",                          color: "#C2185B" },
-  { emoji: "🤗", message: "Hug me",                            color: "#E65100" },
-  { emoji: "👋", message: "Slap me",                           color: "#BF360C" },
-  { emoji: "😂", message: "Make me laugh",                     color: "#F57F17" },
-  { emoji: "🙌", message: "Give me a high five",               color: "#2E7D32" },
-  { emoji: "💃", message: "Dance for me",                      color: "#AD1457" },
-  { emoji: "🎤", message: "Sing to me",                        color: "#C62828" },
-  { emoji: "❤️", message: "Say 'I love you'",                  color: "#D32F2F" },
-  { emoji: "🤫", message: "Tell me a secret",                  color: "#5D4037" },
-  { emoji: "🍰", message: "Give me a treat",                   color: "#E65100" },
-  { emoji: "🎬", message: "Take me to a movie",                color: "#4527A0" },
-  { emoji: "😚", message: "Kiss me on the cheeks",             color: "#C2185B" },
-  { emoji: "💇", message: "Play with my hair",                 color: "#6A1B9A" },
-  { emoji: "🤝", message: "Hold my hand",                      color: "#00695C" },
-  { emoji: "🤞", message: "Promise me something",              color: "#33691E" },
-  { emoji: "🌹", message: "Ask me for a date",                 color: "#B71C1C" },
-  { emoji: "📸", message: "Post about me on Instagram",        color: "#01579B" },
-  { emoji: "📱", message: "Give me your phone for 5 min",      color: "#283593" },
-  { emoji: "💬", message: "Give me compliments",               color: "#F57F17" },
-  { emoji: "🚫", message: "Block someone from my phone",       color: "#37474F" },
-  { emoji: "🍳", message: "Cook for me",                       color: "#E65100" },
-  { emoji: "✍️", message: "Write me a handwritten note",       color: "#4E342E" },
-  { emoji: "🧳", message: "Hold my luggage",                   color: "#2E7D32" },
-  { emoji: "📖", message: 'Post a story saying "MISS YOU"',    color: "#1565C0" },
-  { emoji: "🎁", message: "Give me a gift",                    color: "#BF360C" }
+  { emoji: "😘", message: "Kiss me",                       color: "#C2185B" },
+  { emoji: "🤗", message: "Hug me",                         color: "#E65100" },
+  { emoji: "👋", message: "Slap me",                        color: "#BF360C" },
+  { emoji: "😂", message: "Make me laugh",                  color: "#F57F17" },
+  { emoji: "🙌", message: "Give me a high five",            color: "#2E7D32" },
+  { emoji: "💃", message: "Dance for me",                   color: "#AD1457" },
+  { emoji: "🎤", message: "Sing to me",                     color: "#C62828" },
+  { emoji: "❤️", message: 'Say "I love you"',                color: "#D32F2F" },
+  { emoji: "🤫", message: "Tell me a secret",               color: "#5D4037" },
+  { emoji: "🍰", message: "Give me a treat",                color: "#E65100" },
+  { emoji: "🎬", message: "Take me to a movie",             color: "#4527A0" },
+  { emoji: "😚", message: "Kiss me on the cheeks",          color: "#C2185B" },
+  { emoji: "💇", message: "Play with my hair",              color: "#6A1B9A" },
+  { emoji: "🤝", message: "Hold my hand",                   color: "#00695C" },
+  { emoji: "🤞", message: "Promise me something",           color: "#33691E" },
+  { emoji: "🌹", message: "Ask me for a date",              color: "#B71C1C" },
+  { emoji: "📸", message: "Post about me on Instagram",     color: "#01579B" },
+  { emoji: "📱", message: "Give me your phone for 5 min",   color: "#283593" },
+  { emoji: "💬", message: "Give me compliments",            color: "#F57F17" },
+  { emoji: "🚫", message: "Block someone from my phone",    color: "#37474F" },
+  { emoji: "🍳", message: "Cook for me",                    color: "#E65100" },
+  { emoji: "✍️", message: "Write me a handwritten note",    color: "#4E342E" },
+  { emoji: "🧳", message: "Hold my luggage",                color: "#2E7D32" },
+  { emoji: "📖", message: 'Post a story saying "MISS YOU"', color: "#1565C0" },
+  { emoji: "🎁", message: "Give me a gift",                 color: "#BF360C" }
 ];
 
 const spinPool = outcomes.map(o => o.emoji);
@@ -44,6 +43,8 @@ const playersHint = document.getElementById("playersHint");
 const turnBoy     = document.getElementById("turnBoy");
 const turnGirl    = document.getElementById("turnGirl");
 const turnSlider  = document.getElementById("turnSlider");
+const slotLights  = document.getElementById("slotLights");
+const slotHandle  = document.getElementById("slotHandle");
 
 // State
 let boyPressed = false;
@@ -115,6 +116,18 @@ function resetButtons() {
   clearTimeout(pressTimer);
 }
 
+// --- Handle pull animation ---
+function pullHandle() {
+  slotHandle.classList.add("pulled");
+  setTimeout(() => slotHandle.classList.remove("pulled"), 600);
+}
+
+// --- Lights blink ---
+function blinkAllLights() {
+  slotLights.classList.add("blink-all");
+  setTimeout(() => slotLights.classList.remove("blink-all"), 1800);
+}
+
 // --- Spin ---
 function startSpin() {
   spinning = true;
@@ -122,38 +135,39 @@ function startSpin() {
   slotMessage.innerHTML = '<span class="dots">• • •</span>';
   slotMessage.style.color = "#DCF8C6";
 
+  pullHandle();
+
   const reels = [slotEmoji1, slotEmoji2, slotEmoji3];
   const finalIndex = Math.floor(Math.random() * outcomes.length);
   const finalEmoji = outcomes[finalIndex].emoji;
 
-  const totalSpins = 25;
-  const intervals = [60, 80, 100]; // each reel spins at a different speed
-  let doneCount = 0;
+  const baseSpins = 22;
+  let stopped = 0;
 
   reels.forEach((reelEl, i) => {
     let count = 0;
-    const interval = setInterval(() => {
+    const interval = 55 + i * 8;
+
+    const spin = setInterval(() => {
       reelEl.textContent = spinPool[Math.floor(Math.random() * spinPool.length)];
       reelEl.style.animation = "none";
       void reelEl.offsetWidth;
       reelEl.style.animation = "slotSlide 0.06s ease-out";
 
       count++;
-      if (count >= totalSpins + i * 4) {
-        clearInterval(interval);
-        landReel(reelEl, finalEmoji, i);
-        doneCount++;
-        if (doneCount === reels.length) {
-          setTimeout(() => showResult(finalIndex), 300);
+      if (count >= baseSpins + i * 3) {
+        clearInterval(spin);
+        reelEl.textContent = finalEmoji;
+        reelEl.style.animation = "slotLand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        stopped++;
+
+        if (stopped === reels.length) {
+          blinkAllLights();
+          setTimeout(() => showResult(finalIndex), 350);
         }
       }
-    }, intervals[i]);
+    }, interval);
   });
-}
-
-function landReel(reelEl, emoji, index) {
-  reelEl.textContent = emoji;
-  reelEl.style.animation = "slotLand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
 }
 
 function showResult(index) {
