@@ -11,12 +11,12 @@
   <link rel="canonical" href="https://www.emojicopyfree.com/game.html">
 
   <meta property="og:title" content="The Game of Emoji — Two Player Emoji Slot Machine">
-  <meta property="og:description" content="Both players press at the same time. One emoji appears. One dare is given. Kiss on cheeks, hold hands, cook for me — and 22 more.">
+  <meta property="og:description" content="Both players press at the same time. One emoji appears. One dare is given.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.emojicopyfree.com/game.html">
   <meta property="og:site_name" content="EmojiCopyFree">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😄</text></svg>">
 
   <link rel="stylesheet" href="style.css">
 
@@ -81,15 +81,28 @@
       </div>
     </section>
 
+    <!-- Slot Machine -->
     <section class="slot-machine">
+
+      <div class="slot-top-lights">
+        <span class="light"></span><span class="light"></span><span class="light"></span>
+        <span class="light"></span><span class="light"></span><span class="light"></span>
+        <span class="light"></span><span class="light"></span>
+      </div>
 
       <div class="slot-message" id="slotMessage" aria-live="polite">
         <span class="dots">• • •</span>
       </div>
 
       <div class="slot-window">
-        <div class="slot-reel" id="slotReel">
-          <div class="slot-emoji" id="slotEmoji">❓</div>
+        <div class="slot-reel" id="reel1">
+          <div class="slot-emoji" id="slotEmoji1">❓</div>
+        </div>
+        <div class="slot-reel" id="reel2">
+          <div class="slot-emoji" id="slotEmoji2">❓</div>
+        </div>
+        <div class="slot-reel" id="reel3">
+          <div class="slot-emoji" id="slotEmoji3">❓</div>
         </div>
       </div>
 
@@ -125,7 +138,7 @@
 
     <section class="game-about">
       <h2>What Is The Game of Emoji?</h2>
-      <p>The Game of Emoji is a free, two-player emoji slot machine you can play right in your browser — no app, no login, no download. Two players press their button at the same time, the slot reel spins through dozens of emojis, and lands on one. That emoji becomes a dare for the round.</p>
+      <p>The Game of Emoji is a free, two-player emoji slot machine you can play right in your browser — no app, no login, no download. Two players press their button at the same time, the three slot reels spin through dozens of emojis, and land on one. That emoji becomes a dare for the round.</p>
 
       <h2>How to Play</h2>
       <ol class="game-steps">
@@ -137,10 +150,10 @@
       </ol>
 
       <h2>Playing on a PC? Use the Keyboard</h2>
-      <p>On a desktop or laptop, two people can play using the keyboard. Player 1 presses <kbd>A</kbd>, Player 2 presses <kbd>L</kbd> — both at the same time. The same 400-millisecond window applies. This makes it easy for two people sitting at the same computer to play without crowding the mouse.</p>
+      <p>On a desktop or laptop, two people can play using the keyboard. Player 1 presses <kbd>A</kbd>, Player 2 presses <kbd>L</kbd> — both at the same time. The same 400-millisecond window applies.</p>
 
       <h2>All 25 Emoji Dares</h2>
-      <p>The game can land on any of these 25 emojis. Each one becomes a dare, a sweet moment, or a playful task between the two players.</p>
+      <p>The game can land on any of these 25 emojis. Each one becomes a dare for the chosen player.</p>
 
       <div class="outcome-grid">
         <div class="outcome-card"><span>😘</span><p>Kiss me</p></div>
@@ -152,7 +165,7 @@
         <div class="outcome-card"><span>🎤</span><p>Sing to me</p></div>
         <div class="outcome-card"><span>❤️</span><p>Say I love you</p></div>
         <div class="outcome-card"><span>🤫</span><p>Tell a secret</p></div>
-        <div class="outcome-card"><span>🍰</span><p>Your treat</p></div>
+        <div class="outcome-card"><span>🍰</span><p>Give treat</p></div>
         <div class="outcome-card"><span>🎬</span><p>Take me to a movie</p></div>
         <div class="outcome-card"><span>😚</span><p>Kiss on cheeks</p></div>
         <div class="outcome-card"><span>💇</span><p>Play with my hair</p></div>
@@ -171,27 +184,21 @@
       </div>
 
       <h2>Who Is This Game For?</h2>
-      <p>The Game of Emoji works for anyone with two people and one screen — friends at a sleepover, couples looking for a fun icebreaker, siblings who need a tie-breaker, or classmates killing five minutes. Some dares are sweet (hold hands, kiss on cheeks), some are silly (make me laugh, dance for me), and some are bold (give phone password for 5 minutes). It's quick, playful, and needs zero setup.</p>
+      <p>The Game of Emoji works for anyone with two people and one screen — friends at a sleepover, couples looking for a fun icebreaker, siblings who need a tie-breaker, or classmates killing five minutes.</p>
 
       <h2>Frequently Asked Questions</h2>
 
       <h3>Is The Game of Emoji really free?</h3>
       <p>Yes. It's completely free to play, with no app, no login, and no sign-up.</p>
 
-      <h3>Can I play alone?</h3>
-      <p>The game is designed for two players pressing at the same time. Playing alone works, but the timing challenge is gone.</p>
-
       <h3>How do two people press at the same time on a PC?</h3>
-      <p>Use the keyboard — Player 1 presses <kbd>A</kbd>, Player 2 presses <kbd>L</kbd>, both at once. On a phone or tablet, each player uses one thumb on their own button.</p>
-
-      <h3>What if we don't want to do a dare?</h3>
-      <p>You can press again together to spin for a new dare. Just remember: the fun is in the commitment.</p>
+      <p>Use the keyboard — Player 1 presses <kbd>A</kbd>, Player 2 presses <kbd>L</kbd>, both at once.</p>
 
       <h3>Does it work on mobile?</h3>
       <p>Yes. The buttons are large enough for two players to press at the same time on a phone or tablet.</p>
 
-      <h3>Does it work offline?</h3>
-      <p>Once the page loads, the game runs entirely in your browser. If the page is cached, it can work without a live connection.</p>
+      <h3>Can I play alone?</h3>
+      <p>The game is designed for two players pressing at the same time. Playing alone works, but the timing challenge is gone.</p>
     </section>
 
     <section class="cta-section">
@@ -203,7 +210,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 EmojiCopyFree.com — All Rights Reserved. Copy and paste emojis free for WhatsApp, Facebook, Instagram, Twitter, Slack and more.</p>
+    <p>© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
     <p style="margin-top: 8px;"><a href="/" style="color: #075E54; text-decoration: none;">← Back to Emoji Home</a></p>
   </footer>
 
