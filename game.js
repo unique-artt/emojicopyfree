@@ -44,7 +44,7 @@ const turnBoy     = document.getElementById("turnBoy");
 const turnGirl    = document.getElementById("turnGirl");
 const turnSlider  = document.getElementById("turnSlider");
 const slotLights  = document.getElementById("slotLights");
-const slotHandle  = document.getElementById("slotHandle");
+const slotPullTab = document.getElementById("slotPullTab");
 
 // State
 let boyPressed = false;
@@ -118,8 +118,8 @@ function resetButtons() {
 
 // --- Handle pull animation ---
 function pullHandle() {
-  slotHandle.classList.add("pulled");
-  setTimeout(() => slotHandle.classList.remove("pulled"), 900);
+  slotPullTab.classList.add("pulled");
+  setTimeout(() => slotPullTab.classList.remove("pulled"), 900);
 }
 
 // --- Lights blink ---
