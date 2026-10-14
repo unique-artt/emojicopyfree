@@ -62,7 +62,8 @@
 
     <section class="game-hero">
       <h1 class="game-title">🎰 The Game of Emoji 🎰</h1>
-      <p class="game-subtitle">Two players. One spin. One dare decides your fate.</p>
+      <p class="game-subtitle-bold">Two players. One spin. One dare decides your fate.</p>
+      <p class="game-loser-line">Whoever can't do the dare — <strong>they lose. No cap. 💀</strong> Play again to save your rep. 😎</p>
     </section>
 
     <!-- Turn selector -->
@@ -81,33 +82,41 @@
       </div>
     </section>
 
-    <!-- Slot Machine -->
-    <section class="slot-machine">
+    <!-- Slot Machine with handle on right -->
+    <section class="slot-machine-outer">
+      <div class="slot-machine">
 
-      <div class="slot-top-lights">
-        <span class="light"></span><span class="light"></span><span class="light"></span>
-        <span class="light"></span><span class="light"></span><span class="light"></span>
-        <span class="light"></span><span class="light"></span>
+        <div class="slot-top-lights" id="slotLights">
+          <span class="light"></span><span class="light"></span><span class="light"></span>
+          <span class="light"></span><span class="light"></span><span class="light"></span>
+          <span class="light"></span><span class="light"></span>
+        </div>
+
+        <div class="slot-message" id="slotMessage" aria-live="polite">
+          <span class="dots">• • •</span>
+        </div>
+
+        <div class="slot-window">
+          <div class="slot-reel" id="reel1">
+            <div class="slot-emoji" id="slotEmoji1">❓</div>
+          </div>
+          <div class="slot-reel" id="reel2">
+            <div class="slot-emoji" id="slotEmoji2">❓</div>
+          </div>
+          <div class="slot-reel" id="reel3">
+            <div class="slot-emoji" id="slotEmoji3">❓</div>
+          </div>
+        </div>
+
+        <div class="slot-bar"></div>
+
       </div>
 
-      <div class="slot-message" id="slotMessage" aria-live="polite">
-        <span class="dots">• • •</span>
+      <!-- Slot handle on the right side -->
+      <div class="slot-handle" id="slotHandle" aria-hidden="true">
+        <div class="slot-handle-arm"></div>
+        <div class="slot-handle-knob"></div>
       </div>
-
-      <div class="slot-window">
-        <div class="slot-reel" id="reel1">
-          <div class="slot-emoji" id="slotEmoji1">❓</div>
-        </div>
-        <div class="slot-reel" id="reel2">
-          <div class="slot-emoji" id="slotEmoji2">❓</div>
-        </div>
-        <div class="slot-reel" id="reel3">
-          <div class="slot-emoji" id="slotEmoji3">❓</div>
-        </div>
-      </div>
-
-      <div class="slot-bar"></div>
-
     </section>
 
     <section class="players-section">
@@ -118,7 +127,7 @@
 
         <div class="player-card">
           <div class="player-clipart player-boy">👦</div>
-          <button class="player-btn boy-btn" id="boyBtn">PRESS</button>
+          <button class="player-btn slot-style-btn boy-btn" id="boyBtn">PRESS</button>
           <span class="player-key">or press <kbd>A</kbd></span>
         </div>
 
@@ -126,7 +135,7 @@
 
         <div class="player-card">
           <div class="player-clipart player-girl">👧</div>
-          <button class="player-btn girl-btn" id="girlBtn">PRESS</button>
+          <button class="player-btn slot-style-btn girl-btn" id="girlBtn">PRESS</button>
           <span class="player-key">or press <kbd>L</kbd></span>
         </div>
 
@@ -145,8 +154,9 @@
         <li><strong>Choose who performs:</strong> Slide the toggle above the slot machine to pick "Boy does it" or "Girl does it."</li>
         <li><strong>Get ready:</strong> The boy holds the blue button (or key <kbd>A</kbd>), the girl holds the pink button (or key <kbd>L</kbd>).</li>
         <li><strong>Press together:</strong> Both players press within 400 milliseconds of each other. If only one presses, nothing happens.</li>
-        <li><strong>See the dare:</strong> The slot lands on one emoji and shows a dare — for example, "Kiss on cheeks" or "Hold hands."</li>
+        <li><strong>See the dare:</strong> The slot lands on one emoji and shows a dare — for example, "Kiss me on the cheeks" or "Hold my hand."</li>
         <li><strong>Do it:</strong> The chosen player performs the dare. Press together again for the next round.</li>
+        <li><strong>Don't chicken out:</strong> If you can't do the dare, you lose the round. No excuses.</li>
       </ol>
 
       <h2>Playing on a PC? Use the Keyboard</h2>
@@ -160,27 +170,27 @@
         <div class="outcome-card"><span>🤗</span><p>Hug me</p></div>
         <div class="outcome-card"><span>👋</span><p>Slap me</p></div>
         <div class="outcome-card"><span>😂</span><p>Make me laugh</p></div>
-        <div class="outcome-card"><span>🙌</span><p>High five</p></div>
+        <div class="outcome-card"><span>🙌</span><p>Give me a high five</p></div>
         <div class="outcome-card"><span>💃</span><p>Dance for me</p></div>
         <div class="outcome-card"><span>🎤</span><p>Sing to me</p></div>
-        <div class="outcome-card"><span>❤️</span><p>Say I love you</p></div>
-        <div class="outcome-card"><span>🤫</span><p>Tell a secret</p></div>
-        <div class="outcome-card"><span>🍰</span><p>Give treat</p></div>
+        <div class="outcome-card"><span>❤️</span><p>Say "I love you"</p></div>
+        <div class="outcome-card"><span>🤫</span><p>Tell me a secret</p></div>
+        <div class="outcome-card"><span>🍰</span><p>Give me a treat</p></div>
         <div class="outcome-card"><span>🎬</span><p>Take me to a movie</p></div>
-        <div class="outcome-card"><span>😚</span><p>Kiss on cheeks</p></div>
+        <div class="outcome-card"><span>😚</span><p>Kiss me on the cheeks</p></div>
         <div class="outcome-card"><span>💇</span><p>Play with my hair</p></div>
-        <div class="outcome-card"><span>🤝</span><p>Hold hands</p></div>
+        <div class="outcome-card"><span>🤝</span><p>Hold my hand</p></div>
         <div class="outcome-card"><span>🤞</span><p>Promise me something</p></div>
         <div class="outcome-card"><span>🌹</span><p>Ask me for a date</p></div>
-        <div class="outcome-card"><span>📸</span><p>Post on Instagram praising me</p></div>
-        <div class="outcome-card"><span>📱</span><p>Give phone password for 5 min</p></div>
+        <div class="outcome-card"><span>📸</span><p>Post about me on Instagram</p></div>
+        <div class="outcome-card"><span>📱</span><p>Give me your phone for 5 min</p></div>
         <div class="outcome-card"><span>💬</span><p>Give me compliments</p></div>
         <div class="outcome-card"><span>🚫</span><p>Block someone from my phone</p></div>
         <div class="outcome-card"><span>🍳</span><p>Cook for me</p></div>
-        <div class="outcome-card"><span>✍️</span><p>Write a handwritten note for me</p></div>
+        <div class="outcome-card"><span>✍️</span><p>Write me a handwritten note</p></div>
         <div class="outcome-card"><span>🧳</span><p>Hold my luggage</p></div>
-        <div class="outcome-card"><span>📖</span><p>Post story saying "MISS YOU"</p></div>
-        <div class="outcome-card"><span>🎁</span><p>Give a gift</p></div>
+        <div class="outcome-card"><span>📖</span><p>Post a story saying "MISS YOU"</p></div>
+        <div class="outcome-card"><span>🎁</span><p>Give me a gift</p></div>
       </div>
 
       <h2>Who Is This Game For?</h2>
@@ -197,8 +207,8 @@
       <h3>Does it work on mobile?</h3>
       <p>Yes. The buttons are large enough for two players to press at the same time on a phone or tablet.</p>
 
-      <h3>Can I play alone?</h3>
-      <p>The game is designed for two players pressing at the same time. Playing alone works, but the timing challenge is gone.</p>
+      <h3>What happens if I don't do the dare?</h3>
+      <p>You lose the round. The other player gets the point. No cap. 💀</p>
     </section>
 
     <section class="cta-section">
@@ -211,7 +221,13 @@
 
   <footer class="site-footer">
     <p>© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
-    <p style="margin-top: 8px;"><a href="/" style="color: #075E54; text-decoration: none;">← Back to Emoji Home</a></p>
+    <p class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/disclaimer.html">Disclaimer</a>
+      <span class="footer-sep">·</span>
+      <a href="/">Back to Emoji Home</a>
+    </p>
   </footer>
 
   <script src="game.js"></script>
