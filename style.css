@@ -1670,17 +1670,18 @@ header {
 
   .slot-handle {
     width: 38px;
-    padding-top: 54px;
-    margin-left: -4px;
+    padding-top: 76px;
+    margin-right: -4px;
   }
 
   .slot-handle-bracket {
-    top: 46px;
-    height: 22px;
+    top: 66px;
+    width: 16px;
+    height: 28px;
   }
 
   .slot-handle-arm {
-    height: 78px;
+    height: 82px;
     width: 8px;
   }
 
