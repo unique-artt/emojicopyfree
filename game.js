@@ -118,6 +118,7 @@ function resetButtons() {
 
 // --- Handle pull animation ---
 function pullHandle() {
+  if (!slotPullTab) return;
   slotPullTab.classList.add("pulled");
   setTimeout(() => slotPullTab.classList.remove("pulled"), 900);
 }
