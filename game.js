@@ -1,48 +1,49 @@
 // =====================================================
-// The Game of Emoji — Two-player slot machine
+// The Game of Emoji — Two-player 3-reel slot machine
 // =====================================================
 
-// 25 outcomes with emoji + dare message
+// 25 outcomes. Phrasing works with "Boy must:" / "Girl must:"
 const outcomes = [
-  { emoji: "😘", message: "Kiss me",                      color: "#FF6B9D" },
-  { emoji: "🤗", message: "Hug me",                       color: "#FFB84D" },
-  { emoji: "👋", message: "Slap me",                      color: "#FF8A65" },
-  { emoji: "😂", message: "Make me laugh",                color: "#FFEB3B" },
-  { emoji: "🙌", message: "High five",                    color: "#81C784" },
-  { emoji: "💃", message: "Dance for me",                 color: "#F48FB1" },
-  { emoji: "🎤", message: "Sing to me",                   color: "#FF8A80" },
-  { emoji: "❤️", message: "Say I love you",               color: "#EF5350" },
-  { emoji: "🤫", message: "Tell a secret",                color: "#A1887F" },
-  { emoji: "🍰", message: "Your treat",                   color: "#FFB74D" },
-  { emoji: "🎬", message: "Take me to a movie",           color: "#9575CD" },
-  { emoji: "😚", message: "Kiss on cheeks",               color: "#F06292" },
-  { emoji: "💇", message: "Play with my hair",            color: "#BA68C8" },
-  { emoji: "🤝", message: "Hold hands",                   color: "#4DB6AC" },
-  { emoji: "🤞", message: "Promise me something",         color: "#AED581" },
-  { emoji: "🌹", message: "Ask me for a date",            color: "#E57373" },
-  { emoji: "📸", message: "Post on Instagram praising me",color: "#4FC3F7" },
-  { emoji: "📱", message: "Give phone password for 5 min",color: "#7986CB" },
-  { emoji: "💬", message: "Give me compliments",          color: "#FFD54F" },
-  { emoji: "🚫", message: "Block someone from my phone",  color: "#90A4AE" },
-  { emoji: "🍳", message: "Cook for me",                  color: "#FFB84D" },
-  { emoji: "✍️", message: "Write a handwritten note for me", color: "#A1887F" },
-  { emoji: "🧳", message: "Hold my luggage",              color: "#81C784" },
-  { emoji: "📖", message: 'Post story saying "MISS YOU"', color: "#64B5F6" },
-  { emoji: "🎁", message: "Give a gift",                  color: "#FF8A65" }
+  { emoji: "😘", message: "Kiss me",                          color: "#C2185B" },
+  { emoji: "🤗", message: "Hug me",                            color: "#E65100" },
+  { emoji: "👋", message: "Slap me",                           color: "#BF360C" },
+  { emoji: "😂", message: "Make me laugh",                     color: "#F57F17" },
+  { emoji: "🙌", message: "Give me a high five",               color: "#2E7D32" },
+  { emoji: "💃", message: "Dance for me",                      color: "#AD1457" },
+  { emoji: "🎤", message: "Sing to me",                        color: "#C62828" },
+  { emoji: "❤️", message: "Say 'I love you'",                  color: "#D32F2F" },
+  { emoji: "🤫", message: "Tell me a secret",                  color: "#5D4037" },
+  { emoji: "🍰", message: "Give me a treat",                   color: "#E65100" },
+  { emoji: "🎬", message: "Take me to a movie",                color: "#4527A0" },
+  { emoji: "😚", message: "Kiss me on the cheeks",             color: "#C2185B" },
+  { emoji: "💇", message: "Play with my hair",                 color: "#6A1B9A" },
+  { emoji: "🤝", message: "Hold my hand",                      color: "#00695C" },
+  { emoji: "🤞", message: "Promise me something",              color: "#33691E" },
+  { emoji: "🌹", message: "Ask me for a date",                 color: "#B71C1C" },
+  { emoji: "📸", message: "Post about me on Instagram",        color: "#01579B" },
+  { emoji: "📱", message: "Give me your phone for 5 min",      color: "#283593" },
+  { emoji: "💬", message: "Give me compliments",               color: "#F57F17" },
+  { emoji: "🚫", message: "Block someone from my phone",       color: "#37474F" },
+  { emoji: "🍳", message: "Cook for me",                       color: "#E65100" },
+  { emoji: "✍️", message: "Write me a handwritten note",       color: "#4E342E" },
+  { emoji: "🧳", message: "Hold my luggage",                   color: "#2E7D32" },
+  { emoji: "📖", message: 'Post a story saying "MISS YOU"',    color: "#1565C0" },
+  { emoji: "🎁", message: "Give me a gift",                    color: "#BF360C" }
 ];
 
 const spinPool = outcomes.map(o => o.emoji);
 
 // DOM
-const slotEmoji     = document.getElementById("slotEmoji");
-const slotMessage   = document.getElementById("slotMessage");
-const boyBtn        = document.getElementById("boyBtn");
-const girlBtn       = document.getElementById("girlBtn");
-const playersHint   = document.getElementById("playersHint");
-const turnToggle    = document.getElementById("turnToggle");
-const turnSlider    = document.getElementById("turnSlider");
-const turnBoy       = document.getElementById("turnBoy");
-const turnGirl      = document.getElementById("turnGirl");
+const slotEmoji1  = document.getElementById("slotEmoji1");
+const slotEmoji2  = document.getElementById("slotEmoji2");
+const slotEmoji3  = document.getElementById("slotEmoji3");
+const slotMessage = document.getElementById("slotMessage");
+const boyBtn      = document.getElementById("boyBtn");
+const girlBtn     = document.getElementById("girlBtn");
+const playersHint = document.getElementById("playersHint");
+const turnBoy     = document.getElementById("turnBoy");
+const turnGirl    = document.getElementById("turnGirl");
+const turnSlider  = document.getElementById("turnSlider");
 
 // State
 let boyPressed = false;
@@ -51,7 +52,7 @@ let boyTime = 0;
 let girlTime = 0;
 let spinning = false;
 let pressTimer = null;
-let currentTurn = "boy"; // "boy" or "girl"
+let currentTurn = "boy";
 
 const SIMULTANEOUS_WINDOW = 400;
 
@@ -67,7 +68,7 @@ function setTurn(turn) {
 turnBoy.addEventListener("click", () => setTurn("boy"));
 turnGirl.addEventListener("click", () => setTurn("girl"));
 
-// --- Button press handlers ---
+// --- Button press ---
 function handleBoyPress() {
   if (spinning) return;
   boyPressed = true;
@@ -114,44 +115,57 @@ function resetButtons() {
   clearTimeout(pressTimer);
 }
 
-// --- Spin animation ---
+// --- Spin ---
 function startSpin() {
   spinning = true;
   playersHint.textContent = "Spinning…";
   slotMessage.innerHTML = '<span class="dots">• • •</span>';
   slotMessage.style.color = "#DCF8C6";
 
-  let count = 0;
-  const totalSpins = 25;
-  const interval = 60;
+  const reels = [slotEmoji1, slotEmoji2, slotEmoji3];
   const finalIndex = Math.floor(Math.random() * outcomes.length);
+  const finalEmoji = outcomes[finalIndex].emoji;
 
-  const spinInterval = setInterval(() => {
-    slotEmoji.textContent = spinPool[Math.floor(Math.random() * spinPool.length)];
-    slotEmoji.style.animation = "none";
-    void slotEmoji.offsetWidth;
-    slotEmoji.style.animation = "slotSlide 0.06s ease-out";
+  const totalSpins = 25;
+  const intervals = [60, 80, 100]; // each reel spins at a different speed
+  let doneCount = 0;
 
-    count++;
-    if (count >= totalSpins) {
-      clearInterval(spinInterval);
-      landOn(finalIndex);
-    }
-  }, interval);
+  reels.forEach((reelEl, i) => {
+    let count = 0;
+    const interval = setInterval(() => {
+      reelEl.textContent = spinPool[Math.floor(Math.random() * spinPool.length)];
+      reelEl.style.animation = "none";
+      void reelEl.offsetWidth;
+      reelEl.style.animation = "slotSlide 0.06s ease-out";
+
+      count++;
+      if (count >= totalSpins + i * 4) {
+        clearInterval(interval);
+        landReel(reelEl, finalEmoji, i);
+        doneCount++;
+        if (doneCount === reels.length) {
+          setTimeout(() => showResult(finalIndex), 300);
+        }
+      }
+    }, intervals[i]);
+  });
 }
 
-function landOn(index) {
-  const result = outcomes[index];
-  slotEmoji.textContent = result.emoji;
-  slotEmoji.style.animation = "slotLand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
+function landReel(reelEl, emoji, index) {
+  reelEl.textContent = emoji;
+  reelEl.style.animation = "slotLand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
+}
 
+function showResult(index) {
+  const result = outcomes[index];
   const who = currentTurn === "boy" ? "👦 Boy" : "👧 Girl";
   const whoClass = currentTurn === "boy" ? "msg-boy" : "msg-girl";
 
   slotMessage.innerHTML =
     `<span class="final-who ${whoClass}">${who} must:</span> ` +
-    `<span class="final-message" style="color:${result.color}">${result.message}</span>`;
+    `<span class="final-message">${result.message}</span>`;
 
+  slotMessage.style.color = "#075E54";
   playersHint.textContent = "Press together again to play another round.";
 
   setTimeout(() => {
@@ -160,7 +174,7 @@ function landOn(index) {
   }, 800);
 }
 
-// --- Bind press handlers (mouse + touch) ---
+// --- Bind press ---
 function bindPress(btn, handler) {
   btn.addEventListener("mousedown", handler);
   btn.addEventListener("touchstart", (e) => {
@@ -172,16 +186,12 @@ function bindPress(btn, handler) {
 bindPress(boyBtn, handleBoyPress);
 bindPress(girlBtn, handleGirlPress);
 
-// --- Keyboard support for PC ---
+// --- Keyboard (PC) ---
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
   const key = e.key.toLowerCase();
-  if (key === "a") {
-    if (!boyPressed) handleBoyPress();
-  }
-  if (key === "l") {
-    if (!girlPressed) handleGirlPress();
-  }
+  if (key === "a" && !boyPressed) handleBoyPress();
+  if (key === "l" && !girlPressed) handleGirlPress();
 });
 
 document.addEventListener("keyup", (e) => {
@@ -190,5 +200,5 @@ document.addEventListener("keyup", (e) => {
   if (key === "l") girlBtn.classList.remove("pressed");
 });
 
-// Initialize turn state
+// Init
 setTurn("boy");
