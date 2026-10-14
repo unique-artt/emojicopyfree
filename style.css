@@ -1593,7 +1593,7 @@ header {
 .slot-machine-outer {
   position: relative;
   max-width: 560px;
-  margin: 0 auto 28px;
+  margin: 40px auto 28px;
   display: flex;
   align-items: stretch;
   justify-content: center;
