@@ -119,7 +119,7 @@ function resetButtons() {
 // --- Handle pull animation ---
 function pullHandle() {
   slotHandle.classList.add("pulled");
-  setTimeout(() => slotHandle.classList.remove("pulled"), 600);
+  setTimeout(() => slotHandle.classList.remove("pulled"), 900);
 }
 
 // --- Lights blink ---
