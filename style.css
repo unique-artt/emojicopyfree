@@ -1472,93 +1472,6 @@ header {
   font-weight: 800;
 }
 
-/* ===== Slot handle attached to the machine ===== */
-
-/* The outer container holds the bracket + pivot */
-.slot-handle {
-  width: 56px;
-  position: relative;
-  padding-top: 62px;
-  margin-left: -8px;
-  align-self: stretch;
-  pointer-events: none;
-}
-
-/* Metal bracket plate — visually attaches handle to machine */
-.slot-handle-bracket {
-  position: absolute;
-  top: 62px;
-  left: 0;
-  width: 24px;
-  height: 30px;
-  background: linear-gradient(180deg, #CFD8DC 0%, #78909C 50%, #455A64 100%);
-  border-radius: 4px 0 0 4px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.3);
-  z-index: 3;
-}
-
-/* Pivot point — the arm rotates around this */
-.slot-handle-pivot {
-  position: absolute;
-  top: 62px;
-  left: 16px;
-  width: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: center top;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 2;
-}
-
-/* The arm of the lever */
-.slot-handle-arm {
-  width: 9px;
-  height: 110px;
-  background: linear-gradient(180deg, #FFE082 0%, #FFC107 45%, #F57F17 100%);
-  border-radius: 5px;
-  box-shadow:
-    inset 2px 0 0 rgba(255, 255, 255, 0.35),
-    inset -2px 0 0 rgba(0, 0, 0, 0.2),
-    0 3px 6px rgba(0, 0, 0, 0.35);
-  margin-top: -4px;
-}
-
-/* The ball on top of the lever */
-.slot-handle-knob {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #FF8A80 0%, #EF5350 40%, #B71C1C 100%);
-  box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.35),
-    inset -3px -3px 6px rgba(0, 0, 0, 0.35),
-    inset 3px 3px 6px rgba(255, 255, 255, 0.35);
-  margin-top: -6px;
-  position: relative;
-}
-
-/* Tiny highlight on the knob */
-.slot-handle-knob::after {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  width: 8px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 50%;
-  filter: blur(1px);
-}
-
-/* Pull motion — arm rotates down like a real lever */
-.slot-handle.pulled .slot-handle-pivot {
-  transform: rotate(62deg);
-}
-
 /* ===================================================== */
 /* ===== Blinking lights when all reels stop ===== */
 /* ===================================================== */
@@ -1666,34 +1579,6 @@ header {
     gap: 0;
   }
 
-  .slot-handle {
-    width: 46px;
-    padding-top: 54px;
-    margin-left: -6px;
-  }
-
-  .slot-handle-bracket {
-    top: 54px;
-    width: 20px;
-    height: 26px;
-  }
-
-    .slot-handle-pivot {
-    top: 54px;
-    left: 12px;
-    width: 26px;
-  }
-  
-  .slot-handle-arm {
-    height: 82px;
-    width: 8px;
-  }
-
-  .slot-handle-knob {
-    width: 24px;
-    height: 24px;
-  }
-
   .slot-style-btn {
     font-size: 0.95rem;
     padding: 16px 8px;
@@ -1713,4 +1598,57 @@ header {
   align-items: stretch;
   justify-content: center;
   gap: 0;
+}
+
+/* ===== Slot Machine Pull Tab ===== */
+
+.slot-pull-tab {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.pull-tab-handle {
+  width: 90px;
+  height: 46px;
+  background: linear-gradient(180deg, #FFD54F 0%, #F57F17 100%);
+  border-radius: 12px 12px 0 0;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 4px 10px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center bottom;
+}
+
+.pull-tab-grip {
+  width: 60px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #7F0000 0%, #B71C1C 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Pull animation — tab slides down when triggered */
+.slot-pull-tab.pulled .pull-tab-handle {
+  transform: translateY(22px) scaleY(0.85);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .pull-tab-handle {
+    width: 76px;
+    height: 40px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .pull-tab-grip {
+    width: 50px;
+  }
 }
