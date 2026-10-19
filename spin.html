@@ -1,16 +1,3 @@
-I see exactly what happened from your screenshot. The global `style.css` file is heavily overriding the custom shadows and borders, which is why the 3D toy effect got flattened out. Also, your browser is definitely holding onto a cached version of the old file.
-
-Let's brute-force the 3D Toy look. I am adding `!important` to the critical CSS and making the shadows, borders, and plastic gloss **extremely thick** so nothing can override them.
-
-### ⚠️ CRITICAL STEPS BEFORE YOU TEST:
-1. Replace `spin.html` with the code below.
-2. Save/Commit.
-3. Go to Cloudflare → Caching → **Purge Everything**.
-4. On your game page, do a **Hard Refresh** (`Ctrl + Shift + R` or `Cmd + Shift + R`).
-
-Here is the undeniable 3D Toy version:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +15,12 @@ Here is the undeniable 3D Toy version:
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
   <style>
+    /* Force Dark Mode for this specific page */
+    body {
+      background-color: #050505 !important;
+      background-image: none !important;
+    }
+
     .spin-page {
       max-width: 650px;
       margin: 0 auto;
@@ -43,18 +36,19 @@ Here is the undeniable 3D Toy version:
     .player-selector-label {
       font-size: 0.9rem;
       font-weight: 800;
-      color: #075E54;
+      color: #00f3ff;
       margin-bottom: 10px;
       display: block;
       text-transform: uppercase;
+      text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
     }
     .player-toggle {
       display: inline-flex;
-      background: #FFF !important;
+      background: #111;
       border-radius: 30px;
       padding: 5px;
-      border: 4px solid #111 !important;
-      box-shadow: 4px 4px 0 #111 !important;
+      border: 2px solid #333;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
     }
     .player-option {
       background: none;
@@ -63,55 +57,57 @@ Here is the undeniable 3D Toy version:
       border-radius: 24px;
       font-size: 0.85rem;
       font-weight: 800;
-      color: #555;
+      color: #888;
       cursor: pointer;
       transition: all 0.2s;
       font-family: inherit;
     }
     .player-option.active {
-      background: #075E54 !important;
-      color: white !important;
+      background: #ff00ea;
+      color: #fff;
+      box-shadow: 0 0 15px #ff00ea;
     }
 
-    /* The digital screen */
+    /* The digital screen (Synthwave CRT) */
     .digital-screen {
-      background: #111 !important;
-      border: 5px solid #333 !important;
+      background: #0a0a0a;
+      border: 3px solid #00f3ff;
       border-radius: 10px;
       padding: 15px;
       margin: 0 auto 30px;
       max-width: 480px;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 10px rgba(255, 213, 79, 0.3) !important;
+      box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1), 0 0 20px rgba(0, 243, 255, 0.4);
       position: relative;
       min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
     }
     .digital-screen::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      background-size: 100% 4px, 6px 100%;
+      background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0, 243, 255, 0.05) 50%);
+      background-size: 100% 4px;
       pointer-events: none;
     }
     .screen-who {
-      color: #42A5F5;
+      color: #ff00ea;
       font-family: 'Courier New', Courier, monospace;
       font-size: 1rem;
       font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 8px;
-      text-shadow: 0 0 5px currentColor;
+      text-shadow: 0 0 8px #ff00ea;
     }
     .screen-text {
-      color: #FFD54F;
+      color: #00f3ff;
       font-family: 'Courier New', Courier, monospace;
       font-size: 1.1rem;
       font-weight: bold;
       letter-spacing: 1px;
-      text-shadow: 0 0 5px #FFD54F;
+      text-shadow: 0 0 8px #00f3ff;
       margin: 0;
       line-height: 1.4;
       transition: opacity 0.3s;
@@ -122,33 +118,28 @@ Here is the undeniable 3D Toy version:
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: 35px;
       margin: 0 auto 20px;
     }
 
-    /* ============================================================
-       THE EXTREME 3D TOY CASING
-       ============================================================ */
+    /* The Wheel Container (Dark Metallic Casing) */
     .wheel-container {
       position: relative;
-      width: 350px;
-      height: 350px;
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
-      /* Glossy plastic red */
-      background: linear-gradient(135deg, #FF5252 0%, #D32F2F 100%) !important;
-      border: 10px solid #111 !important; /* Super thick black rim */
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      border: 4px solid #333;
       box-shadow: 
-        0 16px 0 #111, /* Massive hard shadow */
-        0 20px 30px rgba(0,0,0,0.6),
-        inset 0 -8px 0 rgba(0,0,0,0.3),
-        inset 0 10px 15px rgba(255,255,255,0.5) !important; 
+        0 0 30px rgba(0, 243, 255, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.8);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Neon Lights embedded in the plastic casing */
+    /* Neon LED Lights */
     .wheel-lights {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -158,63 +149,73 @@ Here is the undeniable 3D Toy version:
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 18px;
-      height: 18px;
-      /* 3D bead look */
-      background: radial-gradient(circle at 30% 30%, #FFF, #00FFFF 50%, #00BFFF) !important;
-      border: 4px solid #111 !important;
+      width: 12px;
+      height: 12px;
+      background: #00f3ff;
       border-radius: 50%;
-      box-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF !important;
+      box-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
       transform: translate(-50%, -50%);
-      transition: all 0.2s;
+      animation: neonPulse 1.5s infinite alternate;
     }
-    /* Flash Magenta when stopped */
-    .wheel-lights.blink .dot {
-      animation: dotBlinkFast 0.25s ease-in-out infinite alternate;
-    }
-    @keyframes dotBlinkFast {
-      0% { background: #00FFFF !important; box-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF !important; }
-      100% { background: #FF00FF !important; box-shadow: 0 0 20px #FF00FF, 0 0 40px #FF00FF !important; }
+    /* Stagger the pulses so it looks like a synthwave beat */
+    .wheel-lights .dot:nth-child(even) {
+      animation-delay: 0.75s;
+      background: #ff00ea;
+      box-shadow: 0 0 10px #ff00ea, 0 0 20px #ff00ea;
     }
 
-    /* The actual spinning wheel */
+    @keyframes neonPulse {
+      0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* Blink all fast when stopped */
+    .wheel-lights.blink .dot {
+      animation: dotBlinkFast 0.2s ease-in-out infinite alternate !important;
+    }
+    @keyframes dotBlinkFast {
+      0% { background: #00f3ff; box-shadow: 0 0 20px #00f3ff, 0 0 40px #00f3ff; }
+      100% { background: #ff00ea; box-shadow: 0 0 20px #ff00ea, 0 0 40px #ff00ea; }
+    }
+
+    /* The actual spinning wheel (Neon Slices) */
     .wheel {
-      width: 250px;
-      height: 250px;
+      width: 270px;
+      height: 270px;
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
       background: conic-gradient(
-        #EF5350 0deg 22.5deg, 
-        #42A5F5 22.5deg 45deg, 
-        #66BB6A 45deg 67.5deg, 
-        #FFCA28 67.5deg 90deg, 
-        #AB47BC 90deg 112.5deg, 
-        #FF7043 112.5deg 135deg, 
-        #26C6DA 135deg 157.5deg, 
-        #EC407A 157.5deg 180deg,
-        #EF5350 180deg 202.5deg, 
-        #42A5F5 202.5deg 225deg, 
-        #66BB6A 225deg 247.5deg, 
-        #FFCA28 247.5deg 270deg, 
-        #AB47BC 270deg 292.5deg, 
-        #FF7043 292.5deg 315deg, 
-        #26C6DA 315deg 337.5deg, 
-        #EC407A 337.5deg 360deg
-      ) !important;
-      border: 6px solid #111 !important;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.4) !important;
+        #00f3ff 0deg 22.5deg,   /* Cyan */
+        #ff00ea 22.5deg 45deg,  /* Magenta */
+        #39ff14 45deg 67.5deg,  /* Toxic Green */
+        #fcee0a 67.5deg 90deg,  /* Electric Yellow */
+        #b026ff 90deg 112.5deg, /* Purple */
+        #ff6600 112.5deg 135deg,/* Neon Orange */
+        #ff007f 135deg 157.5deg,/* Hot Pink */
+        #0033ff 157.5deg 180deg,/* Electric Blue */
+        #00f3ff 180deg 202.5deg, 
+        #ff00ea 202.5deg 225deg, 
+        #39ff14 225deg 247.5deg, 
+        #fcee0a 247.5deg 270deg, 
+        #b026ff 270deg 292.5deg, 
+        #ff6600 292.5deg 315deg, 
+        #ff007f 315deg 337.5deg, 
+        #0033ff 337.5deg 360deg
+      );
+      border: 2px solid #111;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
     }
 
-    /* The dividers (lines) on the wheel */
+    /* The dividers */
     .wheel::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-conic-gradient(
-        transparent 0deg 21deg,
-        rgba(0,0,0,0.8) 21deg 22.5deg
-      ) !important;
+        transparent 0deg 21.5deg,
+        rgba(0,0,0,0.8) 21.5deg 22.5deg
+      );
       border-radius: 50%;
     }
 
@@ -223,12 +224,12 @@ Here is the undeniable 3D Toy version:
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 100px; 
-      margin-left: -50px;
-      height: 22px;
-      margin-top: -11px;
-      color: #FFF !important;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      width: 95px; 
+      margin-left: -47.5px;
+      height: 20px;
+      margin-top: -10px;
+      color: #FFF;
+      font-family: 'Courier New', Courier, monospace;
       font-weight: 900;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -239,31 +240,27 @@ Here is the undeniable 3D Toy version:
       white-space: nowrap;
       pointer-events: none;
       
-      /* Chunky Capsule Background */
-      background: #111 !important;
-      border: 3px solid #FFF !important;
+      /* Dark Glass Capsule */
+      background: rgba(10, 10, 10, 0.8);
+      border: 1px solid #00f3ff;
       border-radius: 20px;
-      box-shadow: 0 4px 0 rgba(0,0,0,0.8) !important;
+      box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+      text-shadow: 0 0 5px #FFF;
       
       transform-origin: center center;
     }
 
-    /* ============================================================
-       THE CENTER STICKER (Massive 3D Button)
-       ============================================================ */
+    /* The Center Branding / Emoji Display */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 110px;
       height: 110px;
-      background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 50%, #F57F17 100%) !important;
-      border: 6px solid #111 !important;
+      background: #0a0a0a;
+      border: 3px solid #ff00ea;
       border-radius: 50%;
-      box-shadow: 
-        0 8px 0 #111, 
-        inset 0 -6px 10px rgba(0,0,0,0.4),
-        inset 0 6px 10px rgba(255,255,255,0.7) !important;
+      box-shadow: 0 0 20px rgba(255, 0, 234, 0.6), inset 0 0 15px rgba(255, 0, 234, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -275,155 +272,175 @@ Here is the undeniable 3D Toy version:
     
     .wheel-center-text span {
       font-family: 'Fredoka One', cursive;
-      color: #111 !important;
-      font-size: 1.2rem;
+      color: #00f3ff;
+      font-size: 1.1rem;
       line-height: 1.1;
       text-transform: uppercase;
-      transform: rotate(-10deg);
+      text-shadow: 0 0 10px #00f3ff;
       transition: all 0.3s ease;
     }
 
     /* State when an emoji is displayed in the center */
+    .wheel-center-text.emoji-mode {
+      border-color: #00f3ff;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.8), inset 0 0 20px rgba(0, 243, 255, 0.4);
+    }
     .wheel-center-text.emoji-mode span {
       font-family: inherit;
       font-size: 3.5rem;
       transform: none; 
       line-height: 1;
-      
-      /* White Sticker Outline */
-      -webkit-text-stroke: 4px #FFFFFF !important;
-      paint-order: stroke fill;
-      filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.6)) !important; 
+      /* Neon Glow on Emoji */
+      filter: drop-shadow(0 0 15px #00f3ff) drop-shadow(0 0 5px #fff); 
     }
 
     /* The Big Lit-up Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -25px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
-      height: 60px;
-      background: #FFD54F !important;
-      border: 6px solid #111 !important;
+      width: 40px;
+      height: 50px;
+      background: #ff00ea;
       clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 30;
-      filter: drop-shadow(0 8px 0 #111) !important;
+      filter: drop-shadow(0 0 10px #ff00ea);
     }
     .wheel-pointer::after {
       content: "";
       position: absolute;
       top: 8px; left: 50%;
       transform: translateX(-50%);
-      width: 14px; height: 14px;
-      background: #FF00FF !important;
+      width: 10px; height: 10px;
+      background: #FFF;
       border-radius: 50%;
-      border: 2px solid #111 !important;
-      box-shadow: 0 0 15px #FF00FF !important;
+      box-shadow: 0 0 15px #FFF, 0 0 30px #00f3ff;
     }
 
     /* ============================================================
-       THE 3D TOY SLIDER TRACK
+       THE NEON TRAIL SLIDER
        ============================================================ */
     .slider-area {
       display: flex;
       align-items: center;
-      height: 380px;
+      height: 360px;
       position: relative;
       gap: 10px;
     }
     .slider-track {
-      width: 54px;
-      height: 320px;
-      background: #2a2a2a !important;
-      border-radius: 27px;
-      border: 6px solid #111 !important;
-      box-shadow: 
-        0 10px 0 #111, 
-        inset 0 10px 15px rgba(0,0,0,0.9) !important;
+      width: 40px;
+      height: 300px;
+      background: #111;
+      border-radius: 20px;
+      border: 2px solid #333;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 243, 255, 0.2);
       position: relative;
+      overflow: hidden; /* Keeps the trail inside */
     }
+    
+    /* The glowing trail behind the handle */
+    .slider-trail {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 0px;
+      background: linear-gradient(180deg, #00f3ff 0%, #ff00ea 100%);
+      box-shadow: 0 0 15px #ff00ea;
+      transition: height 0.05s linear;
+      pointer-events: none;
+    }
+
     .slider-handle {
-      width: 74px;
-      height: 74px;
-      /* Glossy plastic yellow */
-      background: linear-gradient(135deg, #FFEB3B 0%, #FBC02D 100%) !important;
-      border: 6px solid #111 !important;
+      width: 56px;
+      height: 56px;
+      background: #0a0a0a;
+      border: 3px solid #00f3ff;
       border-radius: 50%;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       top: 5px;
       cursor: grab;
-      box-shadow: 
-        0 8px 0 #111, 
-        inset 0 -4px 6px rgba(0,0,0,0.3),
-        inset 0 6px 8px rgba(255,255,255,0.8) !important;
+      box-shadow: 0 0 15px #00f3ff, inset 0 0 10px #00f3ff;
       z-index: 5;
       touch-action: none;
-      transition: transform 0.1s, box-shadow 0.1s;
+      transition: box-shadow 0.2s;
     }
     .slider-handle:active {
       cursor: grabbing;
-      transform: translateX(-50%) translateY(8px) !important; 
-      box-shadow: 
-        0 0px 0 #111, 
-        inset 0 -2px 4px rgba(0,0,0,0.3),
-        inset 0 4px 6px rgba(255,255,255,0.8) !important;
+      box-shadow: 0 0 25px #ff00ea, inset 0 0 15px #ff00ea;
+      border-color: #ff00ea;
     }
-    /* Inner red button */
+    /* Inner design on handle */
     .slider-handle::after {
-      content: "";
+      content: "↕";
+      color: #00f3ff;
+      font-weight: bold;
+      font-size: 1.2rem;
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 32px; height: 32px;
-      background: #FF5252 !important;
-      border: 4px solid #111 !important;
-      border-radius: 50%;
-      box-shadow: inset 0 4px 6px rgba(255,255,255,0.5) !important;
     }
 
     .slider-label {
       font-family: 'Fredoka One', cursive;
-      color: #111 !important;
-      font-size: 1.1rem;
+      color: #ff00ea;
+      font-size: 1rem;
       text-transform: uppercase;
       writing-mode: vertical-rl;
       text-orientation: mixed;
       letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 0, 234, 0.5);
+    }
+
+    /* Typography for the bottom text */
+    .game-about h2 {
+      color: #00f3ff;
+      text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+    }
+    .game-about h3 {
+      color: #ff00ea;
+    }
+    .game-about p, .game-about li {
+      color: #ccc;
     }
 
     .motivation-text {
       font-size: 1.1rem;
       font-weight: 800;
-      color: #B71C1C;
+      color: #ff00ea;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-top: 10px;
       margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255, 0, 234, 0.6);
       animation: pulseText 2s infinite;
     }
     @keyframes pulseText {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
     }
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
-      .wheel-area { flex-direction: column; gap: 30px; }
-      .wheel-container { width: 320px; height: 320px; border-width: 8px !important; }
-      .wheel { width: 230px; height: 230px; border-width: 4px !important; }
+      .wheel-area { flex-direction: column; gap: 25px; }
+      .wheel-container { width: 310px; height: 310px; }
+      .wheel { width: 250px; height: 250px; }
       .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; }
-      .wheel-center-text { width: 90px; height: 90px; border-width: 5px !important; }
-      .wheel-center-text span { font-size: 1rem; }
-      .wheel-center-text.emoji-mode span { font-size: 2.8rem; -webkit-text-stroke: 3px #FFF !important; }
-      .wheel-pointer { width: 40px; height: 50px; top: -15px; }
+      .wheel-center-text { width: 90px; height: 90px; }
+      .wheel-center-text span { font-size: 0.9rem; }
+      .wheel-center-text.emoji-mode span { font-size: 2.8rem; }
+      .wheel-pointer { width: 34px; height: 44px; top: -18px; }
       
+      /* Mobile Horizontal Slider */
       .slider-area { height: auto; flex-direction: column; gap: 10px; }
-      .slider-track { height: 80px; width: 280px; box-shadow: 0 8px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.9) !important; }
-      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 64px; height: 64px; box-shadow: 0 6px 0 #111, inset 0 -2px 4px rgba(0,0,0,0.3) !important; }
-      .slider-handle:active { transform: translateY(-50%) translateX(8px) !important; box-shadow: 0 0px 0 #111 !important; }
+      .slider-track { height: 60px; width: 280px; }
+      .slider-trail { 
+        height: 100% !important; 
+        width: 0px; 
+        background: linear-gradient(90deg, #00f3ff 0%, #ff00ea 100%);
+        transition: width 0.05s linear;
+      }
+      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); }
       .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 5px; }
     }
   </style>
@@ -449,7 +466,7 @@ Here is the undeniable 3D Toy version:
 
   <main class="spin-page">
 
-    <h1 style="color: #075E54; font-size: 2rem; margin-bottom: 10px;">🎡 The Emoji Spin</h1>
+    <h1 style="color: #00f3ff; font-size: 2rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0,243,255,0.5);">🎡 The Emoji Spin</h1>
     
     <!-- Player Selector -->
     <div class="player-selector-wrap">
@@ -487,6 +504,7 @@ Here is the undeniable 3D Toy version:
       <!-- Slide to Spin -->
       <div class="slider-area">
         <div class="slider-track" id="sliderTrack">
+          <div class="slider-trail" id="sliderTrail"></div>
           <div class="slider-handle" id="sliderHandle"></div>
         </div>
         <div class="slider-label">Slide to Spin</div>
@@ -503,7 +521,7 @@ Here is the undeniable 3D Toy version:
       <h2>How to Play</h2>
       <ol class="game-steps">
         <li><strong>Select Players:</strong> Choose 2, 3, or 4 players using the slider above the wheel.</li>
-        <li><strong>Slide to Spin:</strong> Drag the golden handle on the side of the wheel all the way down (or across on mobile).</li>
+        <li><strong>Slide to Spin:</strong> Drag the neon handle on the side of the wheel all the way down (or across on mobile).</li>
         <li><strong>Wait for the stop:</strong> The wheel will spin and slow down.</li>
         <li><strong>Read the screen:</strong> Look at the digital display above the wheel to see WHO has to do WHAT.</li>
         <li><strong>Do the dare:</strong> Whatever the screen says, you have to do it!</li>
@@ -531,13 +549,13 @@ Here is the undeniable 3D Toy version:
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
+    <p style="color: #666;">© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
     <p class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/privacy.html" style="color: #00f3ff;">Privacy Policy</a>
       <span class="footer-sep">·</span>
-      <a href="/disclaimer.html">Disclaimer</a>
+      <a href="/disclaimer.html" style="color: #00f3ff;">Disclaimer</a>
       <span class="footer-sep">·</span>
-      <a href="/">Back to Emoji Home</a>
+      <a href="/" style="color: #00f3ff;">Back to Emoji Home</a>
     </p>
   </footer>
 
@@ -557,6 +575,7 @@ Here is the undeniable 3D Toy version:
     // Slider elements
     const sliderTrack = document.getElementById('sliderTrack');
     const sliderHandle = document.getElementById('sliderHandle');
+    const sliderTrail = document.getElementById('sliderTrail');
 
     let currentRotation = 0;
     let isSpinning = false;
@@ -583,7 +602,7 @@ Here is the undeniable 3D Toy version:
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate Neon Lights (Embedded in the 3D casing)
+    // 1. Generate LED Lights
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
@@ -596,14 +615,14 @@ Here is the undeniable 3D Toy version:
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Capsule Style)
+    // 2. Generate Wheel Text Labels
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle}deg) translateY(-85px) rotate(90deg)`;
+      textEl.style.transform = `rotate(${angle}deg) translateY(-90px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
     });
@@ -625,7 +644,7 @@ Here is the undeniable 3D Toy version:
       screenWho.textContent = `PLAYER ${currentTurn}'S TURN`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "SLIDE TO SPIN";
-      screenText.style.color = "#FFD54F";
+      screenText.style.color = "#00f3ff";
     }
 
     // 4. Slider Drag Logic
@@ -654,23 +673,33 @@ Here is the undeniable 3D Toy version:
 
       if (isMobile) {
         let x = clientX - trackRect.left;
-        x = Math.max(37, Math.min(x, trackRect.width - 37)); 
+        x = Math.max(28, Math.min(x, trackRect.width - 28)); 
+        
+        // Update Handle
         sliderHandle.style.left = `${x}px`;
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
+        
+        // Update Trail (Horizontal)
+        sliderTrail.style.width = `${x}px`;
 
-        if (x > trackRect.width - 100) {
+        if (x > trackRect.width - 80) {
           endDrag();
           triggerSpin();
         }
       } else {
         let y = clientY - trackRect.top;
-        y = Math.max(37, Math.min(y, trackRect.height - 37));
+        y = Math.max(28, Math.min(y, trackRect.height - 28));
+        
+        // Update Handle
         sliderHandle.style.top = `${y}px`;
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        if (y > trackRect.height - 110) {
+        // Update Trail (Vertical)
+        sliderTrail.style.height = `${y}px`;
+
+        if (y > trackRect.height - 90) {
           endDrag();
           triggerSpin();
         }
@@ -693,13 +722,15 @@ Here is the undeniable 3D Toy version:
     function resetSlider() {
       const isMobile = window.innerWidth <= 600;
       if (isMobile) {
-        sliderHandle.style.left = '37px';
+        sliderHandle.style.left = '28px';
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
+        sliderTrail.style.width = '28px';
       } else {
-        sliderHandle.style.top = '37px';
+        sliderHandle.style.top = '28px';
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
+        sliderTrail.style.height = '28px';
       }
     }
 
@@ -727,14 +758,13 @@ Here is the undeniable 3D Toy version:
       
       wheelLights.classList.remove('blink');
       
-      // Reset center circle to text when spinning starts
       centerDisplay.classList.remove('emoji-mode');
       centerContent.innerHTML = "The Emoji<br>Spin";
       
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "WAIT FOR IT...";
-      screenText.style.color = "#42A5F5";
+      screenText.style.color = "#ff00ea"; // Magenta while spinning
 
       const randomDareIndex = getRandomDareIndex();
       
@@ -761,9 +791,8 @@ Here is the undeniable 3D Toy version:
         screenWho.style.color = getPlayerColor(currentTurn);
         
         screenText.textContent = dares[randomDareIndex].text;
-        screenText.style.color = "#FFD54F"; 
+        screenText.style.color = "#00f3ff"; 
 
-        // Show the big emoji in the center when it stops
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
 
@@ -778,11 +807,11 @@ Here is the undeniable 3D Toy version:
     }
 
     function getPlayerColor(playerNum) {
-      if (playerNum === 1) return "#42A5F5"; 
-      if (playerNum === 2) return "#EC407A"; 
-      if (playerNum === 3) return "#66BB6A"; 
-      if (playerNum === 4) return "#FF7043"; 
-      return "#42A5F5";
+      if (playerNum === 1) return "#00f3ff"; 
+      if (playerNum === 2) return "#ff00ea"; 
+      if (playerNum === 3) return "#39ff14"; 
+      if (playerNum === 4) return "#fcee0a"; 
+      return "#00f3ff";
     }
 
     updateTurnDisplay();
@@ -791,4 +820,3 @@ Here is the undeniable 3D Toy version:
 
 </body>
 </html>
-```
