@@ -1,3 +1,12 @@
+Here is the fully updated `spin.html`. 
+
+I have fixed the center circle so it keeps the "The Emoji Spin" logo during the spin. The emoji only pops up when it stops, keeping the gold background, and it now has a thick 3D dark outline. 
+
+I also completely redesigned the wheel text based on your image. It now uses a chunky, 3D block font style with a hard black shadow to look bold and highly readable.
+
+Replace your entire `spin.html` with this:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,7 +203,7 @@
       border-radius: 50%;
     }
 
-    /* Tapered Wheel Text */
+    /* Wheel Text Styled like the 3D reference image */
     .wheel-text {
       position: absolute;
       left: 50%;
@@ -203,9 +212,10 @@
       margin-left: -70px;
       height: 24px;
       margin-top: -12px;
-      color: white;
+      color: #FFFFFF;
+      font-family: 'Arial Black', Impact, sans-serif;
       font-weight: 900;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       display: flex;
@@ -214,12 +224,13 @@
       white-space: nowrap;
       pointer-events: none;
       
-      /* Thick dark outline and shadow for readability */
-      -webkit-text-stroke: 3px #111; 
-      paint-order: stroke fill;
-      text-shadow: 0 0 4px #111;
-
-      /* Perspective creates the tapering effect (big outer, small inner) */
+      /* 3D Extrusion Shadow effect */
+      text-shadow: 
+        1px 1px 0 #000, 
+        2px 2px 0 #000, 
+        3px 3px 0 #111,
+        -1px -1px 0 #000;
+        
       transform-origin: center center;
     }
 
@@ -254,15 +265,15 @@
     }
 
     /* State when an emoji is displayed in the center */
-    .wheel-center-text.emoji-mode {
-      background: #FFF;
-      border-color: #FFD54F;
-    }
     .wheel-center-text.emoji-mode span {
       font-family: inherit;
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       transform: none;
       line-height: 1;
+      /* Thick outline for the emoji */
+      -webkit-text-stroke: 2px #111;
+      paint-order: stroke fill;
+      text-shadow: 3px 3px 0 #111;
     }
 
     /* The Big Lit-up Pointer */
@@ -357,10 +368,10 @@
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.6rem; width: 120px; margin-left: -60px; }
+      .wheel-text { font-size: 0.55rem; width: 120px; margin-left: -60px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
-      .wheel-center-text.emoji-mode span { font-size: 2.8rem; }
+      .wheel-center-text.emoji-mode span { font-size: 3rem; }
       .wheel-pointer { width: 34px; height: 44px; top: -25px; }
       
       .slider-area { height: auto; flex-direction: column; gap: 10px; }
@@ -536,17 +547,15 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Tapered with 3D Perspective)
+    // 2. Generate Wheel Text Labels
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      
-      // The perspective and rotateX(30deg) creates the taper effect
-      // making the text larger at the outer rim and smaller near the center.
-      textEl.style.transform = `rotate(${angle}deg) translateY(-105px) rotate(90deg) perspective(300px) rotateX(35deg)`;
+      // Rotate outward and angle the text so it reads along the slice
+      textEl.style.transform = `rotate(${angle}deg) translateY(-105px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
     });
@@ -670,13 +679,13 @@
       
       wheelLights.classList.remove('blink');
       
-      // Reset center circle to text
+      // Reset center circle to text when spinning starts
       centerDisplay.classList.remove('emoji-mode');
-      centerContent.innerHTML = "WAIT...";
+      centerContent.innerHTML = "The Emoji<br>Spin";
       
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
       screenWho.style.color = getPlayerColor(currentTurn);
-      screenText.textContent = "SPINNING...";
+      screenText.textContent = "WAIT FOR IT...";
       screenText.style.color = "#42A5F5";
 
       const randomDareIndex = getRandomDareIndex();
@@ -706,7 +715,7 @@
         screenText.textContent = dares[randomDareIndex].text;
         screenText.style.color = "#FFD54F"; 
 
-        // Show the big emoji in the center
+        // Show the big emoji in the center when it stops
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
 
@@ -734,3 +743,4 @@
 
 </body>
 </html>
+```
