@@ -1,15 +1,3 @@
-Here is the fully corrected `spin.html`. 
-
-I have fixed everything you mentioned:
-1. **Arrow Matching:** The math is now flawless. The arrow will *always* land exactly on the slice that matches the screen.
-2. **Wheel Text:** The text is now written **sideways** (radially) in a smaller font so it fits perfectly inside the slices and looks clean.
-3. **Slider Length:** The vertical slider is now much longer, so players have to physically drag it further to trigger the spin.
-4. **Removed the Intro Text:** The code now starts directly with `<!DOCTYPE html>`.
-5. **Slider Label:** The "Slide to Spin" text is now positioned on the right side of the slider track. 
-
-Replace your entire `spin.html` with this:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +111,7 @@ Replace your entire `spin.html` with this:
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
+      gap: 35px; /* Increased gap to keep slider away from lights */
       margin: 0 auto 20px;
     }
 
@@ -175,6 +163,7 @@ Replace your entire `spin.html` with this:
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
+      /* 16 slices -> 360/16 = 22.5 degrees per slice */
       background: conic-gradient(
         #EF5350 0deg 22.5deg, 
         #42A5F5 22.5deg 45deg, 
@@ -212,18 +201,23 @@ Replace your entire `spin.html` with this:
     /* Sideways Wheel Text */
     .wheel-text {
       position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 120px;
+      height: 20px;
+      margin-left: -60px;
+      margin-top: -10px;
       color: white;
       font-weight: 900;
-      font-size: 0.55rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       text-shadow: 0 1px 3px black;
-      letter-spacing: 0.5px;
-      width: 70px;
-      text-align: right;
-      padding-right: 5px;
-      left: 50%;
-      margin-left: -35px;
-      transform-origin: center 146px; 
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      /* Origin will be handled in JS */
     }
 
     /* The Center Branding */
@@ -279,18 +273,18 @@ Replace your entire `spin.html` with this:
     }
 
     /* ============================================================
-       THE SLIDE TO SPIN TRACK (Desktop View)
+       THE SLIDE TO SPIN TRACK
        ============================================================ */
     .slider-area {
       display: flex;
       align-items: center;
-      height: 360px; /* Longer slider */
+      height: 360px;
       position: relative;
       gap: 10px;
     }
     .slider-track {
       width: 40px;
-      height: 300px; /* Even longer track */
+      height: 300px; /* Longer track */
       background: #222;
       border-radius: 20px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 0 4px #B71C1C;
@@ -343,9 +337,9 @@ Replace your entire `spin.html` with this:
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
-      .wheel-area { flex-direction: column; gap: 20px; }
+      .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.5rem; width: 60px; margin-left: -30px; transform-origin: center 134px; }
+      .wheel-text { font-size: 0.55rem; width: 100px; margin-left: -50px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
       .wheel-pointer { width: 34px; height: 44px; top: -25px; }
@@ -519,14 +513,18 @@ Replace your entire `spin.html` with this:
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Sideways)
+    // 2. Generate Wheel Text Labels (Sideways and perfectly centered)
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
-      // Position text in the middle of the slice, rotated 90deg to point outwards
+      
+      // Calculate angle for the center of this slice
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle + 90}deg) translateY(10px)`;
+      
+      // Rotate the text container, push it to the edge, then rotate text 90deg to make it sideways
+      textEl.style.transform = `rotate(${angle}deg) translateY(-115px) rotate(90deg)`;
+      
       wheel.appendChild(textEl);
     });
 
@@ -581,8 +579,8 @@ Replace your entire `spin.html` with this:
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
 
-        // Longer distance required on mobile (width - 70)
-        if (x > trackRect.width - 70) {
+        // Require a long drag on mobile
+        if (x > trackRect.width - 80) {
           endDrag();
           triggerSpin();
         }
@@ -593,8 +591,8 @@ Replace your entire `spin.html` with this:
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        // Longer distance required on desktop (height - 80)
-        if (y > trackRect.height - 80) {
+        // Require a long drag on desktop
+        if (y > trackRect.height - 90) {
           endDrag();
           triggerSpin();
         }
@@ -644,11 +642,14 @@ Replace your entire `spin.html` with this:
 
       const randomDareIndex = Math.floor(Math.random() * dares.length);
       
-      const sectorAngle = 22.5; 
-      const extraSpins = 360 * 6; 
-      
-      // MATHEMATICAL FIX: Lands exactly in the middle of the slice
-      const targetAngle = extraSpins + (360 - (randomDareIndex * sectorAngle)) - 11.25;
+      // FLAWLESS MATH: Calculate the exact angle to put the center of the chosen slice at the top (0deg)
+      const sliceAngle = 22.5;
+      // Center of slice is (index * 22.5) + 11.25.
+      // We want this to land at 0 (or 360).
+      // So rotation required is 360 - ((index * 22.5) + 11.25).
+      // We add 8 full spins (360 * 8) for the animation.
+      const extraSpins = 360 * 8; 
+      const targetAngle = extraSpins + (360 - ((randomDareIndex * sliceAngle) + (sliceAngle / 2)));
       
       currentRotation += targetAngle;
       wheel.style.transform = `rotate(${currentRotation}deg)`;
@@ -688,4 +689,3 @@ Replace your entire `spin.html` with this:
 
 </body>
 </html>
-```
