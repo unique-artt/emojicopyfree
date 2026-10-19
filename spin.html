@@ -11,8 +11,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎡</text></svg>">
   <link rel="stylesheet" href="style.css">
   
-  <!-- Google Font for the branding -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <!-- Google Font for the branding and casino text -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
   <style>
     .spin-page {
@@ -22,7 +22,7 @@
       text-align: center;
     }
 
-    /* Player Selector (3D Toy Buttons) */
+    /* Player Selector (Casino Chips) */
     .player-selector-wrap {
       margin-bottom: 25px;
       text-align: center;
@@ -34,14 +34,15 @@
       margin-bottom: 10px;
       display: block;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .player-toggle {
       display: inline-flex;
-      background: #FFF;
+      background: #1a1a1a;
       border-radius: 30px;
-      padding: 6px;
-      border: 4px solid #111;
-      box-shadow: 4px 4px 0 #111;
+      padding: 5px;
+      border: 2px solid #d4af37; /* Gold */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .player-option {
       background: none;
@@ -50,62 +51,52 @@
       border-radius: 24px;
       font-size: 0.85rem;
       font-weight: 800;
-      color: #555;
+      color: #ccc;
       cursor: pointer;
       transition: all 0.2s;
       font-family: inherit;
     }
     .player-option.active {
-      background: #FFD54F;
+      background: #d4af37;
       color: #111;
-      box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
     }
 
-    /* The digital screen (Retro Console Look) */
+    /* The digital screen (Casino Marquee) */
     .digital-screen {
-      background: #222;
-      border: 6px solid #111;
-      border-radius: 12px;
+      background: #111;
+      border: 4px solid #d4af37;
+      border-radius: 8px;
       padding: 15px;
       margin: 0 auto 35px;
       max-width: 480px;
       box-shadow: 
-        6px 6px 0 #111, 
-        inset 0 0 20px rgba(0,0,0,1);
+        inset 0 0 15px rgba(212, 175, 55, 0.3),
+        0 5px 15px rgba(0,0,0,0.5);
       position: relative;
       min-height: 110px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    /* Inner screen area */
-    .digital-screen::before {
-      content: "";
-      position: absolute;
-      top: 10px; left: 10px; right: 10px; bottom: 10px;
-      background: #a4c639; /* Classic Gameboy green */
-      border-radius: 6px;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
-      z-index: 0;
-    }
     .screen-who {
-      position: relative;
-      z-index: 1;
-      color: #1a331a;
+      color: #ffd700;
       font-family: 'Courier New', Courier, monospace;
       font-size: 1rem;
       font-weight: 900;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 5px #ffd700;
+      letter-spacing: 1px;
     }
     .screen-text {
-      position: relative;
-      z-index: 1;
-      color: #1a331a;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 1rem;
-      font-weight: 900;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      font-weight: 700;
       letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
       margin: 0;
       line-height: 1.4;
       transition: opacity 0.3s;
@@ -121,28 +112,27 @@
     }
 
     /* ============================================================
-       THE 3D NINTENDO TOY CASING
+       THE VEGAS CASINO WHEEL
        ============================================================ */
     .wheel-container {
       position: relative;
       width: 350px;
       height: 350px;
       border-radius: 50%;
-      /* Nintendo Switch Red */
-      background: #E60012;
-      border: 8px solid #111;
+      /* Dark Mahogany / Velvet Red Casing */
+      background: radial-gradient(circle at center, #4a0005 0%, #1a0002 100%);
+      border: 8px solid #d4af37; /* Gold Rim */
       box-shadow: 
-        0 12px 0 #111, /* Hard bottom shadow for 3D depth */
-        0 15px 25px rgba(0,0,0,0.2),
-        inset 0 -8px 0 rgba(0,0,0,0.2),
-        inset 0 10px 15px rgba(255,255,255,0.3); 
+        0 15px 30px rgba(0,0,0,0.6),
+        inset 0 0 0 4px #111,
+        inset 0 0 30px rgba(0,0,0,0.9);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Chunky Toy Lights */
+    /* Classic Incandescent Bulbs */
     .wheel-lights {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -152,25 +142,26 @@
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 18px;
-      height: 18px;
-      background: #FFF;
-      border: 3px solid #111;
+      width: 16px;
+      height: 16px;
+      /* Bulb effect */
+      background: radial-gradient(circle at 30% 30%, #fff, #ffeb3b 50%, #f57f17 100%);
+      border: 2px solid #333;
       border-radius: 50%;
-      box-shadow: inset 0 2px 3px rgba(0,0,0,0.3);
+      box-shadow: 0 0 15px #ffeb3b, 0 0 5px #fff;
       transform: translate(-50%, -50%);
       transition: all 0.2s;
     }
     /* Flash when stopped */
     .wheel-lights.blink .dot {
-      animation: dotBlinkFast 0.2s ease-in-out infinite alternate;
+      animation: bulbBlink 0.3s ease-in-out infinite alternate;
     }
-    @keyframes dotBlinkFast {
-      0% { background: #FFD54F; box-shadow: 0 0 15px #FFD54F; }
-      100% { background: #00E5FF; box-shadow: 0 0 15px #00E5FF; }
+    @keyframes bulbBlink {
+      0% { background: radial-gradient(circle at 30% 30%, #fff, #ffeb3b 50%, #f57f17 100%); box-shadow: 0 0 25px #ffeb3b, 0 0 10px #fff; }
+      100% { background: #555; box-shadow: none; border-color: #111; }
     }
 
-    /* The actual spinning wheel */
+    /* The spinning wheel (Jewel Tones & Gold) */
     .wheel {
       width: 260px;
       height: 260px;
@@ -178,25 +169,25 @@
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
       background: conic-gradient(
-        #EF5350 0deg 22.5deg, 
-        #42A5F5 22.5deg 45deg, 
-        #66BB6A 45deg 67.5deg, 
-        #FFCA28 67.5deg 90deg, 
-        #AB47BC 90deg 112.5deg, 
-        #FF7043 112.5deg 135deg, 
-        #26C6DA 135deg 157.5deg, 
-        #EC407A 157.5deg 180deg,
-        #EF5350 180deg 202.5deg, 
-        #42A5F5 202.5deg 225deg, 
-        #66BB6A 225deg 247.5deg, 
-        #FFCA28 247.5deg 270deg, 
-        #AB47BC 270deg 292.5deg, 
-        #FF7043 292.5deg 315deg, 
-        #26C6DA 315deg 337.5deg, 
-        #EC407A 337.5deg 360deg
+        #900C3F 0deg 22.5deg,   /* Ruby */
+        #FBC02D 22.5deg 45deg,  /* Gold */
+        #1B5E20 45deg 67.5deg,  /* Emerald */
+        #FBC02D 67.5deg 90deg,  /* Gold */
+        #0D47A1 90deg 112.5deg, /* Sapphire */
+        #FBC02D 112.5deg 135deg,/* Gold */
+        #4A148C 135deg 157.5deg,/* Amethyst */
+        #FBC02D 157.5deg 180deg,/* Gold */
+        #900C3F 180deg 202.5deg, 
+        #FBC02D 202.5deg 225deg, 
+        #1B5E20 225deg 247.5deg, 
+        #FBC02D 247.5deg 270deg, 
+        #0D47A1 270deg 292.5deg, 
+        #FBC02D 292.5deg 315deg, 
+        #4A148C 315deg 337.5deg, 
+        #FBC02D 337.5deg 360deg
       );
-      border: 4px solid #111;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+      border: 3px solid #111;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
     }
 
     /* The dividers */
@@ -206,7 +197,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-conic-gradient(
         transparent 0deg 21.5deg,
-        rgba(0,0,0,0.6) 21.5deg 22.5deg
+        rgba(0,0,0,0.8) 21.5deg 22.5deg
       );
       border-radius: 50%;
     }
@@ -220,12 +211,12 @@
       margin-left: -47.5px;
       height: 22px;
       margin-top: -11px;
-      color: #FFF;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #ffd700;
+      font-family: 'Courier New', Courier, monospace;
       font-weight: 900;
       font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -233,27 +224,27 @@
       pointer-events: none;
       
       background: #111;
-      border: 2px solid #FFF;
+      border: 1px solid #d4af37;
       border-radius: 20px;
-      box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.8);
       
       transform-origin: center center;
     }
 
-    /* Center Button (Plastic Toy Button) */
+    /* Center Button (Gold Coin) */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 110px;
       height: 110px;
-      background: #FFD54F;
-      border: 6px solid #111;
+      background: radial-gradient(circle at 30% 30%, #fff4b3, #d4af37 60%, #aa7c11 100%);
+      border: 4px solid #111;
       border-radius: 50%;
       box-shadow: 
-        0 6px 0 #111, 
-        inset 0 -4px 8px rgba(0,0,0,0.3),
-        inset 0 4px 8px rgba(255,255,255,0.6);
+        0 6px 12px rgba(0,0,0,0.6),
+        inset 0 -4px 8px rgba(0,0,0,0.4),
+        inset 0 4px 8px rgba(255,255,255,0.8);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -269,7 +260,6 @@
       font-size: 1.2rem;
       line-height: 1.1;
       text-transform: uppercase;
-      transform: rotate(-10deg);
       transition: all 0.3s ease;
     }
 
@@ -287,16 +277,16 @@
     /* The Big Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -22px;
+      top: -24px;
       left: 50%;
       transform: translateX(-50%);
       width: 50px;
       height: 60px;
-      background: #FFD54F;
-      border: 5px solid #111;
+      background: linear-gradient(180deg, #fff4b3 0%, #d4af37 50%, #aa7c11 100%);
+      border: 3px solid #111;
       clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 30;
-      filter: drop-shadow(0 6px 0 #111);
+      filter: drop-shadow(0 6px 4px rgba(0,0,0,0.5));
     }
     .wheel-pointer::after {
       content: "";
@@ -304,13 +294,13 @@
       top: 8px; left: 50%;
       transform: translateX(-50%);
       width: 14px; height: 14px;
-      background: #E60012;
+      background: #900C3F;
       border-radius: 50%;
       border: 2px solid #111;
     }
 
     /* ============================================================
-       THE 3D TOY SLIDER (Joy-Con Style)
+       THE CASINO SLIDER (Chrome & Gold Lever)
        ============================================================ */
     .slider-area {
       display: flex;
@@ -320,22 +310,23 @@
       gap: 12px;
     }
     .slider-track {
-      width: 54px;
+      width: 50px;
       height: 320px;
-      background: #333;
-      border-radius: 27px;
-      border: 5px solid #111;
+      /* Chrome track */
+      background: linear-gradient(90deg, #666, #eee, #666);
+      border-radius: 25px;
+      border: 3px solid #111;
       box-shadow: 
-        0 10px 0 #111, 
-        inset 0 8px 15px rgba(0,0,0,0.9);
+        0 8px 0 #111, 
+        inset 0 10px 15px rgba(0,0,0,0.8);
       position: relative;
     }
     .slider-handle {
       width: 74px;
       height: 74px;
-      /* Joy-Con Blue */
-      background: #00C3E3;
-      border: 5px solid #111;
+      /* Polished Gold Knob */
+      background: radial-gradient(circle at 30% 30%, #fff4b3, #d4af37 60%, #aa7c11 100%);
+      border: 4px solid #111;
       border-radius: 50%;
       position: absolute;
       left: 50%;
@@ -344,8 +335,8 @@
       cursor: grab;
       box-shadow: 
         0 8px 0 #111, 
-        inset 0 -4px 6px rgba(0,0,0,0.3),
-        inset 0 4px 6px rgba(255,255,255,0.6);
+        inset 0 -4px 6px rgba(0,0,0,0.4),
+        inset 0 4px 6px rgba(255,255,255,0.8);
       z-index: 5;
       touch-action: none;
       transition: transform 0.1s, box-shadow 0.1s;
@@ -355,25 +346,26 @@
       transform: translateX(-50%) translateY(8px); 
       box-shadow: 
         0 0px 0 #111, 
-        inset 0 -2px 4px rgba(0,0,0,0.3),
-        inset 0 4px 6px rgba(255,255,255,0.6);
+        inset 0 -2px 4px rgba(0,0,0,0.4),
+        inset 0 4px 6px rgba(255,255,255,0.8);
     }
-    /* Inner design on handle */
+    /* Red gem in the center of the knob */
     .slider-handle::after {
       content: "";
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 30px; height: 30px;
-      background: #FFF;
-      border: 4px solid #111;
+      width: 28px; height: 28px;
+      background: radial-gradient(circle at 30% 30%, #ff8a80, #900C3F 80%);
+      border: 3px solid #111;
       border-radius: 50%;
-      box-shadow: inset 0 3px 5px rgba(0,0,0,0.3);
+      box-shadow: inset 0 3px 5px rgba(255,255,255,0.4);
     }
 
     .slider-label {
-      font-family: 'Fredoka One', cursive;
-      color: #111;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: #075E54;
       font-size: 1.1rem;
       text-transform: uppercase;
       writing-mode: vertical-rl;
@@ -384,7 +376,7 @@
     .motivation-text {
       font-size: 1.2rem;
       font-weight: 800;
-      color: #B71C1C;
+      color: #900C3F;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-top: 15px;
@@ -396,14 +388,14 @@
       .wheel-area { flex-direction: column; gap: 35px; }
       .wheel-container { width: 330px; height: 330px; border-width: 6px; }
       .wheel { width: 240px; height: 240px; border-width: 3px; }
-      .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; border-width: 1.5px;}
-      .wheel-center-text { width: 95px; height: 95px; border-width: 5px; box-shadow: 0 5px 0 #111; }
+      .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; border-width: 1px;}
+      .wheel-center-text { width: 95px; height: 95px; border-width: 4px; box-shadow: 0 5px 10px rgba(0,0,0,0.6); }
       .wheel-center-text span { font-size: 1rem; }
       .wheel-center-text.emoji-mode span { font-size: 2.8rem; -webkit-text-stroke: 3px #FFF; }
       .wheel-pointer { width: 44px; height: 52px; top: -18px; }
       
       .slider-area { height: auto; flex-direction: column; gap: 15px; }
-      .slider-track { height: 80px; width: 300px; box-shadow: 0 8px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.9); }
+      .slider-track { height: 80px; width: 300px; box-shadow: 0 8px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.8); }
       .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 66px; height: 66px; box-shadow: 0 6px 0 #111; }
       .slider-handle:active { transform: translateY(-50%) translateX(6px); box-shadow: 0 0px 0 #111; }
       .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 5px; }
@@ -485,7 +477,7 @@
       <h2>How to Play</h2>
       <ol class="game-steps">
         <li><strong>Select Players:</strong> Choose 2, 3, or 4 players using the slider above the wheel.</li>
-        <li><strong>Slide to Spin:</strong> Drag the blue handle on the side of the wheel all the way down (or across on mobile).</li>
+        <li><strong>Slide to Spin:</strong> Drag the golden handle on the side of the wheel all the way down (or across on mobile).</li>
         <li><strong>Wait for the stop:</strong> The wheel will spin and slow down.</li>
         <li><strong>Read the screen:</strong> Look at the digital display above the wheel to see WHO has to do WHAT.</li>
         <li><strong>Do the dare:</strong> Whatever the screen says, you have to do it!</li>
@@ -600,7 +592,7 @@
       screenWho.textContent = `PLAYER ${currentTurn}'S TURN`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "SLIDE TO SPIN";
-      screenText.style.color = "#1a331a"; // Dark green for Gameboy screen
+      screenText.style.color = "#fff";
     }
 
     // 4. Slider Logic
@@ -703,6 +695,7 @@
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "WAIT FOR IT...";
+      screenText.style.color = "#ffd700";
 
       const randomDareIndex = getRandomDareIndex();
       
@@ -725,6 +718,7 @@
         screenWho.textContent = `PLAYER ${currentTurn} MUST DO:`;
         screenWho.style.color = getPlayerColor(currentTurn);
         screenText.textContent = dares[randomDareIndex].text;
+        screenText.style.color = "#fff"; 
 
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
@@ -736,11 +730,11 @@
     }
 
     function getPlayerColor(playerNum) {
-      if (playerNum === 1) return "#1a331a"; 
-      if (playerNum === 2) return "#1a331a"; 
-      if (playerNum === 3) return "#1a331a"; 
-      if (playerNum === 4) return "#1a331a"; 
-      return "#1a331a";
+      if (playerNum === 1) return "#42A5F5"; 
+      if (playerNum === 2) return "#EC407A"; 
+      if (playerNum === 3) return "#66BB6A"; 
+      if (playerNum === 4) return "#FFCA28"; 
+      return "#42A5F5";
     }
 
     updateTurnDisplay();
