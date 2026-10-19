@@ -15,12 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
   <style>
-    /* Force Dark Mode for this specific page */
-    body {
-      background-color: #050505 !important;
-      background-image: none !important;
-    }
-
     .spin-page {
       max-width: 650px;
       margin: 0 auto;
@@ -28,27 +22,26 @@
       text-align: center;
     }
 
-    /* Player Selector */
+    /* Player Selector (3D Toy Buttons) */
     .player-selector-wrap {
       margin-bottom: 25px;
       text-align: center;
     }
     .player-selector-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #00f3ff;
+      color: #075E54;
       margin-bottom: 10px;
       display: block;
       text-transform: uppercase;
-      text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
     }
     .player-toggle {
       display: inline-flex;
-      background: #111;
+      background: #FFF;
       border-radius: 30px;
-      padding: 5px;
-      border: 2px solid #333;
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+      padding: 6px;
+      border: 4px solid #111;
+      box-shadow: 4px 4px 0 #111;
     }
     .player-option {
       background: none;
@@ -57,57 +50,62 @@
       border-radius: 24px;
       font-size: 0.85rem;
       font-weight: 800;
-      color: #888;
+      color: #555;
       cursor: pointer;
       transition: all 0.2s;
       font-family: inherit;
     }
     .player-option.active {
-      background: #ff00ea;
-      color: #fff;
-      box-shadow: 0 0 15px #ff00ea;
+      background: #FFD54F;
+      color: #111;
+      box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
     }
 
-    /* The digital screen (Synthwave CRT) */
+    /* The digital screen (Retro Console Look) */
     .digital-screen {
-      background: #0a0a0a;
-      border: 3px solid #00f3ff;
-      border-radius: 10px;
+      background: #222;
+      border: 6px solid #111;
+      border-radius: 12px;
       padding: 15px;
-      margin: 0 auto 30px;
+      margin: 0 auto 35px;
       max-width: 480px;
-      box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1), 0 0 20px rgba(0, 243, 255, 0.4);
+      box-shadow: 
+        6px 6px 0 #111, 
+        inset 0 0 20px rgba(0,0,0,1);
       position: relative;
-      min-height: 100px;
+      min-height: 110px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      overflow: hidden;
     }
+    /* Inner screen area */
     .digital-screen::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0, 243, 255, 0.05) 50%);
-      background-size: 100% 4px;
-      pointer-events: none;
+      top: 10px; left: 10px; right: 10px; bottom: 10px;
+      background: #a4c639; /* Classic Gameboy green */
+      border-radius: 6px;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+      z-index: 0;
     }
     .screen-who {
-      color: #ff00ea;
+      position: relative;
+      z-index: 1;
+      color: #1a331a;
       font-family: 'Courier New', Courier, monospace;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: 900;
       text-transform: uppercase;
-      margin-bottom: 8px;
-      text-shadow: 0 0 8px #ff00ea;
+      margin-bottom: 6px;
     }
     .screen-text {
-      color: #00f3ff;
+      position: relative;
+      z-index: 1;
+      color: #1a331a;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 1.1rem;
-      font-weight: bold;
+      font-size: 1rem;
+      font-weight: 900;
       letter-spacing: 1px;
-      text-shadow: 0 0 8px #00f3ff;
       margin: 0;
       line-height: 1.4;
       transition: opacity 0.3s;
@@ -118,28 +116,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 35px;
+      gap: 40px;
       margin: 0 auto 20px;
     }
 
-    /* The Wheel Container (Dark Metallic Casing) */
+    /* ============================================================
+       THE 3D NINTENDO TOY CASING
+       ============================================================ */
     .wheel-container {
       position: relative;
-      width: 340px;
-      height: 340px;
+      width: 350px;
+      height: 350px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-      border: 4px solid #333;
+      /* Nintendo Switch Red */
+      background: #E60012;
+      border: 8px solid #111;
       box-shadow: 
-        0 0 30px rgba(0, 243, 255, 0.3),
-        inset 0 0 20px rgba(0, 0, 0, 0.8);
+        0 12px 0 #111, /* Hard bottom shadow for 3D depth */
+        0 15px 25px rgba(0,0,0,0.2),
+        inset 0 -8px 0 rgba(0,0,0,0.2),
+        inset 0 10px 15px rgba(255,255,255,0.3); 
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Neon LED Lights */
+    /* Chunky Toy Lights */
     .wheel-lights {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -149,62 +152,51 @@
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #00f3ff;
+      width: 18px;
+      height: 18px;
+      background: #FFF;
+      border: 3px solid #111;
       border-radius: 50%;
-      box-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+      box-shadow: inset 0 2px 3px rgba(0,0,0,0.3);
       transform: translate(-50%, -50%);
-      animation: neonPulse 1.5s infinite alternate;
+      transition: all 0.2s;
     }
-    /* Stagger the pulses so it looks like a synthwave beat */
-    .wheel-lights .dot:nth-child(even) {
-      animation-delay: 0.75s;
-      background: #ff00ea;
-      box-shadow: 0 0 10px #ff00ea, 0 0 20px #ff00ea;
-    }
-
-    @keyframes neonPulse {
-      0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
-      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    /* Blink all fast when stopped */
+    /* Flash when stopped */
     .wheel-lights.blink .dot {
-      animation: dotBlinkFast 0.2s ease-in-out infinite alternate !important;
+      animation: dotBlinkFast 0.2s ease-in-out infinite alternate;
     }
     @keyframes dotBlinkFast {
-      0% { background: #00f3ff; box-shadow: 0 0 20px #00f3ff, 0 0 40px #00f3ff; }
-      100% { background: #ff00ea; box-shadow: 0 0 20px #ff00ea, 0 0 40px #ff00ea; }
+      0% { background: #FFD54F; box-shadow: 0 0 15px #FFD54F; }
+      100% { background: #00E5FF; box-shadow: 0 0 15px #00E5FF; }
     }
 
-    /* The actual spinning wheel (Neon Slices) */
+    /* The actual spinning wheel */
     .wheel {
-      width: 270px;
-      height: 270px;
+      width: 260px;
+      height: 260px;
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
       background: conic-gradient(
-        #00f3ff 0deg 22.5deg,   /* Cyan */
-        #ff00ea 22.5deg 45deg,  /* Magenta */
-        #39ff14 45deg 67.5deg,  /* Toxic Green */
-        #fcee0a 67.5deg 90deg,  /* Electric Yellow */
-        #b026ff 90deg 112.5deg, /* Purple */
-        #ff6600 112.5deg 135deg,/* Neon Orange */
-        #ff007f 135deg 157.5deg,/* Hot Pink */
-        #0033ff 157.5deg 180deg,/* Electric Blue */
-        #00f3ff 180deg 202.5deg, 
-        #ff00ea 202.5deg 225deg, 
-        #39ff14 225deg 247.5deg, 
-        #fcee0a 247.5deg 270deg, 
-        #b026ff 270deg 292.5deg, 
-        #ff6600 292.5deg 315deg, 
-        #ff007f 315deg 337.5deg, 
-        #0033ff 337.5deg 360deg
+        #EF5350 0deg 22.5deg, 
+        #42A5F5 22.5deg 45deg, 
+        #66BB6A 45deg 67.5deg, 
+        #FFCA28 67.5deg 90deg, 
+        #AB47BC 90deg 112.5deg, 
+        #FF7043 112.5deg 135deg, 
+        #26C6DA 135deg 157.5deg, 
+        #EC407A 157.5deg 180deg,
+        #EF5350 180deg 202.5deg, 
+        #42A5F5 202.5deg 225deg, 
+        #66BB6A 225deg 247.5deg, 
+        #FFCA28 247.5deg 270deg, 
+        #AB47BC 270deg 292.5deg, 
+        #FF7043 292.5deg 315deg, 
+        #26C6DA 315deg 337.5deg, 
+        #EC407A 337.5deg 360deg
       );
-      border: 2px solid #111;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+      border: 4px solid #111;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
     }
 
     /* The dividers */
@@ -214,22 +206,22 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-conic-gradient(
         transparent 0deg 21.5deg,
-        rgba(0,0,0,0.8) 21.5deg 22.5deg
+        rgba(0,0,0,0.6) 21.5deg 22.5deg
       );
       border-radius: 50%;
     }
 
-    /* Capsule Text Styling */
+    /* Capsule Text */
     .wheel-text {
       position: absolute;
       left: 50%;
       top: 50%;
       width: 95px; 
       margin-left: -47.5px;
-      height: 20px;
-      margin-top: -10px;
+      height: 22px;
+      margin-top: -11px;
       color: #FFF;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-weight: 900;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -240,27 +232,28 @@
       white-space: nowrap;
       pointer-events: none;
       
-      /* Dark Glass Capsule */
-      background: rgba(10, 10, 10, 0.8);
-      border: 1px solid #00f3ff;
+      background: #111;
+      border: 2px solid #FFF;
       border-radius: 20px;
-      box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
-      text-shadow: 0 0 5px #FFF;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
       
       transform-origin: center center;
     }
 
-    /* The Center Branding / Emoji Display */
+    /* Center Button (Plastic Toy Button) */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 110px;
       height: 110px;
-      background: #0a0a0a;
-      border: 3px solid #ff00ea;
+      background: #FFD54F;
+      border: 6px solid #111;
       border-radius: 50%;
-      box-shadow: 0 0 20px rgba(255, 0, 234, 0.6), inset 0 0 15px rgba(255, 0, 234, 0.4);
+      box-shadow: 
+        0 6px 0 #111, 
+        inset 0 -4px 8px rgba(0,0,0,0.3),
+        inset 0 4px 8px rgba(255,255,255,0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -272,175 +265,147 @@
     
     .wheel-center-text span {
       font-family: 'Fredoka One', cursive;
-      color: #00f3ff;
-      font-size: 1.1rem;
+      color: #111;
+      font-size: 1.2rem;
       line-height: 1.1;
       text-transform: uppercase;
-      text-shadow: 0 0 10px #00f3ff;
+      transform: rotate(-10deg);
       transition: all 0.3s ease;
     }
 
-    /* State when an emoji is displayed in the center */
-    .wheel-center-text.emoji-mode {
-      border-color: #00f3ff;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.8), inset 0 0 20px rgba(0, 243, 255, 0.4);
-    }
+    /* State when an emoji is displayed */
     .wheel-center-text.emoji-mode span {
       font-family: inherit;
       font-size: 3.5rem;
       transform: none; 
       line-height: 1;
-      /* Neon Glow on Emoji */
-      filter: drop-shadow(0 0 15px #00f3ff) drop-shadow(0 0 5px #fff); 
+      -webkit-text-stroke: 4px #FFFFFF;
+      paint-order: stroke fill;
+      filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.5)); 
     }
 
-    /* The Big Lit-up Pointer */
+    /* The Big Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -20px;
+      top: -22px;
       left: 50%;
       transform: translateX(-50%);
-      width: 40px;
-      height: 50px;
-      background: #ff00ea;
+      width: 50px;
+      height: 60px;
+      background: #FFD54F;
+      border: 5px solid #111;
       clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 30;
-      filter: drop-shadow(0 0 10px #ff00ea);
+      filter: drop-shadow(0 6px 0 #111);
     }
     .wheel-pointer::after {
       content: "";
       position: absolute;
       top: 8px; left: 50%;
       transform: translateX(-50%);
-      width: 10px; height: 10px;
-      background: #FFF;
+      width: 14px; height: 14px;
+      background: #E60012;
       border-radius: 50%;
-      box-shadow: 0 0 15px #FFF, 0 0 30px #00f3ff;
+      border: 2px solid #111;
     }
 
     /* ============================================================
-       THE NEON TRAIL SLIDER
+       THE 3D TOY SLIDER (Joy-Con Style)
        ============================================================ */
     .slider-area {
       display: flex;
       align-items: center;
-      height: 360px;
+      height: 380px;
       position: relative;
-      gap: 10px;
+      gap: 12px;
     }
     .slider-track {
-      width: 40px;
-      height: 300px;
-      background: #111;
-      border-radius: 20px;
-      border: 2px solid #333;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 243, 255, 0.2);
+      width: 54px;
+      height: 320px;
+      background: #333;
+      border-radius: 27px;
+      border: 5px solid #111;
+      box-shadow: 
+        0 10px 0 #111, 
+        inset 0 8px 15px rgba(0,0,0,0.9);
       position: relative;
-      overflow: hidden; /* Keeps the trail inside */
     }
-    
-    /* The glowing trail behind the handle */
-    .slider-trail {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 0px;
-      background: linear-gradient(180deg, #00f3ff 0%, #ff00ea 100%);
-      box-shadow: 0 0 15px #ff00ea;
-      transition: height 0.05s linear;
-      pointer-events: none;
-    }
-
     .slider-handle {
-      width: 56px;
-      height: 56px;
-      background: #0a0a0a;
-      border: 3px solid #00f3ff;
+      width: 74px;
+      height: 74px;
+      /* Joy-Con Blue */
+      background: #00C3E3;
+      border: 5px solid #111;
       border-radius: 50%;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       top: 5px;
       cursor: grab;
-      box-shadow: 0 0 15px #00f3ff, inset 0 0 10px #00f3ff;
+      box-shadow: 
+        0 8px 0 #111, 
+        inset 0 -4px 6px rgba(0,0,0,0.3),
+        inset 0 4px 6px rgba(255,255,255,0.6);
       z-index: 5;
       touch-action: none;
-      transition: box-shadow 0.2s;
+      transition: transform 0.1s, box-shadow 0.1s;
     }
     .slider-handle:active {
       cursor: grabbing;
-      box-shadow: 0 0 25px #ff00ea, inset 0 0 15px #ff00ea;
-      border-color: #ff00ea;
+      transform: translateX(-50%) translateY(8px); 
+      box-shadow: 
+        0 0px 0 #111, 
+        inset 0 -2px 4px rgba(0,0,0,0.3),
+        inset 0 4px 6px rgba(255,255,255,0.6);
     }
     /* Inner design on handle */
     .slider-handle::after {
-      content: "↕";
-      color: #00f3ff;
-      font-weight: bold;
-      font-size: 1.2rem;
+      content: "";
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
+      width: 30px; height: 30px;
+      background: #FFF;
+      border: 4px solid #111;
+      border-radius: 50%;
+      box-shadow: inset 0 3px 5px rgba(0,0,0,0.3);
     }
 
     .slider-label {
       font-family: 'Fredoka One', cursive;
-      color: #ff00ea;
-      font-size: 1rem;
+      color: #111;
+      font-size: 1.1rem;
       text-transform: uppercase;
       writing-mode: vertical-rl;
       text-orientation: mixed;
       letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(255, 0, 234, 0.5);
-    }
-
-    /* Typography for the bottom text */
-    .game-about h2 {
-      color: #00f3ff;
-      text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
-    }
-    .game-about h3 {
-      color: #ff00ea;
-    }
-    .game-about p, .game-about li {
-      color: #ccc;
     }
 
     .motivation-text {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      color: #ff00ea;
+      color: #B71C1C;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-top: 10px;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px rgba(255, 0, 234, 0.6);
-      animation: pulseText 2s infinite;
-    }
-    @keyframes pulseText {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
+      margin-top: 15px;
+      margin-bottom: 40px;
     }
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
-      .wheel-area { flex-direction: column; gap: 25px; }
-      .wheel-container { width: 310px; height: 310px; }
-      .wheel { width: 250px; height: 250px; }
-      .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; }
-      .wheel-center-text { width: 90px; height: 90px; }
-      .wheel-center-text span { font-size: 0.9rem; }
-      .wheel-center-text.emoji-mode span { font-size: 2.8rem; }
-      .wheel-pointer { width: 34px; height: 44px; top: -18px; }
+      .wheel-area { flex-direction: column; gap: 35px; }
+      .wheel-container { width: 330px; height: 330px; border-width: 6px; }
+      .wheel { width: 240px; height: 240px; border-width: 3px; }
+      .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; border-width: 1.5px;}
+      .wheel-center-text { width: 95px; height: 95px; border-width: 5px; box-shadow: 0 5px 0 #111; }
+      .wheel-center-text span { font-size: 1rem; }
+      .wheel-center-text.emoji-mode span { font-size: 2.8rem; -webkit-text-stroke: 3px #FFF; }
+      .wheel-pointer { width: 44px; height: 52px; top: -18px; }
       
-      /* Mobile Horizontal Slider */
-      .slider-area { height: auto; flex-direction: column; gap: 10px; }
-      .slider-track { height: 60px; width: 280px; }
-      .slider-trail { 
-        height: 100% !important; 
-        width: 0px; 
-        background: linear-gradient(90deg, #00f3ff 0%, #ff00ea 100%);
-        transition: width 0.05s linear;
-      }
-      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); }
+      .slider-area { height: auto; flex-direction: column; gap: 15px; }
+      .slider-track { height: 80px; width: 300px; box-shadow: 0 8px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.9); }
+      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 66px; height: 66px; box-shadow: 0 6px 0 #111; }
+      .slider-handle:active { transform: translateY(-50%) translateX(6px); box-shadow: 0 0px 0 #111; }
       .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 5px; }
     }
   </style>
@@ -466,7 +431,7 @@
 
   <main class="spin-page">
 
-    <h1 style="color: #00f3ff; font-size: 2rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0,243,255,0.5);">🎡 The Emoji Spin (Cyberpunk)</h1>
+    <h1 style="color: #075E54; font-size: 2rem; margin-bottom: 15px;">🎡 The Emoji Spin</h1>
     
     <!-- Player Selector -->
     <div class="player-selector-wrap">
@@ -504,7 +469,6 @@
       <!-- Slide to Spin -->
       <div class="slider-area">
         <div class="slider-track" id="sliderTrack">
-          <div class="slider-trail" id="sliderTrail"></div>
           <div class="slider-handle" id="sliderHandle"></div>
         </div>
         <div class="slider-label">Slide to Spin</div>
@@ -521,7 +485,7 @@
       <h2>How to Play</h2>
       <ol class="game-steps">
         <li><strong>Select Players:</strong> Choose 2, 3, or 4 players using the slider above the wheel.</li>
-        <li><strong>Slide to Spin:</strong> Drag the neon handle on the side of the wheel all the way down (or across on mobile).</li>
+        <li><strong>Slide to Spin:</strong> Drag the blue handle on the side of the wheel all the way down (or across on mobile).</li>
         <li><strong>Wait for the stop:</strong> The wheel will spin and slow down.</li>
         <li><strong>Read the screen:</strong> Look at the digital display above the wheel to see WHO has to do WHAT.</li>
         <li><strong>Do the dare:</strong> Whatever the screen says, you have to do it!</li>
@@ -549,13 +513,13 @@
   </main>
 
   <footer class="site-footer">
-    <p style="color: #666;">© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
+    <p>© 2026 EmojiCopyFree.com — All Rights Reserved.</p>
     <p class="footer-links">
-      <a href="/privacy.html" style="color: #00f3ff;">Privacy Policy</a>
+      <a href="/privacy.html">Privacy Policy</a>
       <span class="footer-sep">·</span>
-      <a href="/disclaimer.html" style="color: #00f3ff;">Disclaimer</a>
+      <a href="/disclaimer.html">Disclaimer</a>
       <span class="footer-sep">·</span>
-      <a href="/" style="color: #00f3ff;">Back to Emoji Home</a>
+      <a href="/">Back to Emoji Home</a>
     </p>
   </footer>
 
@@ -565,24 +529,18 @@
     const screenWho = document.getElementById('screenWho');
     const wheelLights = document.getElementById('wheelLights');
     
-    // Center display elements
     const centerDisplay = document.getElementById('centerDisplay');
     const centerContent = document.getElementById('centerContent');
-    
-    // Player elements
     const playerOptions = document.querySelectorAll('.player-option');
     
-    // Slider elements
     const sliderTrack = document.getElementById('sliderTrack');
     const sliderHandle = document.getElementById('sliderHandle');
-    const sliderTrail = document.getElementById('sliderTrail');
 
     let currentRotation = 0;
     let isSpinning = false;
     let activePlayers = 2;
     let currentTurn = 1; 
 
-    // The 16 unique dares with corresponding emojis
     const dares = [
       { title: "FLIP COIN", emoji: "🪙", text: "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks." },
       { title: "EYE CONTACT", emoji: "👀", text: "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses." },
@@ -602,7 +560,7 @@
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate LED Lights
+    // 1. Generate Lights
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
@@ -615,19 +573,17 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels
+    // 2. Generate Wheel Text
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
-      
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle}deg) translateY(-90px) rotate(90deg)`;
-      
+      textEl.style.transform = `rotate(${angle}deg) translateY(-85px) rotate(90deg)`;
       wheel.appendChild(textEl);
     });
 
-    // 3. Player Selector Logic
+    // 3. Player Logic
     playerOptions.forEach(btn => {
       btn.addEventListener('click', () => {
         if (isSpinning) return;
@@ -644,10 +600,10 @@
       screenWho.textContent = `PLAYER ${currentTurn}'S TURN`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "SLIDE TO SPIN";
-      screenText.style.color = "#00f3ff";
+      screenText.style.color = "#1a331a"; // Dark green for Gameboy screen
     }
 
-    // 4. Slider Drag Logic
+    // 4. Slider Logic
     let isDragging = false;
 
     sliderHandle.addEventListener('mousedown', startDrag);
@@ -673,33 +629,23 @@
 
       if (isMobile) {
         let x = clientX - trackRect.left;
-        x = Math.max(28, Math.min(x, trackRect.width - 28)); 
-        
-        // Update Handle
+        x = Math.max(35, Math.min(x, trackRect.width - 35)); 
         sliderHandle.style.left = `${x}px`;
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
-        
-        // Update Trail (Horizontal)
-        sliderTrail.style.width = `${x}px`;
 
-        if (x > trackRect.width - 80) {
+        if (x > trackRect.width - 95) {
           endDrag();
           triggerSpin();
         }
       } else {
         let y = clientY - trackRect.top;
-        y = Math.max(28, Math.min(y, trackRect.height - 28));
-        
-        // Update Handle
+        y = Math.max(35, Math.min(y, trackRect.height - 35));
         sliderHandle.style.top = `${y}px`;
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        // Update Trail (Vertical)
-        sliderTrail.style.height = `${y}px`;
-
-        if (y > trackRect.height - 90) {
+        if (y > trackRect.height - 105) {
           endDrag();
           triggerSpin();
         }
@@ -713,33 +659,27 @@
       if (!isDragging) return;
       isDragging = false;
       sliderHandle.style.cursor = 'grab';
-      
-      if (!isSpinning) {
-        resetSlider();
-      }
+      if (!isSpinning) resetSlider();
     }
 
     function resetSlider() {
       const isMobile = window.innerWidth <= 600;
       if (isMobile) {
-        sliderHandle.style.left = '28px';
+        sliderHandle.style.left = '35px';
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
-        sliderTrail.style.width = '28px';
       } else {
-        sliderHandle.style.top = '28px';
+        sliderHandle.style.top = '37px';
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
-        sliderTrail.style.height = '28px';
       }
     }
 
     resetSlider();
     window.addEventListener('resize', resetSlider);
 
-    // --- RANDOMIZATION FIX (Fisher-Yates Shuffle Bag) ---
+    // --- Randomization ---
     let dareBag = [];
-
     function getRandomDareIndex() {
       if (dareBag.length === 0) {
         dareBag = [...Array(dares.length).keys()]; 
@@ -755,7 +695,6 @@
     function triggerSpin() {
       if (isSpinning) return;
       isSpinning = true;
-      
       wheelLights.classList.remove('blink');
       
       centerDisplay.classList.remove('emoji-mode');
@@ -764,7 +703,6 @@
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
       screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "WAIT FOR IT...";
-      screenText.style.color = "#ff00ea"; 
 
       const randomDareIndex = getRandomDareIndex();
       
@@ -773,9 +711,7 @@
       const currentVisualAngle = currentRotation % 360;
       
       let diff = targetVisualAngle - currentVisualAngle;
-      if (diff < 0) {
-        diff += 360;
-      }
+      if (diff < 0) diff += 360;
 
       const extraSpins = 360 * 8;
       currentRotation += extraSpins + diff;
@@ -784,40 +720,31 @@
 
       setTimeout(() => {
         isSpinning = false;
-        
         wheelLights.classList.add('blink');
         
         screenWho.textContent = `PLAYER ${currentTurn} MUST DO:`;
         screenWho.style.color = getPlayerColor(currentTurn);
-        
         screenText.textContent = dares[randomDareIndex].text;
-        screenText.style.color = "#00f3ff"; 
 
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
 
         currentTurn++;
-        if (currentTurn > activePlayers) {
-          currentTurn = 1;
-        }
-
+        if (currentTurn > activePlayers) currentTurn = 1;
         resetSlider();
-
       }, 5000); 
     }
 
     function getPlayerColor(playerNum) {
-      if (playerNum === 1) return "#00f3ff"; 
-      if (playerNum === 2) return "#ff00ea"; 
-      if (playerNum === 3) return "#39ff14"; 
-      if (playerNum === 4) return "#fcee0a"; 
-      return "#00f3ff";
+      if (playerNum === 1) return "#1a331a"; 
+      if (playerNum === 2) return "#1a331a"; 
+      if (playerNum === 3) return "#1a331a"; 
+      if (playerNum === 4) return "#1a331a"; 
+      return "#1a331a";
     }
 
     updateTurnDisplay();
-
   </script>
 
 </body>
 </html>
-```
