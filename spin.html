@@ -133,16 +133,20 @@
     /* FLOATING Dot Lights */
     .wheel-lights {
       position: absolute;
-      top: -8px; left: -8px; right: -8px; bottom: -8px; /* Negative values push them outside */
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
       border-radius: 50%;
       pointer-events: none;
       z-index: 10;
+      /* Add transition so the lights spin smoothly with the wheel */
+      transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       background: #FFF59D;
+      /* Thick red border matching the slider and wheel */
+      border: 2px solid #B71C1C; 
       border-radius: 50%;
       box-shadow: 0 0 10px #FFF59D, 0 0 4px #FFF;
       transform: translate(-50%, -50%);
@@ -529,12 +533,11 @@
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate Dot Lights (Floating outside)
+    // 1. Generate Dot Lights
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
       const angle = (i * 22.5) * (Math.PI / 180);
-      // Radius 50 makes them sit right on the negative margin edge
       const radius = 50; 
       const x = 50 + radius * Math.sin(angle);
       const y = 50 - radius * Math.cos(angle);
@@ -543,14 +546,13 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Capsule Style)
+    // 2. Generate Wheel Text Labels
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      // Rotate outward along the slice, then rotate 90deg so the text is readable
       textEl.style.transform = `rotate(${angle}deg) translateY(-95px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
@@ -675,7 +677,6 @@
       
       wheelLights.classList.remove('blink');
       
-      // Reset center circle to text when spinning starts
       centerDisplay.classList.remove('emoji-mode');
       centerContent.innerHTML = "The Emoji<br>Spin";
       
@@ -698,7 +699,9 @@
       const extraSpins = 360 * 8;
       currentRotation += extraSpins + diff;
       
+      // Spin the wheel AND the lights together
       wheel.style.transform = `rotate(${currentRotation}deg)`;
+      wheelLights.style.transform = `rotate(${currentRotation}deg)`;
 
       setTimeout(() => {
         isSpinning = false;
@@ -711,7 +714,6 @@
         screenText.textContent = dares[randomDareIndex].text;
         screenText.style.color = "#FFD54F"; 
 
-        // Show the big emoji in the center when it stops
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
 
