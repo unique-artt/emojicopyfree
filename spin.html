@@ -1,3 +1,12 @@
+Here is the fully corrected `spin.html`. 
+
+I have mathematically fixed the sync issue so the arrow and the screen will **always** match perfectly. The problem was caused by the wheel accumulating degrees over multiple spins, causing the offset to drift. I have added a normalization calculation so it calculates the exact remaining rotation needed every single time.
+
+I also reduced the font size of the wheel text and added `white-space: nowrap` so the words don't cut off. 
+
+Replace your entire `spin.html` with this:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +23,6 @@
   <!-- Google Font for the branding -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
-  <!-- ============================================================
-       SPIN WHEEL SPECIFIC CSS
-       ============================================================ -->
   <style>
     .spin-page {
       max-width: 650px;
@@ -106,12 +112,12 @@
       transition: opacity 0.3s;
     }
 
-    /* Wheel Wrapper (Holds wheel and slider) */
+    /* Wheel Wrapper */
     .wheel-area {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 35px; /* Increased gap to keep slider away from lights */
+      gap: 35px;
       margin: 0 auto 20px;
     }
 
@@ -163,7 +169,6 @@
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
-      /* 16 slices -> 360/16 = 22.5 degrees per slice */
       background: conic-gradient(
         #EF5350 0deg 22.5deg, 
         #42A5F5 22.5deg 45deg, 
@@ -203,21 +208,21 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 120px;
+      width: 140px;
+      margin-left: -70px;
       height: 20px;
-      margin-left: -60px;
       margin-top: -10px;
       color: white;
       font-weight: 900;
-      font-size: 0.65rem;
+      font-size: 0.55rem; /* Smaller font to prevent cutoff */
       text-transform: uppercase;
       text-shadow: 0 1px 3px black;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
+      white-space: nowrap; /* Prevents text from wrapping to a second line */
       pointer-events: none;
-      /* Origin will be handled in JS */
     }
 
     /* The Center Branding */
@@ -284,7 +289,7 @@
     }
     .slider-track {
       width: 40px;
-      height: 300px; /* Longer track */
+      height: 300px;
       background: #222;
       border-radius: 20px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 0 4px #B71C1C;
@@ -339,12 +344,11 @@
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.55rem; width: 100px; margin-left: -50px; }
+      .wheel-text { font-size: 0.5rem; width: 120px; margin-left: -60px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
       .wheel-pointer { width: 34px; height: 44px; top: -25px; }
       
-      /* Mobile slider changes from vertical to horizontal */
       .slider-area { height: auto; flex-direction: column; gap: 10px; }
       .slider-track { height: 60px; width: 280px; border-left: none; border-right: none; border-top: 3px solid #FFF59D; border-bottom: 3px solid #FFF59D; }
       .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); }
@@ -468,9 +472,8 @@
     const wheelLights = document.getElementById('wheelLights');
     
     // Player elements
-    const playerToggle = document.getElementById('playerToggle');
     const playerOptions = document.querySelectorAll('.player-option');
-
+    
     // Slider elements
     const sliderTrack = document.getElementById('sliderTrack');
     const sliderHandle = document.getElementById('sliderHandle');
@@ -513,16 +516,14 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Sideways and perfectly centered)
+    // 2. Generate Wheel Text Labels (Sideways)
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
       
-      // Calculate angle for the center of this slice
       const angle = (i * 22.5) + 11.25;
-      
-      // Rotate the text container, push it to the edge, then rotate text 90deg to make it sideways
+      // Push outward, then rotate 90deg so text reads top-to-bottom
       textEl.style.transform = `rotate(${angle}deg) translateY(-115px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
@@ -579,7 +580,6 @@
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
 
-        // Require a long drag on mobile
         if (x > trackRect.width - 80) {
           endDrag();
           triggerSpin();
@@ -591,7 +591,6 @@
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        // Require a long drag on desktop
         if (y > trackRect.height - 90) {
           endDrag();
           triggerSpin();
@@ -642,16 +641,25 @@
 
       const randomDareIndex = Math.floor(Math.random() * dares.length);
       
-      // FLAWLESS MATH: Calculate the exact angle to put the center of the chosen slice at the top (0deg)
+      // FLAWLESS MATH: Calculate exact remaining degrees needed
       const sliceAngle = 22.5;
-      // Center of slice is (index * 22.5) + 11.25.
-      // We want this to land at 0 (or 360).
-      // So rotation required is 360 - ((index * 22.5) + 11.25).
-      // We add 8 full spins (360 * 8) for the animation.
-      const extraSpins = 360 * 8; 
-      const targetAngle = extraSpins + (360 - ((randomDareIndex * sliceAngle) + (sliceAngle / 2)));
       
-      currentRotation += targetAngle;
+      // The angle the wheel needs to be at visually to land on the slice center
+      const targetVisualAngle = 360 - ((randomDareIndex * sliceAngle) + (sliceAngle / 2));
+      
+      // Where is the wheel currently pointing?
+      const currentVisualAngle = currentRotation % 360;
+      
+      // How much further do we need to rotate to hit the target?
+      let diff = targetVisualAngle - currentVisualAngle;
+      if (diff < 0) {
+        diff += 360;
+      }
+
+      // Add 8 full spins + the remaining distance
+      const extraSpins = 360 * 8;
+      currentRotation += extraSpins + diff;
+      
       wheel.style.transform = `rotate(${currentRotation}deg)`;
 
       setTimeout(() => {
@@ -689,3 +697,4 @@
 
 </body>
 </html>
+```
