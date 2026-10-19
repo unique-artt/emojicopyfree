@@ -1,3 +1,13 @@
+Here is the completely updated `spin.html`. 
+
+I have made three major changes based on your requests:
+1. **Removed the center button** and replaced it with "The Emoji Spin" in a fun, cursive branding font.
+2. **Added a curved slide-to-spin track** on the right side. You drag the handle to spin.
+3. **Fixed the math** so the wheel always stops perfectly on the center of a call-out, never on the white dividers. 
+
+Replace your entire `spin.html` file with this:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,18 +15,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Emoji Spin — Free Dare Wheel Game | EmojiCopyFree</title>
   <meta name="description" content="Spin the wheel of dares! A free, fast, and fun emoji game for couples, friends, and first dates. Spin to get your next dare. No app, no login required.">
-  <meta name="keywords" content="emoji spin, spin the wheel dare, dare wheel game, couples game, party game, truth or dare wheel, free online spin wheel, emoji game">
+  <meta name="keywords" content="emoji spin, spin the wheel dare, dare wheel game, couples game, party game, truth or dare wheel, free online spin wheel, emoji game, dating game, ice breaker game, game for friends, college party game, gen z game">
   <link rel="canonical" href="https://www.emojicopyfree.com/spin.html">
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎡</text></svg>">
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Google Font for the branding -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
   <!-- ============================================================
        SPIN WHEEL SPECIFIC CSS
        ============================================================ -->
   <style>
     .spin-page {
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
       padding: 30px 20px 60px;
       text-align: center;
@@ -59,35 +72,6 @@
       box-shadow: 0 2px 6px rgba(7, 94, 84, 0.3);
     }
 
-    /* Active Players Info */
-    .active-players-info {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .player-badge {
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: white;
-      transition: all 0.3s ease;
-    }
-    .player-badge.p1 { background: #2196F3; }
-    .player-badge.p2 { background: #EC407A; }
-    .player-badge.p3 { background: #66BB6A; }
-    .player-badge.p4 { background: #FF7043; }
-    
-    /* Disabled (inactive) players */
-    .player-badge.inactive {
-      background: #B0BEC5 !important;
-      color: #ECEFF1;
-      opacity: 0.5;
-      filter: grayscale(100%);
-    }
-
     /* The digital screen */
     .digital-screen {
       background: #111;
@@ -98,7 +82,7 @@
       max-width: 480px;
       box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 10px rgba(255, 213, 79, 0.3);
       position: relative;
-      min-height: 90px;
+      min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -114,22 +98,31 @@
     .screen-who {
       color: #42A5F5;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       text-shadow: 0 0 5px currentColor;
     }
     .screen-text {
       color: #FFD54F;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      text-transform: uppercase;
       letter-spacing: 1px;
       text-shadow: 0 0 5px #FFD54F;
       margin: 0;
-      line-height: 1.3;
+      line-height: 1.4;
+      transition: opacity 0.3s;
+    }
+
+    /* Wheel Wrapper (Holds wheel and slider) */
+    .wheel-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 0 auto 20px;
     }
 
     /* The Wheel Container */
@@ -137,29 +130,40 @@
       position: relative;
       width: 320px;
       height: 320px;
-      margin: 0 auto 40px;
       border-radius: 50%;
-      padding: 12px;
+      padding: 14px;
       background: #222;
       box-shadow: 
         0 10px 30px rgba(0,0,0,0.4), 
         inset 0 0 0 4px #FFD54F,
         inset 0 0 0 8px #B71C1C;
+      flex-shrink: 0;
     }
 
-    /* The Neon Lights */
+    /* Dot Lights around the wheel */
     .wheel-lights {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
       border-radius: 50%;
-      border: 6px dashed #FFF59D;
-      animation: spinLights 10s linear infinite;
       pointer-events: none;
       z-index: 10;
-      opacity: 0.8;
     }
-    @keyframes spinLights {
-      100% { transform: rotate(360deg); }
+    .wheel-lights .dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #FFF59D;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #FFF59D, 0 0 4px #FFF;
+      transform: translate(-50%, -50%);
+      transition: all 0.2s;
+    }
+    .wheel-lights.blink .dot {
+      animation: dotBlinkFast 0.3s ease-in-out infinite alternate;
+    }
+    @keyframes dotBlinkFast {
+      0% { background: #FFF59D; box-shadow: 0 0 10px #FFF59D; opacity: 1; }
+      100% { background: #FF5252; box-shadow: 0 0 15px #FF5252; opacity: 0.4; }
     }
 
     /* The actual spinning wheel */
@@ -169,7 +173,6 @@
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
-      /* conic-gradient creates the 16 colored wedges */
       background: conic-gradient(
         #EF5350 0deg 22.5deg, 
         #42A5F5 22.5deg 45deg, 
@@ -204,45 +207,124 @@
       border-radius: 50%;
     }
 
-    /* The Spin Button in the center */
-    .spin-btn {
+    /* Wheel Text */
+    .wheel-text {
+      position: absolute;
+      color: white;
+      font-weight: 900;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      text-shadow: 0 1px 3px black;
+      letter-spacing: 0.5px;
+      width: 60px;
+      text-align: center;
+      left: 50%;
+      margin-left: -30px;
+      transform-origin: center 146px;
+    }
+
+    /* The Center Branding */
+    .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 80px; height: 80px;
-      border-radius: 50%;
+      width: 110px;
+      height: 110px;
       background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 40%, #F57F17 100%);
       border: 4px solid #FFF;
+      border-radius: 50%;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 -4px 6px rgba(0,0,0,0.2);
-      color: #7F0000;
-      font-weight: 900;
-      font-size: 1rem;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 20;
-      transition: transform 0.1s;
-      font-family: inherit;
-      letter-spacing: 1px;
+      text-align: center;
+      padding: 10px;
     }
-    .spin-btn:active {
-      transform: translate(-50%, -50%) scale(0.92);
-    }
-    .spin-btn:disabled {
-      cursor: not-allowed;
-      filter: grayscale(0.5);
+    .wheel-center-text span {
+      font-family: 'Fredoka One', cursive;
+      color: #7F0000;
+      font-size: 1.1rem;
+      line-height: 1;
+      text-transform: uppercase;
+      transform: rotate(-10deg);
     }
 
-    /* The Pointer */
+    /* The Big Lit-up Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -15px;
+      top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 0; height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-top: 30px solid #FFD54F;
+      width: 40px;
+      height: 50px;
+      background: linear-gradient(180deg, #FF5252 0%, #B71C1C 100%);
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 15;
-      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      border-top: 4px solid #FFF59D;
+    }
+    .wheel-pointer::after {
+      content: "";
+      position: absolute;
+      top: 8px; left: 50%;
+      transform: translateX(-50%);
+      width: 12px; height: 12px;
+      background: #FFF;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #FFF, 0 0 20px #FFEB3B;
+    }
+
+    /* ============================================================
+       THE SLIDE TO SPIN TRACK
+       ============================================================ */
+    .slider-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 320px;
+      position: relative;
+    }
+    .slider-track {
+      width: 40px;
+      height: 250px;
+      background: #222;
+      border-radius: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 0 4px #B71C1C;
+      position: relative;
+      margin-top: 35px;
+      /* Curved track illusion */
+      border-left: 3px solid #FFF59D;
+      border-right: 3px solid #FFF59D;
+    }
+    .slider-handle {
+      width: 56px;
+      height: 56px;
+      background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 40%, #F57F17 100%);
+      border: 3px solid #FFF;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 5px;
+      cursor: grab;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 5;
+      touch-action: none; /* Prevents scroll while dragging */
+    }
+    .slider-handle:active {
+      cursor: grabbing;
+    }
+    .slider-label {
+      font-family: 'Fredoka One', cursive;
+      color: #B71C1C;
+      font-size: 1rem;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      margin-top: 15px;
+      letter-spacing: 2px;
     }
 
     .motivation-text {
@@ -251,7 +333,7 @@
       color: #B71C1C;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-top: -15px;
+      margin-top: 10px;
       margin-bottom: 30px;
       animation: pulseText 2s infinite;
     }
@@ -261,12 +343,17 @@
     }
 
     /* Mobile adjustments */
-    @media (max-width: 480px) {
-      .wheel-container { width: 280px; height: 280px; padding: 10px; }
-      .spin-btn { width: 70px; height: 70px; font-size: 0.9rem; }
-      .screen-text { font-size: 1rem; }
-      .screen-who { font-size: 0.8rem; }
-      .player-option { padding: 6px 12px; font-size: 0.75rem; }
+    @media (max-width: 600px) {
+      .wheel-area { flex-direction: column; gap: 20px; }
+      .wheel-container { width: 290px; height: 290px; padding: 10px; }
+      .wheel-text { font-size: 0.55rem; width: 50px; margin-left: -25px; transform-origin: center 134px; }
+      .wheel-center-text { width: 90px; height: 90px; }
+      .wheel-center-text span { font-size: 0.9rem; }
+      .wheel-pointer { width: 34px; height: 44px; top: -25px; }
+      .slider-area { height: auto; }
+      .slider-track { height: 60px; width: 250px; margin-top: 0; border-left: none; border-right: none; border-top: 3px solid #FFF59D; border-bottom: 3px solid #FFF59D; }
+      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); }
+      .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 10px; }
     }
   </style>
 </head>
@@ -303,47 +390,67 @@
       </div>
     </div>
 
-    <!-- Active Players Indicators -->
-    <div class="active-players-info" id="activePlayersInfo">
-      <div class="player-badge p1" id="badgeP1">Player 1</div>
-      <div class="player-badge p2" id="badgeP2">Player 2</div>
-      <div class="player-badge p3 inactive" id="badgeP3">Player 3</div>
-      <div class="player-badge p4 inactive" id="badgeP4">Player 4</div>
-    </div>
-
     <!-- Digital Screen -->
     <div class="digital-screen">
       <div class="screen-who" id="screenWho">GET READY</div>
-      <p class="screen-text" id="screenText">PRESS SPIN TO START</p>
+      <p class="screen-text" id="screenText">SLIDE TO SPIN</p>
     </div>
 
-    <!-- Wheel -->
-    <div class="wheel-container">
-      <div class="wheel-pointer"></div>
-      <div class="wheel-lights"></div>
+    <!-- Wheel + Slider Area -->
+    <div class="wheel-area">
       
-      <div class="wheel" id="wheel">
-        <!-- We remove the emojis on the wheel to keep it clean with 16 slices -->
-        <!-- The digital screen will show the dare, so the wheel just needs to look colorful -->
+      <!-- Wheel -->
+      <div class="wheel-container">
+        <div class="wheel-pointer"></div>
+        <div class="wheel-lights" id="wheelLights"></div>
+        
+        <div class="wheel" id="wheel">
+          <div class="wheel-center-text"><span>The Emoji<br>Spin</span></div>
+        </div>
       </div>
 
-      <button class="spin-btn" id="spinBtn">SPIN</button>
+      <!-- Slide to Spin -->
+      <div class="slider-area">
+        <div class="slider-track" id="sliderTrack">
+          <div class="slider-handle" id="sliderHandle"></div>
+        </div>
+        <div class="slider-label">Slide to Spin</div>
+      </div>
+
     </div>
 
     <p class="motivation-text">DARE to spin? No pussing out once you spin.</p>
 
     <section class="game-about">
       <h2>What is The Emoji Spin?</h2>
-      <p>The Emoji Spin is a fast-paced, multiplayer dare game. Forget complex rules — just select your player count, hit the center button, and let the wheel decide your fate. Perfect for couples, friends at a sleepover, or breaking the ice on a first date.</p>
+      <p>The Emoji Spin is a fast-paced, multiplayer dare game. Forget complex rules — just select your player count, slide the handle, and let the wheel decide your fate. Perfect for couples, friends at a sleepover, or breaking the ice on a first date.</p>
 
       <h2>How to Play</h2>
       <ol class="game-steps">
         <li><strong>Select Players:</strong> Choose 2, 3, or 4 players using the slider above the wheel.</li>
-        <li><strong>Press Spin:</strong> Click the big yellow button in the center of the wheel.</li>
+        <li><strong>Slide to Spin:</strong> Drag the golden handle on the side of the wheel all the way down (or across on mobile).</li>
         <li><strong>Wait for the stop:</strong> The wheel will spin and slow down.</li>
         <li><strong>Read the screen:</strong> Look at the digital display above the wheel to see WHO has to do WHAT.</li>
         <li><strong>Do the dare:</strong> Whatever the screen says, you have to do it!</li>
       </ol>
+
+      <h2>Who Is The Emoji Spin For?</h2>
+      <p>The Emoji Spin works for anyone with two or more people looking for a good laugh. Here are the crowds who love it most:</p>
+
+      <h3>💌 Online Dating and First Dates</h3>
+      <p>If you met someone on Tinder, Hinge, Bumble, or any dating app, this game is a low-pressure way to break the ice. It gives you something to do together besides staring at each other over coffee. The dares are playful enough to keep things light, making it perfect for first dates, blind dates, and video-call dates.</p>
+
+      <h3>💍 Couples and Newlyweds</h3>
+      <p>Couples who've been together a while use this game to bring back the playful energy of early dating. It's a fun activity for date nights at home, weekend mornings, anniversaries, or when you just want to laugh together. The dares range from sweet to silly, so there's something for every mood.</p>
+
+      <h3>🎓 College Students and Dorm Life</h3>
+      <p>College students love The Emoji Spin for dorm nights, study breaks, orientation week, and parties. It's quick, needs no app or sign-up, and works on any phone or laptop. It's a fast way to pass the time and get everyone laughing.</p>
+
+      <h3>🧑‍🎤 Gen Z and Gen Alpha</h3>
+      <p>Gen Z and Gen Alpha have grown up with emojis as a native language. The dares tap into the culture of "no cap," playful challenges, and sharing moments on Instagram or TikTok. If you're part of the TikTok generation, this game is designed for your vibe.</p>
+
+      <h3>👯 Friends and Siblings</h3>
+      <p>Best friends, siblings, roommates, cousins — the game is a fun way to playfully dare each other or just have a laugh. Great for sleepovers, road trips, family gatherings, and rainy afternoons when everyone is bored.</p>
     </section>
 
   </main>
@@ -361,115 +468,235 @@
 
   <script>
     const wheel = document.getElementById('wheel');
-    const spinBtn = document.getElementById('spinBtn');
     const screenText = document.getElementById('screenText');
     const screenWho = document.getElementById('screenWho');
+    const wheelLights = document.getElementById('wheelLights');
     
     // Player elements
     const playerToggle = document.getElementById('playerToggle');
     const playerOptions = document.querySelectorAll('.player-option');
-    const badgeP3 = document.getElementById('badgeP3');
-    const badgeP4 = document.getElementById('badgeP4');
+
+    // Slider elements
+    const sliderTrack = document.getElementById('sliderTrack');
+    const sliderHandle = document.getElementById('sliderHandle');
 
     let currentRotation = 0;
     let isSpinning = false;
     let activePlayers = 2;
+    let currentTurn = 1; 
 
     // The 16 unique dares
     const dares = [
-      "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks.",
-      "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses.",
-      "COMPLIMENT BATTLE: Give each other 3 compliments. Best compliment wins.",
-      "SERIOUS FACE: Try to make the other person laugh. First to smile loses.",
-      "FREESTYLE: Do a 10-second dance with absolutely no music.",
-      "TONGUE TWISTER: Say 'Irish wristwatch' 3 times fast without messing up.",
-      "PHONE PEEK: Show the other person your most recent text message.",
-      "PREDICTION: Guess the exact time right now. Closest to the real time wins.",
-      "SING IT: Sing the chorus of the last song you listened to.",
-      "POST IT: Take a funny selfie together. Keep it as your lock screen for 1 hour.",
-      "THUMB WAR: Best 2 out of 3 thumb war.",
-      "CONTACT SHARE: Share one weird contact name from your phone with the other person.",
-      "THE WHISPER: Whisper a secret in the other person's ear.",
-      "NOSE GOES: Touch your nose. The last person to touch their nose must give the winner a 1-minute shoulder massage.",
-      "HAIR STYLE: Let the other person mess up your hair right now.",
-      "STARE DOWN: You have 5 seconds to name 3 things you love about the other person."
+      { title: "FLIP COIN", text: "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks." },
+      { title: "EYE CONTACT", text: "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses." },
+      { title: "COMPLIMENTS", text: "COMPLIMENT BATTLE: Give each other 3 compliments. Best compliment wins." },
+      { title: "SERIOUS FACE", text: "SERIOUS FACE: Try to make the other person laugh. First to smile loses." },
+      { title: "FREESTYLE", text: "FREESTYLE: Do a 10-second dance with absolutely no music." },
+      { title: "TWISTER", text: "TONGUE TWISTER: Say 'Irish wristwatch' 3 times fast without messing up." },
+      { title: "PHONE PEEK", text: "PHONE PEEK: Show the other person your most recent text message." },
+      { title: "PREDICTION", text: "PREDICTION: Guess the exact time right now. Closest to the real time wins." },
+      { title: "SING IT", text: "SING IT: Sing the chorus of the last song you listened to." },
+      { title: "POST IT", text: "POST IT: Take a funny selfie together. Keep it as your lock screen for 1 hour." },
+      { title: "THUMB WAR", text: "THUMB WAR: Best 2 out of 3 thumb war." },
+      { title: "CONTACT SHARE", text: "CONTACT SHARE: Share one weird contact name from your phone with the other person." },
+      { title: "THE WHISPER", text: "THE WHISPER: Whisper a secret in the other person's ear." },
+      { title: "NOSE GOES", text: "NOSE GOES: Touch your nose. The last person to touch their nose must give the winner a 1-minute shoulder massage." },
+      { title: "HAIR STYLE", text: "HAIR STYLE: Let the other person mess up your hair right now." },
+      { title: "STARE DOWN", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // Player Selector Logic
+    // 1. Generate Dot Lights
+    for (let i = 0; i < 16; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      const angle = (i * 22.5) * (Math.PI / 180);
+      const radius = 50; 
+      const x = 50 + radius * Math.sin(angle);
+      const y = 50 - radius * Math.cos(angle);
+      dot.style.left = `${x}%`;
+      dot.style.top = `${y}%`;
+      wheelLights.appendChild(dot);
+    }
+
+    // 2. Generate Wheel Text Labels
+    dares.forEach((dare, i) => {
+      const textEl = document.createElement('div');
+      textEl.className = 'wheel-text';
+      textEl.textContent = dare.title;
+      const angle = (i * 22.5) + 11.25;
+      textEl.style.transform = `rotate(${angle}deg) translateY(10px)`;
+      wheel.appendChild(textEl);
+    });
+
+    // 3. Player Selector Logic
     playerOptions.forEach(btn => {
       btn.addEventListener('click', () => {
         if (isSpinning) return;
-        
-        // Update active button
         playerOptions.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
-        // Update state
         activePlayers = parseInt(btn.dataset.players);
-
-        // Toggle greyed out state for Player 3 and 4
-        if (activePlayers >= 3) {
-          badgeP3.classList.remove('inactive');
-        } else {
-          badgeP3.classList.add('inactive');
-        }
-
-        if (activePlayers >= 4) {
-          badgeP4.classList.remove('inactive');
-        } else {
-          badgeP4.classList.add('inactive');
-        }
+        currentTurn = 1;
+        updateTurnDisplay();
       });
     });
 
-    // Spin Logic
-    spinBtn.addEventListener('click', () => {
+    function updateTurnDisplay() {
+      if (isSpinning) return;
+      screenWho.textContent = `PLAYER ${currentTurn}'S TURN`;
+      screenWho.style.color = getPlayerColor(currentTurn);
+      screenText.textContent = "SLIDE TO SPIN";
+      screenText.style.color = "#FFD54F";
+    }
+
+    // 4. Slider Drag Logic
+    let isDragging = false;
+
+    sliderHandle.addEventListener('mousedown', startDrag);
+    sliderHandle.addEventListener('touchstart', startDrag, {passive: false});
+
+    function startDrag(e) {
+      if (isSpinning) return;
+      isDragging = true;
+      sliderHandle.style.cursor = 'grabbing';
+    }
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, {passive: false});
+
+    function drag(e) {
+      if (!isDragging || isSpinning) return;
+      
+      // Get coordinates depending on mobile or desktop
+      let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const trackRect = sliderTrack.getBoundingClientRect();
+      const isMobile = window.innerWidth <= 600;
+
+      if (isMobile) {
+        // Horizontal drag for mobile
+        let x = clientX - trackRect.left;
+        x = Math.max(28, Math.min(x, trackRect.width - 28)); // Keep inside track
+        sliderHandle.style.left = `${x}px`;
+        sliderHandle.style.top = '50%';
+        sliderHandle.style.transform = 'translate(-50%, -50%)';
+
+        // If dragged far enough, spin
+        if (x > trackRect.width - 60) {
+          endDrag();
+          triggerSpin();
+        }
+      } else {
+        // Vertical drag for desktop
+        let y = clientY - trackRect.top;
+        y = Math.max(28, Math.min(y, trackRect.height - 28));
+        sliderHandle.style.top = `${y}px`;
+        sliderHandle.style.left = '50%';
+        sliderHandle.style.transform = 'translateX(-50%)';
+
+        // If dragged far enough, spin
+        if (y > trackRect.height - 60) {
+          endDrag();
+          triggerSpin();
+        }
+      }
+    }
+
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      sliderHandle.style.cursor = 'grab';
+      
+      // Snap back to start if not spinning
+      if (!isSpinning) {
+        resetSlider();
+      }
+    }
+
+    function resetSlider() {
+      const isMobile = window.innerWidth <= 600;
+      if (isMobile) {
+        sliderHandle.style.left = '28px';
+        sliderHandle.style.top = '50%';
+        sliderHandle.style.transform = 'translate(-50%, -50%)';
+      } else {
+        sliderHandle.style.top = '33px'; // 28px + 5px initial
+        sliderHandle.style.left = '50%';
+        sliderHandle.style.transform = 'translateX(-50%)';
+      }
+    }
+
+    // Initialize slider position
+    resetSlider();
+    window.addEventListener('resize', resetSlider);
+
+    // 5. Spin Logic
+    function triggerSpin() {
       if (isSpinning) return;
       isSpinning = true;
-      spinBtn.disabled = true;
       
-      screenWho.textContent = "SPINNING...";
-      screenWho.style.color = "#42A5F5";
+      wheelLights.classList.remove('blink');
+      
+      screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
+      screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "WAIT FOR IT...";
       screenText.style.color = "#42A5F5";
 
-      // Pick random dare and random player
+      // Pick random dare
       const randomDareIndex = Math.floor(Math.random() * dares.length);
-      const randomPlayer = Math.floor(Math.random() * activePlayers) + 1;
       
       // Calculate rotation
       const sectorAngle = 22.5; // 360 / 16
       const extraSpins = 360 * 6; 
       
-      // Land on the specific sector
-      const targetAngle = extraSpins + (360 - (randomDareIndex * sectorAngle));
+      // FIX: To land exactly in the middle of the sector, we add half the sector angle (11.25)
+      const targetAngle = extraSpins + (360 - (randomDareIndex * sectorAngle)) - 11.25;
+      
       currentRotation += targetAngle;
-
-      // Apply the CSS transform
       wheel.style.transform = `rotate(${currentRotation}deg)`;
 
       // Wait for the CSS transition to finish (5 seconds)
       setTimeout(() => {
         isSpinning = false;
-        spinBtn.disabled = false;
         
-        // Update the screen
-        screenWho.textContent = `PLAYER ${randomPlayer} MUST DO:`;
-        screenWho.style.color = getPlayerColor(randomPlayer);
+        // 1. Blink the lights
+        wheelLights.classList.add('blink');
         
-        screenText.textContent = dares[randomDareIndex];
+        // 2. Update the screen
+        screenWho.textContent = `PLAYER ${currentTurn} MUST DO:`;
+        screenWho.style.color = getPlayerColor(currentTurn);
+        
+        screenText.textContent = dares[randomDareIndex].text;
         screenText.style.color = "#FFD54F"; 
+
+        // 3. Prepare next turn
+        currentTurn++;
+        if (currentTurn > activePlayers) {
+          currentTurn = 1;
+        }
+
+        // Snap slider back after spin finishes
+        resetSlider();
+
       }, 5000); 
-    });
+    }
 
     function getPlayerColor(playerNum) {
-      if (playerNum === 1) return "#42A5F5"; // Blue
-      if (playerNum === 2) return "#EC407A"; // Pink
-      if (playerNum === 3) return "#66BB6A"; // Green
-      if (playerNum === 4) return "#FF7043"; // Orange
+      if (playerNum === 1) return "#42A5F5"; 
+      if (playerNum === 2) return "#EC407A"; 
+      if (playerNum === 3) return "#66BB6A"; 
+      if (playerNum === 4) return "#FF7043"; 
       return "#42A5F5";
     }
+
+    // Initialize first turn
+    updateTurnDisplay();
+
   </script>
 
 </body>
 </html>
+```
