@@ -194,7 +194,7 @@
       border-radius: 50%;
     }
 
-    /* Wheel Text Styled like the 3D reference image */
+    /* Wheel Text */
     .wheel-text {
       position: absolute;
       left: 50%;
@@ -215,13 +215,10 @@
       white-space: nowrap;
       pointer-events: none;
       
-      /* 3D Extrusion Shadow effect */
-      text-shadow: 
-        1px 1px 0 #000, 
-        2px 2px 0 #000, 
-        3px 3px 0 #111,
-        -1px -1px 0 #000;
-        
+      /* Thick Brown Outline */
+      -webkit-text-stroke: 2px #4E342E; 
+      paint-order: stroke fill;
+      
       transform-origin: center center;
     }
 
@@ -239,7 +236,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 20;
+      z-index: 25; /* Higher than the wheel to sit on top */
       text-align: center;
       padding: 10px;
       transition: all 0.3s ease;
@@ -259,12 +256,11 @@
     .wheel-center-text.emoji-mode span {
       font-family: inherit;
       font-size: 3.8rem;
-      transform: none;
+      transform: none; /* Keeps it perfectly straight */
       line-height: 1;
-      /* Thick outline for the emoji */
-      -webkit-text-stroke: 2px #111;
+      /* Thick white outline */
+      -webkit-text-stroke: 3px #FFFFFF;
       paint-order: stroke fill;
-      text-shadow: 3px 3px 0 #111;
     }
 
     /* The Big Lit-up Pointer */
@@ -359,7 +355,7 @@
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.55rem; width: 120px; margin-left: -60px; }
+      .wheel-text { font-size: 0.55rem; width: 120px; margin-left: -60px; -webkit-text-stroke: 1.5px #4E342E; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
       .wheel-center-text.emoji-mode span { font-size: 3rem; }
@@ -419,10 +415,12 @@
         <div class="wheel-pointer"></div>
         <div class="wheel-lights" id="wheelLights"></div>
         
-        <div class="wheel" id="wheel">
-          <div class="wheel-center-text" id="centerDisplay">
-            <span id="centerContent">The Emoji<br>Spin</span>
-          </div>
+        <!-- The spinning wheel -->
+        <div class="wheel" id="wheel"></div>
+
+        <!-- Center Display (Outside wheel so it doesn't spin) -->
+        <div class="wheel-center-text" id="centerDisplay">
+          <span id="centerContent">The Emoji<br>Spin</span>
         </div>
       </div>
 
@@ -734,4 +732,3 @@
 
 </body>
 </html>
-```
