@@ -37,11 +37,11 @@
     }
     .player-toggle {
       display: inline-flex;
-      background: #ECE5DD;
+      background: #FFF;
       border-radius: 30px;
       padding: 5px;
-      border: 3px solid #111;
-      box-shadow: 3px 3px 0 #111;
+      border: 4px solid #111;
+      box-shadow: 4px 4px 0 #111;
     }
     .player-option {
       background: none;
@@ -113,24 +113,29 @@
       margin: 0 auto 20px;
     }
 
-    /* The Wheel Container (3D Toy Casing) */
+    /* ============================================================
+       THE 3D TOY CASING (Exaggerated!)
+       ============================================================ */
     .wheel-container {
       position: relative;
       width: 350px;
       height: 350px;
       border-radius: 50%;
-      background: #FF4B4B; /* Toy Red */
-      border: 6px solid #111;
+      /* Glossy plastic red */
+      background: linear-gradient(135deg, #FF5252 0%, #D32F2F 100%);
+      border: 8px solid #111; /* Thick black rim */
       box-shadow: 
-        8px 8px 0 #111, 
-        inset 0 0 0 4px #FFF;
+        0 12px 0 #111, /* Hard bottom shadow */
+        0 15px 25px rgba(0,0,0,0.5), /* Soft floor shadow */
+        inset 0 -8px 0 rgba(0,0,0,0.3), /* Inner 3D lip */
+        inset 0 8px 10px rgba(255,255,255,0.4); /* Top glare */
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Neon Cyberpunk Lights embedded in the casing */
+    /* Neon Lights embedded in the plastic casing */
     .wheel-lights {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -140,18 +145,19 @@
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 14px;
-      height: 14px;
-      background: #00FFFF; /* Neon Cyan */
-      border: 2px solid #111;
+      width: 16px;
+      height: 16px;
+      /* 3D bead look */
+      background: radial-gradient(circle at 30% 30%, #FFF, #00FFFF 40%, #00BFFF);
+      border: 3px solid #111;
       border-radius: 50%;
-      box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+      box-shadow: 0 0 12px #00FFFF, 0 0 25px #00FFFF;
       transform: translate(-50%, -50%);
       transition: all 0.2s;
     }
-    /* Flash Pink when stopped */
+    /* Flash Magenta when stopped */
     .wheel-lights.blink .dot {
-      animation: dotBlinkFast 0.3s ease-in-out infinite alternate;
+      animation: dotBlinkFast 0.25s ease-in-out infinite alternate;
     }
     @keyframes dotBlinkFast {
       0% { background: #00FFFF; box-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; }
@@ -160,8 +166,8 @@
 
     /* The actual spinning wheel */
     .wheel {
-      width: 280px;
-      height: 280px;
+      width: 260px;
+      height: 260px;
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
@@ -183,7 +189,8 @@
         #26C6DA 315deg 337.5deg, 
         #EC407A 337.5deg 360deg
       );
-      border: 4px solid #111;
+      border: 5px solid #111;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
     }
 
     /* The dividers (lines) on the wheel */
@@ -193,7 +200,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-conic-gradient(
         transparent 0deg 21.5deg,
-        rgba(0,0,0,0.5) 21.5deg 22.5deg /* Darker dividers for comic style */
+        rgba(0,0,0,0.6) 21.5deg 22.5deg
       );
       border-radius: 50%;
     }
@@ -203,14 +210,14 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 90px; 
-      margin-left: -45px;
-      height: 20px;
-      margin-top: -10px;
-      color: #FFFFFF;
+      width: 95px; 
+      margin-left: -47.5px;
+      height: 22px;
+      margin-top: -11px;
+      color: #FFF;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-weight: 900;
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       display: flex;
@@ -223,22 +230,27 @@
       background: #111;
       border: 2px solid #FFF;
       border-radius: 20px;
-      box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
       
       transform-origin: center center;
     }
 
-    /* The Center Branding / Emoji Display */
+    /* ============================================================
+       THE CENTER STICKER
+       ============================================================ */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 110px;
       height: 110px;
-      background: #FFD54F; /* Toy Yellow */
+      background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 50%, #F57F17 100%);
       border: 5px solid #111;
       border-radius: 50%;
-      box-shadow: 4px 4px 0 #111, inset 0 0 0 4px #FFF;
+      box-shadow: 
+        4px 4px 0 #111, 
+        inset 0 -4px 8px rgba(0,0,0,0.3),
+        inset 0 4px 8px rgba(255,255,255,0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -251,8 +263,8 @@
     .wheel-center-text span {
       font-family: 'Fredoka One', cursive;
       color: #111;
-      font-size: 1.1rem;
-      line-height: 1;
+      font-size: 1.2rem;
+      line-height: 1.1;
       text-transform: uppercase;
       transform: rotate(-10deg);
       transition: all 0.3s ease;
@@ -268,93 +280,102 @@
       /* White Sticker Outline */
       -webkit-text-stroke: 4px #FFFFFF;
       paint-order: stroke fill;
-      filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.4)); 
+      filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.5)); 
     }
 
     /* The Big Lit-up Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -25px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 44px;
-      height: 55px;
-      background: #FF4B4B;
-      border: 4px solid #111;
+      width: 50px;
+      height: 60px;
+      background: #FFD54F;
+      border: 5px solid #111;
       clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 30;
-      filter: drop-shadow(3px 5px 0 rgba(0,0,0,0.6));
+      filter: drop-shadow(0 6px 0 #111);
     }
     .wheel-pointer::after {
       content: "";
       position: absolute;
       top: 8px; left: 50%;
       transform: translateX(-50%);
-      width: 12px; height: 12px;
-      background: #00FFFF;
+      width: 14px; height: 14px;
+      background: #FF00FF;
       border-radius: 50%;
       border: 2px solid #111;
-      box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+      box-shadow: 0 0 15px #FF00FF;
     }
 
     /* ============================================================
-       THE SLIDE TO SPIN TRACK (3D Toy Arcade Style)
+       THE 3D SLIDER TRACK
        ============================================================ */
     .slider-area {
       display: flex;
       align-items: center;
-      height: 360px;
+      height: 380px;
       position: relative;
       gap: 10px;
     }
     .slider-track {
-      width: 46px;
-      height: 300px;
-      background: #333;
+      width: 50px;
+      height: 320px;
+      background: #2a2a2a;
       border-radius: 25px;
-      border: 5px solid #111;
+      border: 6px solid #111;
       box-shadow: 
-        4px 4px 0 #111, 
-        inset 0 4px 10px rgba(0,0,0,0.8);
+        6px 6px 0 #111, 
+        inset 0 8px 15px rgba(0,0,0,0.9);
       position: relative;
     }
     .slider-handle {
-      width: 64px;
-      height: 64px;
-      background: #FFD54F; /* Toy Yellow */
-      border: 5px solid #111;
+      width: 70px;
+      height: 70px;
+      /* Glossy plastic yellow */
+      background: linear-gradient(135deg, #FFEB3B 0%, #FBC02D 100%);
+      border: 6px solid #111;
       border-radius: 50%;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       top: 5px;
       cursor: grab;
-      box-shadow: 4px 4px 0 #111;
+      box-shadow: 
+        5px 5px 0 #111, /* 3D offset */
+        inset 0 -4px 6px rgba(0,0,0,0.2),
+        inset 0 4px 6px rgba(255,255,255,0.6);
       z-index: 5;
       touch-action: none;
       transition: transform 0.1s, box-shadow 0.1s;
     }
     .slider-handle:active {
       cursor: grabbing;
-      transform: translateX(-50%) translateY(4px); /* Press down effect */
-      box-shadow: 0px 0px 0 #111; /* Shadow flattens */
+      /* Press down effect */
+      transform: translateX(-50%) translateY(5px); 
+      box-shadow: 
+        0px 0px 0 #111, /* Shadow disappears */
+        inset 0 -2px 4px rgba(0,0,0,0.2),
+        inset 0 2px 4px rgba(255,255,255,0.6);
     }
-    /* Inner dot on handle to look like a button */
+    /* Inner red button */
     .slider-handle::after {
       content: "";
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 24px; height: 24px;
-      background: #FF4B4B;
-      border: 3px solid #111;
+      width: 28px; height: 28px;
+      background: #FF5252;
+      border: 4px solid #111;
       border-radius: 50%;
+      box-shadow: inset 0 3px 5px rgba(255,255,255,0.4);
     }
 
     .slider-label {
       font-family: 'Fredoka One', cursive;
       color: #111;
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
       writing-mode: vertical-rl;
       text-orientation: mixed;
@@ -378,19 +399,19 @@
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
-      .wheel-area { flex-direction: column; gap: 25px; }
+      .wheel-area { flex-direction: column; gap: 30px; }
       .wheel-container { width: 320px; height: 320px; }
-      .wheel { width: 250px; height: 250px; }
-      .wheel-text { font-size: 0.5rem; width: 80px; margin-left: -40px; }
+      .wheel { width: 230px; height: 230px; }
+      .wheel-text { font-size: 0.55rem; width: 85px; margin-left: -42.5px; }
       .wheel-center-text { width: 90px; height: 90px; }
-      .wheel-center-text span { font-size: 0.9rem; }
+      .wheel-center-text span { font-size: 1rem; }
       .wheel-center-text.emoji-mode span { font-size: 2.8rem; -webkit-text-stroke: 3px #FFF; }
-      .wheel-pointer { width: 36px; height: 46px; top: -20px; }
+      .wheel-pointer { width: 40px; height: 50px; top: -15px; }
       
       .slider-area { height: auto; flex-direction: column; gap: 10px; }
-      .slider-track { height: 70px; width: 280px; box-shadow: 4px 4px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.8); }
-      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 56px; height: 56px; }
-      .slider-handle:active { transform: translateY(-50%) translateX(4px); }
+      .slider-track { height: 80px; width: 280px; box-shadow: 4px 4px 0 #111, inset 4px 4px 10px rgba(0,0,0,0.9); }
+      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 60px; height: 60px; box-shadow: 4px 4px 0 #111, inset 0 -2px 4px rgba(0,0,0,0.2); }
+      .slider-handle:active { transform: translateY(-50%) translateX(4px); box-shadow: 0 0 0 #111; }
       .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 5px; }
     }
   </style>
@@ -550,7 +571,7 @@
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate Neon Lights
+    // 1. Generate Neon Lights (Embedded in the 3D casing)
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
@@ -570,7 +591,7 @@
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle}deg) translateY(-92px) rotate(90deg)`;
+      textEl.style.transform = `rotate(${angle}deg) translateY(-85px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
     });
@@ -621,23 +642,23 @@
 
       if (isMobile) {
         let x = clientX - trackRect.left;
-        x = Math.max(32, Math.min(x, trackRect.width - 32)); 
+        x = Math.max(35, Math.min(x, trackRect.width - 35)); 
         sliderHandle.style.left = `${x}px`;
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
 
-        if (x > trackRect.width - 90) {
+        if (x > trackRect.width - 95) {
           endDrag();
           triggerSpin();
         }
       } else {
         let y = clientY - trackRect.top;
-        y = Math.max(32, Math.min(y, trackRect.height - 32));
+        y = Math.max(35, Math.min(y, trackRect.height - 35));
         sliderHandle.style.top = `${y}px`;
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        if (y > trackRect.height - 100) {
+        if (y > trackRect.height - 105) {
           endDrag();
           triggerSpin();
         }
@@ -660,7 +681,7 @@
     function resetSlider() {
       const isMobile = window.innerWidth <= 600;
       if (isMobile) {
-        sliderHandle.style.left = '32px';
+        sliderHandle.style.left = '35px';
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
       } else {
@@ -758,4 +779,3 @@
 
 </body>
 </html>
-```
