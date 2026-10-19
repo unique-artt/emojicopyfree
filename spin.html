@@ -11,89 +11,96 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎡</text></svg>">
   <link rel="stylesheet" href="style.css">
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <!-- Google Font for the branding -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
   <style>
     .spin-page {
-      font-family: 'Outfit', sans-serif;
       max-width: 650px;
       margin: 0 auto;
       padding: 30px 20px 60px;
       text-align: center;
     }
 
-    /* Player Selector (Matches Slot Machine Toggle) */
+    /* Player Selector */
     .player-selector-wrap {
       margin-bottom: 25px;
       text-align: center;
     }
     .player-selector-label {
       font-size: 0.9rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #075E54;
       margin-bottom: 10px;
       display: block;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
     .player-toggle {
       display: inline-flex;
       background: #ECE5DD;
       border-radius: 30px;
       padding: 5px;
-      border: 2px solid #D1C7BC;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
     }
     .player-option {
       background: none;
       border: none;
-      padding: 8px 20px;
+      padding: 8px 18px;
       border-radius: 24px;
       font-size: 0.85rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #555;
       cursor: pointer;
       transition: all 0.2s;
       font-family: inherit;
     }
     .player-option.active {
-      background: #075E54; /* WhatsApp Dark Green */
-      color: #FFF;
+      background: #075E54;
+      color: white;
       box-shadow: 0 2px 6px rgba(7, 94, 84, 0.3);
     }
 
-    /* The digital screen (Matches Slot Machine Banner) */
+    /* The digital screen */
     .digital-screen {
-      background: #7F0000; /* Deep Dark Red */
-      border: 3px solid #FFD54F; /* Gold Border */
-      border-radius: 12px;
+      background: #111;
+      border: 4px solid #333;
+      border-radius: 10px;
       padding: 15px;
-      margin: 0 auto 35px;
+      margin: 0 auto 30px;
       max-width: 480px;
-      box-shadow: 
-        0 6px 0 #4a0000,
-        0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 10px rgba(255, 213, 79, 0.3);
       position: relative;
       min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
+    .digital-screen::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
     .screen-who {
-      color: #DCF8C6; /* Light Green */
-      font-size: 0.95rem;
-      font-weight: 800;
+      color: #42A5F5;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+      font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 6px;
-      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 5px currentColor;
     }
     .screen-text {
-      color: #FFF;
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.3rem;
+      color: #FFD54F;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 0 0 5px #FFD54F;
       margin: 0;
-      line-height: 1.3;
-      letter-spacing: 0.5px;
+      line-height: 1.4;
+      transition: opacity 0.3s;
     }
 
     /* Wheel Wrapper */
@@ -105,27 +112,25 @@
       margin: 0 auto 20px;
     }
 
-    /* ============================================================
-       THE SLOT-MACHINE STYLE WHEEL
-       ============================================================ */
+    /* The Wheel Container (Solid Bezel for Lights) */
     .wheel-container {
       position: relative;
       width: 340px;
       height: 340px;
       border-radius: 50%;
-      background: #B71C1C; /* Slot Machine Red */
-      border: 6px solid #FFD54F; /* Gold Border */
+      background: #1a1a1a;
+      border: 6px solid #333;
       box-shadow: 
-        0 10px 0 #7F0000, /* 3D Base Shadow */
-        0 15px 25px rgba(0,0,0,0.3),
-        inset 0 0 0 4px #7F0000; /* Inner Dark Red Ring */
+        0 10px 30px rgba(0,0,0,0.5), 
+        inset 0 0 0 4px #FFD54F,
+        inset 0 0 15px rgba(0,0,0,0.8);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Glowing Lights (Matches Slot Machine) */
+    /* Dot Lights embedded in the bezel */
     .wheel-lights {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -135,32 +140,29 @@
     }
     .wheel-lights .dot {
       position: absolute;
-      width: 14px;
-      height: 14px;
-      background: #FFD54F;
-      border: 2px solid #7F0000;
+      width: 12px;
+      height: 12px;
+      background: #FFF59D;
       border-radius: 50%;
-      box-shadow: 0 0 10px #FFD54F, 0 0 4px #FFF;
+      box-shadow: 0 0 10px #FFF59D, 0 0 4px #FFF;
       transform: translate(-50%, -50%);
       transition: all 0.2s;
     }
-    
-    /* Blink state when spinning */
     .wheel-lights.blink .dot {
-      animation: lightFlash 0.3s ease-in-out infinite alternate;
+      animation: dotBlinkFast 0.3s ease-in-out infinite alternate;
     }
-    @keyframes lightFlash {
-      0% { background: #FFF; box-shadow: 0 0 15px #FFF, 0 0 25px #FFD54F; }
-      100% { background: #FFD54F; box-shadow: none; }
+    @keyframes dotBlinkFast {
+      0% { background: #FFF59D; box-shadow: 0 0 15px #FFF59D; opacity: 1; }
+      100% { background: #FF5252; box-shadow: 0 0 20px #FF5252; opacity: 0.4; }
     }
 
     /* The actual spinning wheel */
     .wheel {
-      width: 250px;
-      height: 250px;
+      width: 290px; /* Leaves room for the bezel and lights */
+      height: 290px;
       border-radius: 50%;
       position: relative;
-      transition: transform 5s cubic-bezier(0.1, 0.9, 0.2, 1);
+      transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
       background: conic-gradient(
         #EF5350 0deg 22.5deg, 
         #42A5F5 22.5deg 45deg, 
@@ -179,33 +181,33 @@
         #26C6DA 315deg 337.5deg, 
         #EC407A 337.5deg 360deg
       );
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
-      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
     }
 
-    /* The dividers (Soft white lines) */
+    /* The dividers (lines) on the wheel */
     .wheel::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-conic-gradient(
         transparent 0deg 21.5deg,
-        rgba(255,255,255,0.7) 21.5deg 22.5deg
+        rgba(255,255,255,0.8) 21.5deg 22.5deg
       );
       border-radius: 50%;
     }
 
-    /* Text Capsules (Matches Slot Machine Text Pills) */
+    /* Capsule Text Styling */
     .wheel-text {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 96px; 
-      margin-left: -48px;
-      height: 22px;
-      margin-top: -11px;
-      color: #075E54; /* Dark Green Text */
-      font-family: 'Fredoka One', cursive;
+      width: 90px; 
+      margin-left: -45px;
+      height: 20px;
+      margin-top: -10px;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 800;
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -215,27 +217,26 @@
       white-space: nowrap;
       pointer-events: none;
       
-      background: #FFF;
+      /* Capsule Background */
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       
       transform-origin: center center;
     }
 
-    /* Center Button (Matches Slot Machine Center Hub) */
+    /* The Center Branding / Emoji Display */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 100px;
-      height: 100px;
-      background: #FFD54F; /* Gold */
-      border: 4px solid #7F0000; /* Dark Red Border */
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 40%, #F57F17 100%);
+      border: 4px solid #FFF;
       border-radius: 50%;
-      box-shadow: 
-        0 4px 8px rgba(0,0,0,0.5),
-        inset 0 -4px 6px rgba(0,0,0,0.2),
-        inset 0 4px 6px rgba(255,255,255,0.6);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 -4px 6px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -247,112 +248,93 @@
     
     .wheel-center-text span {
       font-family: 'Fredoka One', cursive;
-      color: #7F0000; /* Dark Red Text */
+      color: #7F0000;
       font-size: 1.1rem;
-      line-height: 1.1;
+      line-height: 1;
       text-transform: uppercase;
       transform: rotate(-10deg);
       transition: all 0.3s ease;
     }
 
-    /* State when an emoji is displayed */
-    .wheel-center-text.emoji-mode {
-      background: #FFF;
-    }
+    /* State when an emoji is displayed in the center (Sticker Style) */
     .wheel-center-text.emoji-mode span {
       font-family: inherit;
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       transform: none; 
       line-height: 1;
-      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2)); 
+      
+      /* Thick white sticker outline */
+      -webkit-text-stroke: 4px #FFFFFF;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); 
     }
 
-    /* The Big Pointer (Matches Slot Machine Pull Tab) */
+    /* The Big Lit-up Pointer */
     .wheel-pointer {
       position: absolute;
-      top: -18px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 44px;
-      height: 54px;
-      background: #FFD54F; /* Gold */
-      border: 3px solid #B71C1C; /* Red Border */
+      width: 40px;
+      height: 50px;
+      background: linear-gradient(180deg, #FF5252 0%, #B71C1C 100%);
       clip-path: polygon(50% 100%, 0 0, 100% 0);
       z-index: 30;
-      filter: drop-shadow(0 4px 0 #7F0000);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      border-top: 4px solid #FFF59D;
     }
     .wheel-pointer::after {
       content: "";
       position: absolute;
       top: 8px; left: 50%;
       transform: translateX(-50%);
-      width: 18px; height: 6px;
-      background: #B71C1C; /* Red Stripe */
-      border-radius: 4px;
+      width: 12px; height: 12px;
+      background: #FFF;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #FFF, 0 0 20px #FFEB3B;
     }
 
     /* ============================================================
-       THE SLOT-MACHINE STYLE SLIDER
+       THE SLIDE TO SPIN TRACK
        ============================================================ */
     .slider-area {
       display: flex;
       align-items: center;
-      height: 380px;
+      height: 360px;
       position: relative;
-      gap: 12px;
+      gap: 10px;
     }
     .slider-track {
-      width: 44px;
-      height: 320px;
-      background: #7F0000; /* Dark Red */
-      border-radius: 22px;
-      border: 4px solid #FFD54F; /* Gold Border */
-      box-shadow: 
-        0 8px 0 #4a0000,
-        inset 0 8px 10px rgba(0,0,0,0.6);
+      width: 40px;
+      height: 300px;
+      background: #1a1a1a;
+      border-radius: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 0 4px #B71C1C;
       position: relative;
+      border-left: 3px solid #FFF59D;
+      border-right: 3px solid #FFF59D;
     }
     .slider-handle {
-      width: 64px;
-      height: 64px;
-      background: #FFD54F; /* Gold Handle */
-      border: 4px solid #B71C1C; /* Red Border */
+      width: 56px;
+      height: 56px;
+      background: radial-gradient(circle at 30% 30%, #FFF59D 0%, #FFC107 40%, #F57F17 100%);
+      border: 3px solid #FFF;
       border-radius: 50%;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       top: 5px;
       cursor: grab;
-      box-shadow: 
-        0 6px 0 #7F0000, 
-        inset 0 -2px 4px rgba(0,0,0,0.3),
-        inset 0 4px 6px rgba(255,255,255,0.8);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       z-index: 5;
       touch-action: none;
-      transition: transform 0.1s, box-shadow 0.1s;
     }
     .slider-handle:active {
       cursor: grabbing;
-      transform: translateX(-50%) translateY(6px); 
-      box-shadow: 
-        0 0px 0 #7F0000, 
-        inset 0 -2px 4px rgba(0,0,0,0.3),
-        inset 0 4px 6px rgba(255,255,255,0.8);
     }
-    /* Inner design on handle (Red pill) */
-    .slider-handle::after {
-      content: "";
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 24px; height: 8px;
-      background: #B71C1C;
-      border-radius: 4px;
-    }
-
     .slider-label {
       font-family: 'Fredoka One', cursive;
-      color: #075E54;
+      color: #B71C1C;
       font-size: 1rem;
       text-transform: uppercase;
       writing-mode: vertical-rl;
@@ -366,25 +348,29 @@
       color: #B71C1C;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-top: 15px;
-      margin-bottom: 40px;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      animation: pulseText 2s infinite;
+    }
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
-      .wheel-area { flex-direction: column; gap: 35px; }
-      .wheel-container { width: 310px; height: 310px; border-width: 5px; box-shadow: 0 8px 0 #7F0000; }
-      .wheel { width: 230px; height: 230px; }
-      .wheel-text { font-size: 0.5rem; width: 85px; margin-left: -42.5px; }
-      .wheel-center-text { width: 85px; height: 85px; border-width: 3px; }
+      .wheel-area { flex-direction: column; gap: 25px; }
+      .wheel-container { width: 310px; height: 310px; }
+      .wheel { width: 260px; height: 260px; }
+      .wheel-text { font-size: 0.5rem; width: 80px; margin-left: -40px; }
+      .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
-      .wheel-center-text.emoji-mode span { font-size: 2.5rem; }
-      .wheel-pointer { width: 38px; height: 46px; top: -15px; }
+      .wheel-center-text.emoji-mode span { font-size: 2.8rem; -webkit-text-stroke: 3px #FFF; }
+      .wheel-pointer { width: 34px; height: 44px; top: -18px; }
       
-      .slider-area { height: auto; flex-direction: column; gap: 15px; }
-      .slider-track { height: 70px; width: 280px; box-shadow: 0 6px 0 #4a0000, inset 4px 4px 10px rgba(0,0,0,0.6); }
-      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); width: 56px; height: 56px; }
-      .slider-handle:active { transform: translateY(-50%) translateX(6px); box-shadow: 0 0px 0 #7F0000; }
+      .slider-area { height: auto; flex-direction: column; gap: 10px; }
+      .slider-track { height: 60px; width: 280px; border-left: none; border-right: none; border-top: 3px solid #FFF59D; border-bottom: 3px solid #FFF59D; }
+      .slider-handle { top: 50%; left: 5px; transform: translateY(-50%); }
       .slider-label { writing-mode: horizontal-tb; transform: none; margin-top: 5px; }
     }
   </style>
@@ -410,7 +396,7 @@
 
   <main class="spin-page">
 
-    <h1 style="color: #075E54; font-size: 2rem; margin-bottom: 15px;">🎡 The Emoji Spin</h1>
+    <h1 style="color: #075E54; font-size: 2rem; margin-bottom: 10px;">🎡 The Emoji Spin</h1>
     
     <!-- Player Selector -->
     <div class="player-selector-wrap">
@@ -508,10 +494,14 @@
     const screenWho = document.getElementById('screenWho');
     const wheelLights = document.getElementById('wheelLights');
     
+    // Center display elements
     const centerDisplay = document.getElementById('centerDisplay');
     const centerContent = document.getElementById('centerContent');
+    
+    // Player elements
     const playerOptions = document.querySelectorAll('.player-option');
     
+    // Slider elements
     const sliderTrack = document.getElementById('sliderTrack');
     const sliderHandle = document.getElementById('sliderHandle');
 
@@ -520,6 +510,7 @@
     let activePlayers = 2;
     let currentTurn = 1; 
 
+    // The 16 unique dares with corresponding emojis
     const dares = [
       { title: "FLIP COIN", emoji: "🪙", text: "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks." },
       { title: "EYE CONTACT", emoji: "👀", text: "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses." },
@@ -539,12 +530,13 @@
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate Lights
+    // 1. Generate Dot Lights (Embedded in the bezel)
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
       const angle = (i * 22.5) * (Math.PI / 180);
-      const radius = 48.5; 
+      // Radius is slightly less than 50% so they sit right on the edge of the wheel container
+      const radius = 49; 
       const x = 50 + radius * Math.sin(angle);
       const y = 50 - radius * Math.cos(angle);
       dot.style.left = `${x}%`;
@@ -552,17 +544,20 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text
+    // 2. Generate Wheel Text Labels (Capsule Style)
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
+      
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle}deg) translateY(-85px) rotate(90deg)`;
+      // Rotate outward along the slice, then rotate 90deg so the text is readable
+      textEl.style.transform = `rotate(${angle}deg) translateY(-95px) rotate(90deg)`;
+      
       wheel.appendChild(textEl);
     });
 
-    // 3. Player Logic
+    // 3. Player Selector Logic
     playerOptions.forEach(btn => {
       btn.addEventListener('click', () => {
         if (isSpinning) return;
@@ -577,12 +572,12 @@
     function updateTurnDisplay() {
       if (isSpinning) return;
       screenWho.textContent = `PLAYER ${currentTurn}'S TURN`;
-      screenWho.style.color = "#DCF8C6";
+      screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "SLIDE TO SPIN";
-      screenText.style.color = "#FFF";
+      screenText.style.color = "#FFD54F";
     }
 
-    // 4. Slider Logic
+    // 4. Slider Drag Logic
     let isDragging = false;
 
     sliderHandle.addEventListener('mousedown', startDrag);
@@ -608,23 +603,23 @@
 
       if (isMobile) {
         let x = clientX - trackRect.left;
-        x = Math.max(30, Math.min(x, trackRect.width - 30)); 
+        x = Math.max(28, Math.min(x, trackRect.width - 28)); 
         sliderHandle.style.left = `${x}px`;
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
 
-        if (x > trackRect.width - 85) {
+        if (x > trackRect.width - 80) {
           endDrag();
           triggerSpin();
         }
       } else {
         let y = clientY - trackRect.top;
-        y = Math.max(30, Math.min(y, trackRect.height - 30));
+        y = Math.max(28, Math.min(y, trackRect.height - 28));
         sliderHandle.style.top = `${y}px`;
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
 
-        if (y > trackRect.height - 95) {
+        if (y > trackRect.height - 90) {
           endDrag();
           triggerSpin();
         }
@@ -638,17 +633,20 @@
       if (!isDragging) return;
       isDragging = false;
       sliderHandle.style.cursor = 'grab';
-      if (!isSpinning) resetSlider();
+      
+      if (!isSpinning) {
+        resetSlider();
+      }
     }
 
     function resetSlider() {
       const isMobile = window.innerWidth <= 600;
       if (isMobile) {
-        sliderHandle.style.left = '30px';
+        sliderHandle.style.left = '28px';
         sliderHandle.style.top = '50%';
         sliderHandle.style.transform = 'translate(-50%, -50%)';
       } else {
-        sliderHandle.style.top = '37px';
+        sliderHandle.style.top = '33px';
         sliderHandle.style.left = '50%';
         sliderHandle.style.transform = 'translateX(-50%)';
       }
@@ -657,8 +655,9 @@
     resetSlider();
     window.addEventListener('resize', resetSlider);
 
-    // --- Randomization ---
+    // --- RANDOMIZATION FIX (Fisher-Yates Shuffle Bag) ---
     let dareBag = [];
+
     function getRandomDareIndex() {
       if (dareBag.length === 0) {
         dareBag = [...Array(dares.length).keys()]; 
@@ -674,15 +673,17 @@
     function triggerSpin() {
       if (isSpinning) return;
       isSpinning = true;
+      
       wheelLights.classList.remove('blink');
       
+      // Reset center circle to text when spinning starts
       centerDisplay.classList.remove('emoji-mode');
       centerContent.innerHTML = "The Emoji<br>Spin";
       
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
-      screenWho.style.color = "#DCF8C6";
+      screenWho.style.color = getPlayerColor(currentTurn);
       screenText.textContent = "WAIT FOR IT...";
-      screenText.style.color = "#FFD54F";
+      screenText.style.color = "#42A5F5";
 
       const randomDareIndex = getRandomDareIndex();
       
@@ -691,7 +692,9 @@
       const currentVisualAngle = currentRotation % 360;
       
       let diff = targetVisualAngle - currentVisualAngle;
-      if (diff < 0) diff += 360;
+      if (diff < 0) {
+        diff += 360;
+      }
 
       const extraSpins = 360 * 8;
       currentRotation += extraSpins + diff;
@@ -700,23 +703,39 @@
 
       setTimeout(() => {
         isSpinning = false;
+        
         wheelLights.classList.add('blink');
         
         screenWho.textContent = `PLAYER ${currentTurn} MUST DO:`;
-        screenWho.style.color = "#DCF8C6";
+        screenWho.style.color = getPlayerColor(currentTurn);
+        
         screenText.textContent = dares[randomDareIndex].text;
-        screenText.style.color = "#FFF"; 
+        screenText.style.color = "#FFD54F"; 
 
+        // Show the big emoji in the center when it stops
         centerDisplay.classList.add('emoji-mode');
         centerContent.innerHTML = dares[randomDareIndex].emoji;
 
         currentTurn++;
-        if (currentTurn > activePlayers) currentTurn = 1;
+        if (currentTurn > activePlayers) {
+          currentTurn = 1;
+        }
+
         resetSlider();
+
       }, 5000); 
     }
 
+    function getPlayerColor(playerNum) {
+      if (playerNum === 1) return "#42A5F5"; 
+      if (playerNum === 2) return "#EC407A"; 
+      if (playerNum === 3) return "#66BB6A"; 
+      if (playerNum === 4) return "#FF7043"; 
+      return "#42A5F5";
+    }
+
     updateTurnDisplay();
+
   </script>
 
 </body>
