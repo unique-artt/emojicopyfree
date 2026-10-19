@@ -1,12 +1,3 @@
-Here is the fully corrected `spin.html`. 
-
-I have mathematically fixed the sync issue so the arrow and the screen will **always** match perfectly. The problem was caused by the wheel accumulating degrees over multiple spins, causing the offset to drift. I have added a normalization calculation so it calculates the exact remaining rotation needed every single time.
-
-I also reduced the font size of the wheel text and added `white-space: nowrap` so the words don't cut off. 
-
-Replace your entire `spin.html` with this:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,7 +194,7 @@ Replace your entire `spin.html` with this:
       border-radius: 50%;
     }
 
-    /* Sideways Wheel Text */
+    /* Sideways Wheel Text (Smaller with Outline) */
     .wheel-text {
       position: absolute;
       left: 50%;
@@ -214,15 +205,18 @@ Replace your entire `spin.html` with this:
       margin-top: -10px;
       color: white;
       font-weight: 900;
-      font-size: 0.55rem; /* Smaller font to prevent cutoff */
+      font-size: 0.48rem; /* Smaller font */
       text-transform: uppercase;
-      text-shadow: 0 1px 3px black;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
-      white-space: nowrap; /* Prevents text from wrapping to a second line */
+      white-space: nowrap;
       pointer-events: none;
+      
+      /* Thin outline instead of blurry shadow */
+      -webkit-text-stroke: 1px #111; 
+      paint-order: stroke fill;
     }
 
     /* The Center Branding */
@@ -344,7 +338,7 @@ Replace your entire `spin.html` with this:
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.5rem; width: 120px; margin-left: -60px; }
+      .wheel-text { font-size: 0.45rem; width: 120px; margin-left: -60px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
       .wheel-pointer { width: 34px; height: 44px; top: -25px; }
@@ -494,7 +488,7 @@ Replace your entire `spin.html` with this:
       { title: "PHONE PEEK", text: "PHONE PEEK: Show the other person your most recent text message." },
       { title: "PREDICTION", text: "PREDICTION: Guess the exact time right now. Closest to the real time wins." },
       { title: "SING IT", text: "SING IT: Sing the chorus of the last song you listened to." },
-      { title: "POST IT", text: "POST IT: Take a funny selfie together. Keep it as your lock screen for 1 hour." },
+      { title: "POST IT", text: "POST IT: Take a funny selfie together. Keep it as your lock screen for the entire day." },
       { title: "THUMB WAR", text: "THUMB WAR: Best 2 out of 3 thumb war." },
       { title: "CONTACT SHARE", text: "CONTACT SHARE: Share one weird contact name from your phone with the other person." },
       { title: "THE WHISPER", text: "THE WHISPER: Whisper a secret in the other person's ear." },
@@ -523,7 +517,6 @@ Replace your entire `spin.html` with this:
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      // Push outward, then rotate 90deg so text reads top-to-bottom
       textEl.style.transform = `rotate(${angle}deg) translateY(-115px) rotate(90deg)`;
       
       wheel.appendChild(textEl);
@@ -627,6 +620,24 @@ Replace your entire `spin.html` with this:
     resetSlider();
     window.addEventListener('resize', resetSlider);
 
+    // --- RANDOMIZATION FIX (Fisher-Yates Shuffle Bag) ---
+    let dareBag = [];
+
+    function getRandomDareIndex() {
+      // If the bag is empty, refill it with all indices
+      if (dareBag.length === 0) {
+        dareBag = [...Array(dares.length).keys()]; // [0, 1, 2, ..., 15]
+        
+        // Shuffle the bag (Fisher-Yates algorithm)
+        for (let i = dareBag.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [dareBag[i], dareBag[j]] = [dareBag[j], dareBag[i]];
+        }
+      }
+      // Pop the last element from the bag (guarantees no repeats)
+      return dareBag.pop();
+    }
+
     // 5. Spin Logic
     function triggerSpin() {
       if (isSpinning) return;
@@ -639,24 +650,18 @@ Replace your entire `spin.html` with this:
       screenText.textContent = "WAIT FOR IT...";
       screenText.style.color = "#42A5F5";
 
-      const randomDareIndex = Math.floor(Math.random() * dares.length);
+      // Use the bag for truly random, non-repeating results
+      const randomDareIndex = getRandomDareIndex();
       
-      // FLAWLESS MATH: Calculate exact remaining degrees needed
       const sliceAngle = 22.5;
-      
-      // The angle the wheel needs to be at visually to land on the slice center
       const targetVisualAngle = 360 - ((randomDareIndex * sliceAngle) + (sliceAngle / 2));
-      
-      // Where is the wheel currently pointing?
       const currentVisualAngle = currentRotation % 360;
       
-      // How much further do we need to rotate to hit the target?
       let diff = targetVisualAngle - currentVisualAngle;
       if (diff < 0) {
         diff += 360;
       }
 
-      // Add 8 full spins + the remaining distance
       const extraSpins = 360 * 8;
       currentRotation += extraSpins + diff;
       
@@ -697,4 +702,3 @@ Replace your entire `spin.html` with this:
 
 </body>
 </html>
-```
