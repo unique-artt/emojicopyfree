@@ -194,18 +194,18 @@
       border-radius: 50%;
     }
 
-    /* Sideways Wheel Text (Smaller with Outline) */
+    /* Tapered Wheel Text */
     .wheel-text {
       position: absolute;
       left: 50%;
       top: 50%;
       width: 140px;
       margin-left: -70px;
-      height: 20px;
-      margin-top: -10px;
+      height: 24px;
+      margin-top: -12px;
       color: white;
       font-weight: 900;
-      font-size: 0.48rem; /* Smaller font */
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       display: flex;
@@ -214,12 +214,16 @@
       white-space: nowrap;
       pointer-events: none;
       
-      /* Thin outline instead of blurry shadow */
-      -webkit-text-stroke: 1px #111; 
+      /* Thick dark outline and shadow for readability */
+      -webkit-text-stroke: 3px #111; 
       paint-order: stroke fill;
+      text-shadow: 0 0 4px #111;
+
+      /* Perspective creates the tapering effect (big outer, small inner) */
+      transform-origin: center center;
     }
 
-    /* The Center Branding */
+    /* The Center Branding / Emoji Display */
     .wheel-center-text {
       position: absolute;
       top: 50%; left: 50%;
@@ -236,7 +240,9 @@
       z-index: 20;
       text-align: center;
       padding: 10px;
+      transition: all 0.3s ease;
     }
+    
     .wheel-center-text span {
       font-family: 'Fredoka One', cursive;
       color: #7F0000;
@@ -244,6 +250,19 @@
       line-height: 1;
       text-transform: uppercase;
       transform: rotate(-10deg);
+      transition: all 0.3s ease;
+    }
+
+    /* State when an emoji is displayed in the center */
+    .wheel-center-text.emoji-mode {
+      background: #FFF;
+      border-color: #FFD54F;
+    }
+    .wheel-center-text.emoji-mode span {
+      font-family: inherit;
+      font-size: 3.5rem;
+      transform: none;
+      line-height: 1;
     }
 
     /* The Big Lit-up Pointer */
@@ -338,9 +357,10 @@
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
       .wheel-container { width: 290px; height: 290px; padding: 10px; }
-      .wheel-text { font-size: 0.45rem; width: 120px; margin-left: -60px; }
+      .wheel-text { font-size: 0.6rem; width: 120px; margin-left: -60px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
+      .wheel-center-text.emoji-mode span { font-size: 2.8rem; }
       .wheel-pointer { width: 34px; height: 44px; top: -25px; }
       
       .slider-area { height: auto; flex-direction: column; gap: 10px; }
@@ -398,7 +418,9 @@
         <div class="wheel-lights" id="wheelLights"></div>
         
         <div class="wheel" id="wheel">
-          <div class="wheel-center-text"><span>The Emoji<br>Spin</span></div>
+          <div class="wheel-center-text" id="centerDisplay">
+            <span id="centerContent">The Emoji<br>Spin</span>
+          </div>
         </div>
       </div>
 
@@ -465,6 +487,10 @@
     const screenWho = document.getElementById('screenWho');
     const wheelLights = document.getElementById('wheelLights');
     
+    // Center display elements
+    const centerDisplay = document.getElementById('centerDisplay');
+    const centerContent = document.getElementById('centerContent');
+    
     // Player elements
     const playerOptions = document.querySelectorAll('.player-option');
     
@@ -477,24 +503,24 @@
     let activePlayers = 2;
     let currentTurn = 1; 
 
-    // The 16 unique dares
+    // The 16 unique dares with corresponding emojis
     const dares = [
-      { title: "FLIP COIN", text: "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks." },
-      { title: "EYE CONTACT", text: "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses." },
-      { title: "COMPLIMENTS", text: "COMPLIMENT BATTLE: Give each other 3 compliments. Best compliment wins." },
-      { title: "SERIOUS FACE", text: "SERIOUS FACE: Try to make the other person laugh. First to smile loses." },
-      { title: "FREESTYLE", text: "FREESTYLE: Do a 10-second dance with absolutely no music." },
-      { title: "TWISTER", text: "TONGUE TWISTER: Say 'Irish wristwatch' 3 times fast without messing up." },
-      { title: "PHONE PEEK", text: "PHONE PEEK: Show the other person your most recent text message." },
-      { title: "PREDICTION", text: "PREDICTION: Guess the exact time right now. Closest to the real time wins." },
-      { title: "SING IT", text: "SING IT: Sing the chorus of the last song you listened to." },
-      { title: "POST IT", text: "POST IT: Take a funny selfie together. Keep it as your lock screen for the entire day." },
-      { title: "THUMB WAR", text: "THUMB WAR: Best 2 out of 3 thumb war." },
-      { title: "CONTACT SHARE", text: "CONTACT SHARE: Share one weird contact name from your phone with the other person." },
-      { title: "THE WHISPER", text: "THE WHISPER: Whisper a secret in the other person's ear." },
-      { title: "NOSE GOES", text: "NOSE GOES: Touch your nose. The last person to touch their nose must give the winner a 1-minute shoulder massage." },
-      { title: "HAIR STYLE", text: "HAIR STYLE: Let the other person mess up your hair right now." },
-      { title: "STARE DOWN", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
+      { title: "FLIP COIN", emoji: "🪙", text: "FLIP A COIN: Heads = Kiss on cheeks, Tails = Slap on cheeks." },
+      { title: "EYE CONTACT", emoji: "👀", text: "EYE CONTACT: Stare into each other's eyes for 10 seconds. First to blink loses." },
+      { title: "COMPLIMENTS", emoji: "🗣️", text: "COMPLIMENT BATTLE: Give each other 3 compliments. Best compliment wins." },
+      { title: "SERIOUS FACE", emoji: "🥶", text: "SERIOUS FACE: Try to make the other person laugh. First to smile loses." },
+      { title: "FREESTYLE", emoji: "🕺", text: "FREESTYLE: Do a 10-second dance with absolutely no music." },
+      { title: "TWISTER", emoji: "👅", text: "TONGUE TWISTER: Say 'Irish wristwatch' 3 times fast without messing up." },
+      { title: "PHONE PEEK", emoji: "📱", text: "PHONE PEEK: Show the other person your most recent text message." },
+      { title: "PREDICTION", emoji: "🔮", text: "PREDICTION: Guess the exact time right now. Closest to the real time wins." },
+      { title: "SING IT", emoji: "🎤", text: "SING IT: Sing the chorus of the last song you listened to." },
+      { title: "POST IT", emoji: "📸", text: "POST IT: Take a funny selfie together. Keep it as your lock screen for the entire day." },
+      { title: "THUMB WAR", emoji: "🤝", text: "THUMB WAR: Best 2 out of 3 thumb war." },
+      { title: "CONTACT SHARE", emoji: "🤫", text: "CONTACT SHARE: Share one weird contact name from your phone with the other person." },
+      { title: "THE WHISPER", emoji: "🤐", text: "THE WHISPER: Whisper a secret in the other person's ear." },
+      { title: "NOSE GOES", emoji: "👃", text: "NOSE GOES: Touch your nose. The last person to touch their nose must give the winner a 1-minute shoulder massage." },
+      { title: "HAIR STYLE", emoji: "💇", text: "HAIR STYLE: Let the other person mess up your hair right now." },
+      { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
     // 1. Generate Dot Lights
@@ -510,14 +536,17 @@
       wheelLights.appendChild(dot);
     }
 
-    // 2. Generate Wheel Text Labels (Sideways)
+    // 2. Generate Wheel Text Labels (Tapered with 3D Perspective)
     dares.forEach((dare, i) => {
       const textEl = document.createElement('div');
       textEl.className = 'wheel-text';
       textEl.textContent = dare.title;
       
       const angle = (i * 22.5) + 11.25;
-      textEl.style.transform = `rotate(${angle}deg) translateY(-115px) rotate(90deg)`;
+      
+      // The perspective and rotateX(30deg) creates the taper effect
+      // making the text larger at the outer rim and smaller near the center.
+      textEl.style.transform = `rotate(${angle}deg) translateY(-105px) rotate(90deg) perspective(300px) rotateX(35deg)`;
       
       wheel.appendChild(textEl);
     });
@@ -624,17 +653,13 @@
     let dareBag = [];
 
     function getRandomDareIndex() {
-      // If the bag is empty, refill it with all indices
       if (dareBag.length === 0) {
-        dareBag = [...Array(dares.length).keys()]; // [0, 1, 2, ..., 15]
-        
-        // Shuffle the bag (Fisher-Yates algorithm)
+        dareBag = [...Array(dares.length).keys()]; 
         for (let i = dareBag.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [dareBag[i], dareBag[j]] = [dareBag[j], dareBag[i]];
         }
       }
-      // Pop the last element from the bag (guarantees no repeats)
       return dareBag.pop();
     }
 
@@ -645,12 +670,15 @@
       
       wheelLights.classList.remove('blink');
       
+      // Reset center circle to text
+      centerDisplay.classList.remove('emoji-mode');
+      centerContent.innerHTML = "WAIT...";
+      
       screenWho.textContent = `PLAYER ${currentTurn} IS SPINNING...`;
       screenWho.style.color = getPlayerColor(currentTurn);
-      screenText.textContent = "WAIT FOR IT...";
+      screenText.textContent = "SPINNING...";
       screenText.style.color = "#42A5F5";
 
-      // Use the bag for truly random, non-repeating results
       const randomDareIndex = getRandomDareIndex();
       
       const sliceAngle = 22.5;
@@ -677,6 +705,10 @@
         
         screenText.textContent = dares[randomDareIndex].text;
         screenText.style.color = "#FFD54F"; 
+
+        // Show the big emoji in the center
+        centerDisplay.classList.add('emoji-mode');
+        centerContent.innerHTML = dares[randomDareIndex].emoji;
 
         currentTurn++;
         if (currentTurn > activePlayers) {
