@@ -112,28 +112,28 @@
       margin: 0 auto 20px;
     }
 
-    /* The Wheel Container (Solid Bezel for Lights) */
+    /* The Wheel Container */
     .wheel-container {
       position: relative;
       width: 340px;
       height: 340px;
       border-radius: 50%;
-      background: #1a1a1a;
-      border: 6px solid #333;
+      padding: 14px; /* This creates the gap between lights and wheel */
+      background: #222;
       box-shadow: 
-        0 10px 30px rgba(0,0,0,0.5), 
+        0 10px 30px rgba(0,0,0,0.4), 
         inset 0 0 0 4px #FFD54F,
-        inset 0 0 15px rgba(0,0,0,0.8);
+        inset 0 0 0 8px #B71C1C;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Dot Lights embedded in the bezel */
+    /* FLOATING Dot Lights */
     .wheel-lights {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: -8px; left: -8px; right: -8px; bottom: -8px; /* Negative values push them outside */
       border-radius: 50%;
       pointer-events: none;
       z-index: 10;
@@ -158,8 +158,8 @@
 
     /* The actual spinning wheel */
     .wheel {
-      width: 290px; /* Leaves room for the bezel and lights */
-      height: 290px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       position: relative;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
@@ -360,8 +360,7 @@
     /* Mobile adjustments */
     @media (max-width: 600px) {
       .wheel-area { flex-direction: column; gap: 25px; }
-      .wheel-container { width: 310px; height: 310px; }
-      .wheel { width: 260px; height: 260px; }
+      .wheel-container { width: 310px; height: 310px; padding: 12px; }
       .wheel-text { font-size: 0.5rem; width: 80px; margin-left: -40px; }
       .wheel-center-text { width: 90px; height: 90px; }
       .wheel-center-text span { font-size: 0.9rem; }
@@ -530,13 +529,13 @@
       { title: "STARE DOWN", emoji: "⏱️", text: "STARE DOWN: You have 5 seconds to name 3 things you love about the other person." }
     ];
 
-    // 1. Generate Dot Lights (Embedded in the bezel)
+    // 1. Generate Dot Lights (Floating outside)
     for (let i = 0; i < 16; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
       const angle = (i * 22.5) * (Math.PI / 180);
-      // Radius is slightly less than 50% so they sit right on the edge of the wheel container
-      const radius = 49; 
+      // Radius 50 makes them sit right on the negative margin edge
+      const radius = 50; 
       const x = 50 + radius * Math.sin(angle);
       const y = 50 - radius * Math.cos(angle);
       dot.style.left = `${x}%`;
