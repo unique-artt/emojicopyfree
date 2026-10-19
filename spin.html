@@ -1,33 +1,3 @@
-I know exactly why this is happening, and it's not your fault. 
-
-Look closely at the file you just uploaded (`!DOCTYPE html.txt`). **This is the old "Capsule Text" code from earlier.** The 3D Toy and Cyberpunk codes are completely missing from it.
-
-If you pasted the new code but the site is still showing this old code across different browsers and devices (even after purging Cloudflare), it means **the new code was never successfully saved and committed to GitHub.** 
-
-When you edit a file on GitHub, if you don't scroll down and click the green **"Commit changes"** button, the file reverts to its previous state.
-
-### 🛠️ How to fix this right now (Step-by-Step)
-
-Let's do this carefully to ensure it actually saves.
-
-1. Open your repository on GitHub.
-2. Press the **`.`** (period) key on your keyboard to open `github.dev` (the web editor).
-3. Open `spin.html` in the sidebar.
-4. Click inside the code, press **`Ctrl + A`** (or `Cmd + A` on Mac) to select **all** the text, and hit **Delete**.
-5. **Paste the completely new Cyberpunk code below.**
-6. Press **`Ctrl + S`** (or `Cmd + S`) to save.
-7. Look at the left sidebar. Click the **Source Control icon** (it looks like a branch with a number on it).
-8. Type a message like `Update to Cyberpunk theme` and click **Commit & Push** (or the checkmark icon).
-9. Wait 2 minutes for GitHub to build.
-10. Go to Cloudflare and **Purge Everything**.
-11. Hard Refresh your game page.
-
-### 🚨 How to know 100% if it worked:
-I have added **"(Cyberpunk)"** to the main title of the game in the code below. If you do not see **(Cyberpunk)** next to "🎡 The Emoji Spin", the new file did not save to GitHub correctly.
-
-Here is the full Cyberpunk code. Copy it all:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
